@@ -3,10 +3,10 @@
         <div id="profile-name">
             <h1>Jane Doe</h1>
         </div>
-        <div id="profile-nav">
-            <button>Home</button>
-            <button>Explore</button>
-            <button>Daily Quiz</button>
+        <div id="profile-nav-links">
+            <a href="/"><button>Home</button></a>
+            <a href="/explore"><button>Explore</button></a>
+            <a href="/daily-quiz"><button>Daily Quiz</button></a>
         </div>
     </div>
     <div id="profile-body">
@@ -20,21 +20,25 @@
                     dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
                     deserunt mollit anim id est laborum.
                 </p>
-                <button>edit</button>
+                <!-- Assuming a route to edit profile info -->
+                <a href="/edit-profile"><button>edit</button></a>
             </div>
             <div>
                 <img src="../public/images/placeholderimg.png">
-                <button>edit</button>
+                <!-- Assuming a route to edit profile image -->
+                <a href="/edit-profile-image"><button>edit</button></a>
             </div>
         </div>
         <div id="dont-kill-my-plant">
             <img src="../public/images/placeholderimg.png">
+            <!-- Add routes for watering, sunning, and changing seed as needed -->
             <button>water</button>
             <button>sun</button>
             <button>change seed</button>
         </div>
         <div id="add-blogpost">
-            <button>Add Post</button>
+            <!-- Assuming a route to add a blog post -->
+            <a href="/add-blog-post"><button>Add Post</button></a>
         </div>
     </div>
 </body>
