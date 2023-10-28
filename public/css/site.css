@@ -1,0 +1,12 @@
+body{
+    background-color: aqua;
+
+};
+
+*{
+    border: 1px solid red;
+}
+
+nav {
+    background-color: green;
+}
