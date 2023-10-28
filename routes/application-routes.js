@@ -6,7 +6,6 @@ router.get("/", async function(req, res) {
     res.render("website-home");
 });
 
-
 //Sign-up and login functions
 
 router.get("/login-signup", function (req, res) {
