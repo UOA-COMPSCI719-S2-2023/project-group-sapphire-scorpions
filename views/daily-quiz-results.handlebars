@@ -1,0 +1,49 @@
+{{!-- need to link this page to once they finish the quiz  --}}
+<body>
+    <div id="nav">
+        <div id="left-nav">
+            <a href="/"><button>Home</button></a>
+            <a href="/daily-quiz"><button>Daily Quiz</button></a>
+        </div>
+        <div id="title">
+            <h1>Garden With Me</h1>
+        </div>
+        <div id="right-nav">
+            <a href="/explore"><button>Explore</button></a>
+            <a href="/login-signup"><button>Login</button></a>
+        </div>
+    </div>
+    <div id="quiz-body">
+        <div id="scoreboard">
+            <h3>Scoreboard</h3>
+            <div id="scoreboard-list">
+                <ul>
+                    <li>
+                        <img src="../public/images/placeholderimg.png">
+                        <span class="score">100</span>
+                    </li>
+                    <li>
+                        <img src="../public/images/placeholderimg.png">
+                        <span class="score">100</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div id="quiz-result">
+            <h2>Congratulations</h2>
+            <p>You have won:</p>
+             {{!-- need to create function that shows these randomly and accumulates them into the profile  --}}
+            <ul>
+                <li>
+                    <span id="water-number">0</span>Water
+                </li>
+                <li>
+                    <span id="sun-number">0</span>Sun
+                </li>
+                <li id="new-seed">
+                    1 New Seed
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
