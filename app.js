@@ -34,6 +34,10 @@ app.use(require("./middleware/toaster-middleware.js"));
 
 // Setup routes
 app.use(require("./routes/application-routes.js"));
+app.use('/auth', require('./routes/auth-routes.js'));
+
+
+const sqlite3 = require('sqlite3').verbose();
 
 // Start the server running.
 app.listen(port, function () {

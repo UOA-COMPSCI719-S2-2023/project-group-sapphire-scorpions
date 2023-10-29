@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const { createUser, findUser, findUserById, updateUserbyId } = require("../modules/datahandling");
+const { findUserById, updateUserbyId } = require("../modules/datahandling");
 
 
 router.get("/", async function (req, res) {
@@ -10,50 +9,9 @@ router.get("/", async function (req, res) {
 });
 
 router.get("/login-signup", function (req, res) {
-    res.locals.title = "Login / Signup";
     res.render("login-signup");
 });
 
-router.post('/signup', async (req, res) => {
-    try {
-        if (req.body.password !== req.body['password-repeat']) {
-            return res.status(400).send("Passwords don't match.");
-        }
-
-        const existingUser = await findUser({ UserName: req.body.username, Email: req.body.email });
-        if (existingUser) {
-            return res.status(400).send("Username or email is already taken. Choose a different one.");
-        }
-
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-        const user = {
-            UserName: req.body.username,
-            Email: req.body.email,
-            PasswordHash: hashedPassword
-            // The other fields like FirstName, LastName, etc. will be empty initially. 
-            // They can be filled out when the user edits their profile.
-        };
-
-        await createUser(user);
-        res.redirect('/login-signup');
-    } catch (error) {
-        res.status(500).send('Error during sign-up');
-    }
-});
-
-router.post('/login', async (req, res) => {
-    try {
-        const user = await findUser({ Email: req.body.email });
-        if (!user || !(await bcrypt.compare(req.body.password, user.PasswordHash))) {
-            return res.status(400).send('Invalid email or password.');
-        }
-
-        res.redirect('/');
-    } catch (error) {
-        res.status(500).send('Error during login');
-    }
-});
 
 router.get("/personal-blog", async function (req, res) {
     try {
@@ -143,6 +101,5 @@ router.get("/daily-quiz-results", function (req, res) {
     res.locals.title = "Daily Quiz Results";
     res.render("daily-quiz-results");
 });
-
 
 module.exports = router;

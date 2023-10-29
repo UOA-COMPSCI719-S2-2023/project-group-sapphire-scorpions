@@ -1,4 +1,5 @@
 window.addEventListener("load", function () {
+
   // THE FOLLOWING IS ABOUT LOGIN AND SIGNUPS
 
   const signupForm = document.querySelector('.sign-up form');
@@ -33,18 +34,18 @@ window.addEventListener("load", function () {
   if (signupForm) {
     signupForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      performFetch('/signup', signupForm, () => {
-        window.location.href = '/login-signup';
-      });
+      performFetch('/auth/signup', signupForm, () => {
+        window.location.href = '/auth/login-signup';
+    });    
     });
   }
 
   if (loginForm) {
     loginForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      performFetch('/login', loginForm, () => {
+      performFetch('/auth/login', loginForm, () => {
         window.location.href = '/personal-blog';
-      });
+    });    
     });
   }
 
