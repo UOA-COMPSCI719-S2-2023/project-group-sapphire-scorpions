@@ -8,8 +8,7 @@
 const express = require("express");
 const app = express();
 const port = 3000;
-const sqlite3 = require('sqlite3').verbose();
-let db = new sqlite3.Database('./project-database.db');
+
 
 // Make the "public" folder available statically
 const path = require("path");
@@ -35,8 +34,6 @@ app.use(require("./middleware/toaster-middleware.js"));
 
 // Setup routes
 app.use(require("./routes/application-routes.js"));
-
-// Database Connection
 
 // Start the server running.
 app.listen(port, function () {
