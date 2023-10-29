@@ -1,19 +1,19 @@
 <body>
-    <div id="nav">
-        <div id="left-nav">
+    <div class="nav">
+        <div class="left-nav">
             <a href="/"><button>Home</button></a>
             <a href="/daily-quiz"><button>Daily Quiz</button></a>
         </div>
-        <div id="title">
+        <div class="title">
             <h1>Garden With Me</h1>
         </div>
-        <div id="right-nav">
+        <div class="right-nav">
             <a href="/explore"><button>Explore</button></a>
             <a href="/login-signup"><button>Login/Signup</button></a>
         </div>
     </div>
     
-   <div id="sign-up">
+   <div class="sign-up">
     <h1>Sign up:</h1>
     <form action="/signup" method="post">
         <input type="text" name="username" placeholder="Username" required>
@@ -23,10 +23,10 @@
         <button type="submit">Submit</button>
     </form>
     <!-- Displaying an error message, this will be populated from the server -->
-    <p id="signup-error" style="color: red;"></p>
+    <p class="signup-error" style="color: red;"></p>
 </div>
 
-    <div id="login">
+    <div class="login">
         <h1>Login to existing account:</h1>
         <form action="/login" method="post">
             <input type="email" name="email" placeholder="Email" required>
