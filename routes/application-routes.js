@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
-const { createUser, findUser, findUserById, updateUserbyId } = require("../datahandling.js");
+const { createUser, findUser, findUserById, updateUserbyId } = require("../modules/datahandling");
 
 
 router.get("/", async function (req, res) {
