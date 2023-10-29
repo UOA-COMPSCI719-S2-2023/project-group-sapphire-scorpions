@@ -44,7 +44,7 @@ async function updateUserbyId(user) {
     const db = await dbPromise;
     const result = await db.run(SQL`
         update UserAccount 
-        set FisrtName = ${user.FirstName},
+        set FirstName = ${user.FirstName},
         LastName = ${user.LastName},
         Profile = ${user.Profile},
         ProfilePicURL = ${user.ProfilePicURL}
