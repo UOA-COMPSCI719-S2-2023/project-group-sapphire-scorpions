@@ -5,7 +5,7 @@ window.addEventListener("load", function () {
   const signupError = document.querySelector('.signup-error');
   const loginForm = document.querySelector('.login form');
   
-  // Factor out common fetch logic into a function
+  // Factoring out common fetch logic into a function
   function performFetch(url, form, onSuccess) {
     const formData = new FormData(form);
     fetch(url, {
@@ -57,7 +57,7 @@ window.addEventListener("load", function () {
     });
   }
 
-  // Assuming you might add this functionality later based on the commented out code
+  // Assuming we might add this functionality later based on the commented out code
   // const editProfileImageButton = document.querySelector('.about-profile-body div img + a button');
   // if (editProfileImageButton) {...}
 

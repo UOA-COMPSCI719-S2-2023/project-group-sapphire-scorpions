@@ -49,7 +49,6 @@ router.post('/login', async (req, res) => {
             return res.status(400).send('Invalid email or password.');
         }
 
-        // Here, you'll eventually set up session or JWT as you mentioned
         res.redirect('/');
     } catch (error) {
         res.status(500).send('Error during login');
@@ -129,7 +128,7 @@ router.get("/daily-quiz", async function (req, res) {
         // Fetch quiz data from the database, if required
         // ...
 
-        res.locals.title = "Daily Quiz"; // Set a title for your quiz page
+        res.locals.title = "Daily Quiz"; // title for quiz page
         res.render("daily-quiz"); // Render the daily-quiz handlebars template
     } catch (error) {
         console.error(error);
@@ -140,7 +139,7 @@ router.get("/daily-quiz", async function (req, res) {
 // Adding a route to show the daily quiz results
 router.get("/daily-quiz-results", function (req, res) {
     // For now, this route can just render a template. 
-    // Later, you might want to fetch results from the database and send them to the template.
+    // Later, we might want to fetch results from the database and send them to the template.
     res.locals.title = "Daily Quiz Results";
     res.render("daily-quiz-results");
 });
