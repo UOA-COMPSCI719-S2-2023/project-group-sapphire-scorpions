@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
+const bcrypt = require("bcrypt");
+const { createUser, findUser, findUserById, updateUserbyId } = require("../modules/datahandling");
 
-router.get("/", async function(req, res) {
+
+router.get("/", async function (req, res) {
     console.log("Root route accessed");
     res.render("website-home");
 });
-
-//Sign-up and login functions
 
 router.get("/login-signup", function (req, res) {
     res.locals.title = "Login / Signup";
@@ -15,29 +16,27 @@ router.get("/login-signup", function (req, res) {
 
 router.post('/signup', async (req, res) => {
     try {
-        // Check if the password and repeat password are the same
         if (req.body.password !== req.body['password-repeat']) {
             return res.status(400).send("Passwords don't match.");
         }
 
-        // Check if username already exists
-        const existingUser = await User.findOne({ username: req.body.username });
+        const existingUser = await findUser({ UserName: req.body.username, Email: req.body.email });
         if (existingUser) {
-            return res.status(400).send("Username is already taken. Choose a different one.");
+            return res.status(400).send("Username or email is already taken. Choose a different one.");
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        
-        const user = new User({
-            username: req.body.username,
-            email: req.body.email,
-            password: hashedPassword
-        });
 
-        await user.save();
+        const user = {
+            UserName: req.body.username,
+            Email: req.body.email,
+            PasswordHash: hashedPassword
+            // The other fields like FirstName, LastName, etc. will be empty initially. 
+            // They can be filled out when the user edits their profile.
+        };
 
+        await createUser(user);
         res.redirect('/login-signup');
-
     } catch (error) {
         res.status(500).send('Error during sign-up');
     }
@@ -45,36 +44,24 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await User.findOne({ email: req.body.email });
-        if (!user || !(await bcrypt.compare(req.body.password, user.password))) {
+        const user = await findUser({ Email: req.body.email });
+        if (!user || !(await bcrypt.compare(req.body.password, user.PasswordHash))) {
             return res.status(400).send('Invalid email or password.');
         }
 
-        // Here, you would set up session or JWT for authentication
-        // For simplicity, let's just redirect to home
         res.redirect('/');
-
     } catch (error) {
         res.status(500).send('Error during login');
     }
 });
 
-module.exports = router;
-
-
-// Personal Blog / Profile Page Route: This is for displaying and updating the user's profile:
-
 router.get("/personal-blog", async function (req, res) {
     try {
-        // Ensure the user is logged in
         if (!req.session.userId) {
             res.redirect("/login-signup");
             return;
         }
-
-        const user = await userDao.findById(req.session.userId);
-        // Fetch additional user data as required, e.g., posts, images
-
+        const user = await findUserById(req.session.userId);
         res.locals.user = user;
         res.render("personal-blog");
     } catch (error) {
@@ -83,10 +70,38 @@ router.get("/personal-blog", async function (req, res) {
     }
 });
 
+router.get("/edit-profile", async function (req, res) {
+    try {
+        if (!req.session.userId) {
+            res.redirect("/login-signup");
+            return;
+        }
+        const user = await findUserById(req.session.userId);
+        res.locals.user = user; // So that the edit-profile template can pre-fill the form with current data.
+        res.locals.title = "Edit Profile";
+        res.render("edit-profile");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error fetching profile for editing.");
+    }
+});
+
 router.post("/update-profile", async function (req, res) {
     try {
-        // Update user's details, photos, and posts
+        if (!req.session.userId) {
+            res.redirect("/login-signup");
+            return;
+        }
+        const updatedData = {
+            UserName: req.body.username,
+            Email: req.body.email,
+            FirstName: req.body.firstName,
+            LastName: req.body.lastName,
+            Profile: req.body.profile,
+            ProfilePicURL: req.body.profilePicURL
+        };
 
+        await updateUserbyId(req.session.userId, updatedData);
         res.redirect("/personal-blog");
     } catch (error) {
         console.error(error);
@@ -108,12 +123,12 @@ router.get("/explore", async function (req, res) {
 });
 
 // Daily Quiz Page Route
-router.get("/daily-quiz", async function(req, res) {
+router.get("/daily-quiz", async function (req, res) {
     try {
         // Fetch quiz data from the database, if required
         // ...
 
-        res.locals.title = "Daily Quiz"; // Set a title for your quiz page
+        res.locals.title = "Daily Quiz"; // title for quiz page
         res.render("daily-quiz"); // Render the daily-quiz handlebars template
     } catch (error) {
         console.error(error);
@@ -121,6 +136,13 @@ router.get("/daily-quiz", async function(req, res) {
     }
 });
 
+// Adding a route to show the daily quiz results
+router.get("/daily-quiz-results", function (req, res) {
+    // For now, this route can just render a template. 
+    // Later, we might want to fetch results from the database and send them to the template.
+    res.locals.title = "Daily Quiz Results";
+    res.render("daily-quiz-results");
+});
 
 
 module.exports = router;
