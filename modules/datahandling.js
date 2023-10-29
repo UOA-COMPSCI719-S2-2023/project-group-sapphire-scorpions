@@ -53,40 +53,41 @@ async function updateUserbyId(user) {
 }
 
 
-async function retrieveTestDataById(id) {
+async function createblog(blog) {
+
     const db = await dbPromise;
+    const result = await db.run(SQL`
+        insert into blogs (Title,Content,Published,UserId,UpdatedAt,PublishedAt,CreatedAt) 
+        values(${blog.Title},${blog.Content},${blog.Published},${blog.UserId},DateTime('now'),DateTime('now'),DateTime('now'))`);
 
-    const testData = await db.get(SQL`
-        select * from test
-        where id = ${id}`);
-
-    return testData;
+    blog.id = result.lastID;
+    console.log(`Blog: ${blog.Title} ${blog.Content}`);
+    return result;
 }
 
-async function retrieveAllTestData() {
+async function publishblog(blog) {
+
     const db = await dbPromise;
+    const result = await db.run(SQL`
+        update blogs 
+        set Published = 1, 
+        PublishedAt = DateTime('now'),
+        UpdatedAt = DateTime('now')
+        Where
+        id = ${blog.id} 
+        and UserId = ${blog.UserId}
+        `);
 
-    const allTestData = await db.all(SQL`select * from test`);
-
-    return allTestData;
+    return result;
 }
 
-async function updateTestData(testData) {
-    const db = await dbPromise;
-
-    return await db.run(SQL`
-        update test
-        set stuff = ${testData.stuff}
-        where id = ${testData.id}`);
-}
-
-async function deleteTestData(id) {
-    const db = await dbPromise;
-
-    return await db.run(SQL`
-        delete from test
-        where id = ${id}`);
-}
+//async function deleteTestData(id) {
+//    const db = await dbPromise;
+//
+//    return await db.run(SQL`
+//        delete from test
+//        where id = ${id}`);
+//}
 
 // Export functions.
 module.exports = {
@@ -95,5 +96,6 @@ module.exports = {
     findUserById,
     updateUserPasswordbyId,
     updateUserbyId,
-    deleteTestData
+    createblog,
+    publishblog
 };
