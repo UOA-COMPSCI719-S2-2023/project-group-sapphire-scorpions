@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/", async function(req, res) {
+router.get("/", async function (req, res) {
     console.log("Root route accessed");
     res.render("website-home");
 });
@@ -27,7 +27,7 @@ router.post('/signup', async (req, res) => {
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
-        
+
         const user = new User({
             username: req.body.username,
             email: req.body.email,
@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
             return res.status(400).send('Invalid email or password.');
         }
 
-        // Here, you would set up session or JWT for authentication
+        // Here, we would set up session or JWT for authentication
         // For simplicity, let's just redirect to home
         res.redirect('/');
 
@@ -108,7 +108,7 @@ router.get("/explore", async function (req, res) {
 });
 
 // Daily Quiz Page Route
-router.get("/daily-quiz", async function(req, res) {
+router.get("/daily-quiz", async function (req, res) {
     try {
         // Fetch quiz data from the database, if required
         // ...
