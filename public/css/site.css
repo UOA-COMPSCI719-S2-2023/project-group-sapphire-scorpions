@@ -25,10 +25,24 @@
     font-family: Verdana, Geneva, sans-serif;
 }
 
-
 body {
     background-color: var(--beige-light);
+    padding: 0;
+    margin: 0;
 }
+
+.nav{
+    width: auto;
+    margin: auto;
+    padding: 0;
+    background-color: var(--moss-green);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
 
 @media screen and (max-width: 1200px) {
 }
