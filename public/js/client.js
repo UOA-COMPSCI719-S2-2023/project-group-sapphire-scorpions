@@ -23,22 +23,20 @@ window.addEventListener("load", function () {
         method: 'POST',
         body: formData,
     })
-    .then(response => {
-        if (response.status === 200) {
+    .then(response => response.json().then(data => {
+        if (response.ok) {
             onSuccess();
         } else {
-            return response.text().then(errorMessage => {
-                console.error(`Error with ${url}:`, errorMessage);  // Log for developers
-                displayError("Something went wrong. Please try again later."); // Inform users
-            });
+            // Assuming the server sends back a JSON object with an "error" property
+            console.error(`Error with ${url}:`, data.error || data);
+            displayError(data.error || "Something went wrong. Please try again later.");
         }
-    })
+    }))
     .catch(error => {
-        console.error(`There was an error with the ${url} request:`, error); // Log for developers
-        displayError("Something went wrong. Please try again later."); // Inform users
+        console.error(`There was an error with the ${url} request:`, error); 
+        displayError("Something went wrong. Please try again later.");
     });
 }
-
   if (signupForm) {
     signupForm.addEventListener('submit', function (event) {
       event.preventDefault();

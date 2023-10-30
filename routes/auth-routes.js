@@ -6,7 +6,7 @@ const session = require('express-session');
 
 // Initializing session
 router.use(session({
-    secret: 'someSecretKey', // This should be kept secret and preferably in environment variables
+    secret: 'someSecretKey', // This should be kept secret
     resave: false,
     saveUninitialized: true
 }));
@@ -19,12 +19,12 @@ router.get("/login-signup", function (req, res) {
 router.post('/signup', async (req, res) => {
     try {
         if (req.body.password !== req.body['password-repeat']) {
-            return res.status(400).send("Passwords don't match.");
+            return res.status(400).json({ error: "Passwords don't match." });
         }
 
         const existingUser = await findUser({ UserName: req.body.username, Email: req.body.email });
         if (existingUser) {
-            return res.status(400).send("Username or email is already taken. Choose a different one.");
+            return res.status(400).json({ error: "Username or email is already taken. Choose a different one." });
         }
 
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -32,15 +32,16 @@ router.post('/signup', async (req, res) => {
         const user = {
             UserName: req.body.username,
             Email: req.body.email,
-            FirstName: req.body.firstname,  // grabbing the FirstName from the form
-            LastName: req.body.lastname,    // grabbing the LastName from the form
+            FirstName: req.body.firstname,
+            LastName: req.body.lastname,
             PasswordHash: hashedPassword
         };
 
         await createUser(user);
-        res.redirect('/login-signup');
+        res.json({ success: true, message: "User signed up successfully." });
+
     } catch (error) {
-        res.status(500).send('Error during sign-up');
+        res.status(500).json({ error: 'Error during sign-up' });
     }
 });
 
@@ -48,13 +49,14 @@ router.post('/login', async (req, res) => {
     try {
         const user = await findUser({ UserName: req.body.username });
         if (!user || !(await bcrypt.compare(req.body.password, user.PasswordHash))) {
-            return res.status(400).send('Invalid email or password.');
+            return res.status(400).json({ error: 'Invalid username or password.' });
         }
 
         req.session.userId = user.id; // Storing user's ID in the session
-        res.redirect('/personal-blog'); // Redirecting to their personal blog or dashboard
+        res.json({ success: true, redirect: "/personal-blog" });
+
     } catch (error) {
-        res.status(500).send('Error during login');
+        res.status(500).json({ error: 'Error during login' });
     }
 });
 
