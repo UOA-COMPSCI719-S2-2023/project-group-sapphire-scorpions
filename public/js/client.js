@@ -6,30 +6,38 @@ window.addEventListener("load", function () {
   const signupError = document.querySelector('.signup-error');
   const loginForm = document.querySelector('.login form');
   
+
+  function displayError(error) {
+    const errorElement = document.querySelector('.signup-error');
+    if (errorElement) {
+        errorElement.innerText = error;
+    } else {
+        alert(error);
+    }
+}
+
   // Factoring out common fetch logic into a function
   function performFetch(url, form, onSuccess) {
     const formData = new FormData(form);
     fetch(url, {
-      method: 'POST',
-      body: formData,
+        method: 'POST',
+        body: formData,
     })
     .then(response => {
-      if (response.status === 200) {
-        onSuccess();
-      } else {
-        return response.text().then(errorMessage => {
-          if (form === signupForm) {
-            signupError.innerText = errorMessage;
-          } else {
-            alert(errorMessage);
-          }
-        });
-      }
+        if (response.status === 200) {
+            onSuccess();
+        } else {
+            return response.text().then(errorMessage => {
+                console.error(`Error with ${url}:`, errorMessage);  // Log for developers
+                displayError("Something went wrong. Please try again later."); // Inform users
+            });
+        }
     })
     .catch(error => {
-      console.error(`There was an error with the ${url} request:`, error);
+        console.error(`There was an error with the ${url} request:`, error); // Log for developers
+        displayError("Something went wrong. Please try again later."); // Inform users
     });
-  }
+}
 
   if (signupForm) {
     signupForm.addEventListener('submit', function (event) {

@@ -32,6 +32,8 @@ router.post('/signup', async (req, res) => {
         const user = {
             UserName: req.body.username,
             Email: req.body.email,
+            FirstName: req.body.firstname,  // grabbing the FirstName from the form
+            LastName: req.body.lastname,    // grabbing the LastName from the form
             PasswordHash: hashedPassword
         };
 
@@ -44,7 +46,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
-        const user = await findUser({ Email: req.body.email });
+        const user = await findUser({ UserName: req.body.username });
         if (!user || !(await bcrypt.compare(req.body.password, user.PasswordHash))) {
             return res.status(400).send('Invalid email or password.');
         }
