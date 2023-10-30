@@ -27,7 +27,6 @@ window.addEventListener("load", function () {
         if (response.ok) {
             onSuccess();
         } else {
-            // Assuming the server sends back a JSON object with an "error" property
             console.error(`Error with ${url}:`, data.error || data);
             displayError(data.error || "Something went wrong. Please try again later.");
         }
@@ -64,9 +63,6 @@ window.addEventListener("load", function () {
     });
   }
 
-  // Assuming we might add this functionality later based on the commented out code
-  // const editProfileImageButton = document.querySelector('.about-profile-body div img + a button');
-  // if (editProfileImageButton) {...}
 
   // Generic placeholder function for plant care buttons
   function plantCarePlaceholder(alertMessage) {
