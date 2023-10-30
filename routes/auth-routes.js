@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { v4: uuid } = require("uuid");
 const router = express.Router();
 const datahandling = require('../modules/datahandling.js');
-const toaster = require('./middleware/toaster-middleware.js');
+const toaster = require('../middleware/toaster-middleware.js');
 
 router.use(toaster);
 
@@ -66,12 +66,12 @@ router.post('/login', async (req, res) => {
     res.redirect("/");
 });
 
-// Route for Logout (You can add this if you want to)
-router.get("/logout", function (req, res) {
-    res.clearCookie("authToken");
-    res.locals.user = null;
-    res.setToastMessage("Successfully logged out!");
-    res.redirect("/login-signup");
-});
+// // Route for Logout (You can add this if you want to)
+// router.get("/logout", function (req, res) {
+//     res.clearCookie("authToken");
+//     res.locals.user = null;
+//     res.setToastMessage("Successfully logged out!");
+//     res.redirect("/login-signup");
+//});
 
 module.exports = router;

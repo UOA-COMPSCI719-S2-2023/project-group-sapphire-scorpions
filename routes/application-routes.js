@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const datahandling = require("../modules/datahandling.js");
-const { verifyAuthenticated } = require("./middleware/auth-middleware.js");
+const { verifyAuthenticated } = require("../middleware/toaster-middleware.js");
 
 router.get("/", async function (req, res) {
     console.log("Root route accessed");

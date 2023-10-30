@@ -9,11 +9,6 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-
-// Make the "public" folder available statically
-const path = require("path");
-app.use(express.static(path.join(__dirname, "public")));
-
 // Setup Handlebars
 const handlebars = require("express-handlebars");
 app.engine("handlebars", handlebars.engine({
@@ -29,6 +24,11 @@ app.use(express.json());
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
+// Make the "public" folder available statically
+const path = require("path");
+app.use(express.static(path.join(__dirname, "public")));
+
+
 // Setup our middleware
 const toaster = require("./middleware/toaster-middleware.js");
 app.use(toaster);
@@ -39,7 +39,7 @@ app.use(require("./routes/application-routes.js"));
 app.use('/auth', require('./routes/auth-routes.js'));
 
 
-const sqlite3 = require('sqlite3').verbose();
+// const sqlite3 = require('sqlite3').verbose();
 
 // Start the server running.
 app.listen(port, function () {
