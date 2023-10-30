@@ -1,0 +1,41 @@
+<body>
+    <div class="profile-nav">
+        <div class="profile-name">
+            <h1>Edit Profile: Jane Doe</h1>
+        </div>
+        <div class="profile-nav-links">
+            <a href="/"><button>Home</button></a>
+            <a href="/explore"><button>Explore</button></a>
+            <a href="/daily-quiz"><button>Daily Quiz</button></a>
+        </div>
+    </div>
+    <div class="profile-body">
+        <form class="edit-profile-form" action="/save-edits" method="post">
+            <div class="about-profile-body">
+                <div class="about-me-section">
+                    <h3>About Me:</h3>
+                    <textarea name="aboutMe" rows="10" cols="30">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod...
+                    </textarea>
+                </div>
+                <div>
+                    <label for="profileImage">Profile Image:</label>
+                    <input type="file" id="profileImage" name="profileImage">
+                    <img src="/images/placeholderimg.png" alt="Current Profile Image">
+                </div>
+            </div>
+            <!-- Plant related controls could stay as they are or be turned into settings -->
+            <div class="dont-kill-my-plant">
+                <img src="/images/placeholderimg.png">
+                <!-- Add routes for watering, sunning, and changing seed as needed -->
+                <button type="button">water</button>
+                <button type="button">sun</button>
+                <button type="button">change seed</button>
+            </div>
+            <div class="submit-changes">
+                <button type="submit">Save Changes</button>
+            </div>
+        </form>
+    </div>
+    <script src="/public/js/client.js"></script>
+</body>

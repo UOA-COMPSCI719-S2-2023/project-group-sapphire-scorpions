@@ -1,12 +1,54 @@
-body{
-    background-color: aqua;
+:root {
+    /* Nature-Inspired Palette */
+    --soft-green: rgb(152, 193, 154);
+    --olive-green: rgb(145, 165, 103);
+    --moss-green: rgb(150, 177, 37);
+    --beige-light: rgb(245, 245, 220);
+    --beige-neutral: rgb(235, 222, 205);
 
-};
+    /* Botanical Harmony Palette */
+    --soft-green: rgb(152, 193, 154);
+    --soft-blue: rgb(188, 206, 215);
+    --pale-yellow: rgb(255, 221, 159);
+    --dark-green: rgb(69, 125, 0);
+    --beige-medium: rgb(199, 159, 116);
 
-*{
-    border: 1px solid red;
+    /* Warm and Earthy Palette */
+    --beige-warm: rgb(239, 222, 205);
+    --beige-neutral: rgb(235, 222, 205);
+    --beige-cool: rgb(230, 222, 205);
+    --beige-neutral2: rgb(226, 222, 206);
+    --beige-warm2: rgb(221, 222, 206);
 }
 
-nav {
-    background-color: green;
+* {
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+body {
+    background-color: var(--beige-light);
+    padding: 0;
+    margin: 0;
+}
+
+.nav{
+    width: auto;
+    margin: auto;
+    padding: 0;
+    background-color: var(--moss-green);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+}
+
+@media screen and (max-width: 1000px) {
+}
+
+@media screen and (max-width: 800px) {
 }
