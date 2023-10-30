@@ -66,12 +66,12 @@ router.post('/login', async (req, res) => {
     res.redirect("/");
 });
 
-// // Route for Logout (You can add this if you want to)
+// Route for Logout (We can add this eventually)
 // router.get("/logout", function (req, res) {
 //     res.clearCookie("authToken");
 //     res.locals.user = null;
 //     res.setToastMessage("Successfully logged out!");
 //     res.redirect("/login-signup");
-//});
+// });
 
 module.exports = router;

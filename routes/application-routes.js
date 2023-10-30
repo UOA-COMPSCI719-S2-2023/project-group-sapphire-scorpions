@@ -8,16 +8,19 @@ router.get("/", async function (req, res) {
     res.render("website-home");
 });
 
+// Sign-up page
 router.get("/login-signup", function (req, res) {
     res.render("login-signup");
 });
 
+// Accessing personal blog once user signed in and has been authenticated
 router.get("/personal-blog", verifyAuthenticated, async function (req, res) {
     const user = await datahandling.findUserById(req.session.userId);
     res.locals.user = user;
     res.render("personal-blog");
 });
 
+// Ability to edit profile by going into edit-profile.handlebars
 router.get("/edit-profile", verifyAuthenticated, async function (req, res) {
     const user = await datahandling.findUserById(req.session.userId);
     res.locals.user = user; 
@@ -25,6 +28,7 @@ router.get("/edit-profile", verifyAuthenticated, async function (req, res) {
     res.render("edit-profile");
 });
 
+//Update profile page
 router.post("/update-profile", verifyAuthenticated, async function (req, res) {
     const updatedData = {
         UserName: req.body.username,
