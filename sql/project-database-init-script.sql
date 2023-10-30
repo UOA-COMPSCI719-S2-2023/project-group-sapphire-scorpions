@@ -72,7 +72,7 @@ create table blogs_comments (
 
 
 INSERT INTO UserAccount(UserName,PasswordHash,FirstName,LastName,Email,Profile,ProfilePicURL,LastLogin,CreatedAt) 
-VALUES ('test','test','FirstName','LastName','test\@test.com','Hi Its test account','images/placeholderimg.png',DateTime('now'),DateTime('now'));
+VALUES ('test','test','FirstName','LastName','test@test.com','Hi Its test account','images/placeholderimg.png',DateTime('now'),DateTime('now'));
 
 INSERT INTO blogs(UserId,Title,Content,Published,UpdatedAt,PublishedAt,CreatedAt)
 VALUES (1,'Dummy Title','Dummy Content',1,DateTime('now'),DateTime('now'),DateTime('now'));
