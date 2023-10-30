@@ -70,6 +70,17 @@ async function updateUserbyId(user) {
     }
 }
 
+async function isUsernameAvailable(username) {
+    try {
+        const db = await dbPromise;
+        const user = await db.get(SQL`select id from UserAccount where UserName = ${username}`);
+        return !user;
+    } catch (error) {
+        console.error("Error checking username availability:", error);
+        return false;
+    }
+}
+
 async function createblog(blog) {
     try {
         const db = await dbPromise;
@@ -110,6 +121,7 @@ module.exports = {
     findUserById,
     updateUserPasswordbyId,
     updateUserbyId,
+    isUsernameAvailable,
     createblog,
     publishblog
 };

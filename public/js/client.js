@@ -14,7 +14,7 @@ window.addEventListener("load", function () {
     } else {
         alert(error);
     }
-}
+  }
 
   // Factoring out common fetch logic into a function
   function performFetch(url, form, onSuccess) {
@@ -35,12 +35,13 @@ window.addEventListener("load", function () {
         console.error(`There was an error with the ${url} request:`, error); 
         displayError("Something went wrong. Please try again later.");
     });
-}
+  }
+  
   if (signupForm) {
     signupForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      performFetch('/auth/signup', signupForm, () => {
-        window.location.href = '/auth/login-signup';
+      performFetch('/auth/register', signupForm, () => {
+        window.location.href = '/login-signup'; 
     });    
     });
   }
@@ -63,7 +64,6 @@ window.addEventListener("load", function () {
     });
   }
 
-
   // Generic placeholder function for plant care buttons
   function plantCarePlaceholder(alertMessage) {
     return function() {
@@ -78,7 +78,7 @@ window.addEventListener("load", function () {
   if (waterButton) waterButton.addEventListener('click', plantCarePlaceholder('You watered the plant!'));
   if (sunButton) sunButton.addEventListener('click', plantCarePlaceholder('You gave light to the plant!'));
   if (changeSeedButton) changeSeedButton.addEventListener('click', plantCarePlaceholder('You changed the seed!'));
-      
+
   //THE FOLLOWING ARE FUNCTIONS FOR THE DAILY QUIZ
   
   const nextButton = document.getElementById('nextBtn');

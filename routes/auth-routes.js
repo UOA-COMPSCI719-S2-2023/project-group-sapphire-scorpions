@@ -1,63 +1,77 @@
 const express = require('express');
-const router = express.Router();
 const bcrypt = require('bcrypt');
-const { createUser, findUser } = require('../modules/datahandling.js');
-const session = require('express-session');
+const { v4: uuid } = require("uuid");
+const router = express.Router();
+const datahandling = require('../modules/datahandling.js');
+const toaster = require('./middleware/toaster-middleware.js');
 
-// Initializing session
-router.use(session({
-    secret: 'someSecretKey', // This should be kept secret
-    resave: false,
-    saveUninitialized: true
-}));
+router.use(toaster);
 
+// Route for Login/Signup
 router.get("/login-signup", function (req, res) {
-    res.locals.title = "Login / Signup";
-    res.render("login-signup");
+    if (res.locals.user) {
+        res.redirect("/");
+    } else {
+        res.render("login-signup");
+    }
 });
 
+// Route for Signup
 router.post('/signup', async (req, res) => {
+    const { password, username, email, firstname, lastname } = req.body;
+
+    if (password !== req.body['password-repeat']) {
+        res.setToastMessage("Passwords don't match.");
+        return res.status(400).json({ error: "Passwords don't match." });
+    }
+
+    const existingUser = await datahandling.findUser({ UserName: username, Email: email });
+    if (existingUser) {
+        res.setToastMessage("Username or email is already taken. Choose a different one.");
+        return res.status(400).json({ error: "Username or email is already taken. Choose a different one." });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const user = {
+        UserName: username,
+        Email: email,
+        FirstName: firstname,
+        LastName: lastname,
+        PasswordHash: hashedPassword
+    };
+
     try {
-        if (req.body.password !== req.body['password-repeat']) {
-            return res.status(400).json({ error: "Passwords don't match." });
-        }
-
-        const existingUser = await findUser({ UserName: req.body.username, Email: req.body.email });
-        if (existingUser) {
-            return res.status(400).json({ error: "Username or email is already taken. Choose a different one." });
-        }
-
-        const hashedPassword = await bcrypt.hash(req.body.password, 10);
-
-        const user = {
-            UserName: req.body.username,
-            Email: req.body.email,
-            FirstName: req.body.firstname,
-            LastName: req.body.lastname,
-            PasswordHash: hashedPassword
-        };
-
-        await createUser(user);
+        await datahandling.createUser(user);
+        res.setToastMessage("User signed up successfully.");
         res.json({ success: true, message: "User signed up successfully." });
-
     } catch (error) {
+        res.setToastMessage("Error during sign-up.");
         res.status(500).json({ error: 'Error during sign-up' });
     }
 });
 
+// Route for Login
 router.post('/login', async (req, res) => {
-    try {
-        const user = await findUser({ UserName: req.body.username });
-        if (!user || !(await bcrypt.compare(req.body.password, user.PasswordHash))) {
-            return res.status(400).json({ error: 'Invalid username or password.' });
-        }
+    const { username, password } = req.body;
 
-        req.session.userId = user.id; // Storing user's ID in the session
-        res.json({ success: true, redirect: "/personal-blog" });
-
-    } catch (error) {
-        res.status(500).json({ error: 'Error during login' });
+    const user = await datahandling.findUser({ UserName: username });
+    if (!user || !(await bcrypt.compare(password, user.PasswordHash))) {
+        res.setToastMessage("Invalid username or password.");
+        return res.status(400).json({ error: 'Invalid username or password.' });
     }
+
+    const authToken = uuid();
+    user.authToken = authToken;
+    res.locals.user = user;
+    res.redirect("/");
+});
+
+// Route for Logout (You can add this if you want to)
+router.get("/logout", function (req, res) {
+    res.clearCookie("authToken");
+    res.locals.user = null;
+    res.setToastMessage("Successfully logged out!");
+    res.redirect("/login-signup");
 });
 
 module.exports = router;

@@ -29,8 +29,10 @@ app.use(express.json());
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-// Use the toaster middleware
-app.use(require("./middleware/toaster-middleware.js"));
+// Setup our middleware
+const toaster = require("./middleware/toaster-middleware.js");
+app.use(toaster);
+
 
 // Setup routes
 app.use(require("./routes/application-routes.js"));
