@@ -40,7 +40,7 @@ window.addEventListener("load", function () {
   if (signupForm) {
     signupForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      performFetch('/auth/register', signupForm, () => {
+      performFetch('/signup', signupForm, () => {
         window.location.href = '/login-signup'; 
     });    
     });
@@ -49,7 +49,7 @@ window.addEventListener("load", function () {
   if (loginForm) {
     loginForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      performFetch('/auth/login', loginForm, () => {
+      performFetch('/login', loginForm, () => {
         window.location.href = '/personal-blog';
     });    
     });

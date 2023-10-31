@@ -3,14 +3,14 @@ const bcrypt = require('bcrypt');
 const { v4: uuid } = require("uuid");
 const router = express.Router();
 const datahandling = require('../modules/datahandling.js');
-const toaster = require('../middleware/toaster-middleware.js');
+const {toaster} = require('../middleware/toaster-middleware.js');
 
 router.use(toaster);
 
 // Route for Login/Signup
 router.get("/login-signup", function (req, res) {
     if (res.locals.user) {
-        res.redirect("/");
+        res.json({ success: true, message: 'Login successful.' });
     } else {
         res.render("login-signup");
     }
