@@ -20,7 +20,7 @@ function toaster(req, res, next) {
     }
 }
 
-async function authenticateToken(req, res, next) {
+async function verifyAuthenticated(req, res, next) {
     const authToken = req.cookies.authToken;
 
     if (!authToken) {
@@ -37,4 +37,4 @@ async function authenticateToken(req, res, next) {
     next();
 }
 
-module.exports = { toaster, authenticateToken };
+module.exports = { toaster, verifyAuthenticated };

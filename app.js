@@ -30,8 +30,8 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 // Setup our middleware
-const { toaster, authenticateToken } = require("./middleware/toaster-middleware");
-app.use(authenticateToken); 
+const { toaster, verifyAuthenticated } = require("./middleware/toaster-middleware");
+app.use(verifyAuthenticated); 
 
 
 // Setup routes
