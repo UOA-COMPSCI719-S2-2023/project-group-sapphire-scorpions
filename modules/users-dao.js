@@ -12,6 +12,8 @@ async function createUser(user) {
 
     const result = await db.run(SQL`
         insert into users (username, password, name) values(${user.username}, ${user.password}, ${user.name})`);
+        // need to insert avata and ${user, avatar} when ready
+
 
     // Get the auto-generated ID value, and assign it back to the user object.
     user.id = result.lastID;

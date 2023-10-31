@@ -71,6 +71,7 @@ router.post("/newAccount", async function (req, res) {
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword; // Retrieve the confirmed password from the request
     const name = req.body.name;
+    const avatar = req.body.avatar; // Retrieve the chosen avatar from the request
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -81,7 +82,8 @@ router.post("/newAccount", async function (req, res) {
     const user = {
         username: username,
         password: password,
-        name: name
+        name: name,
+        //avatar: avatar // Include the avatar in the user object
     };
 
     try {
@@ -90,11 +92,17 @@ router.post("/newAccount", async function (req, res) {
         res.redirect("/login");
     }
     catch (err) {
-        res.setToastMessage("That username was already taken!");
+        if (err.code === 'SQLITE_CONSTRAINT') {
+            res.setToastMessage("That username was already taken!");
+        } else {
+            res.setToastMessage("An error occurred. Please try again."); // Generic error message
+        }
         res.redirect("/newAccount");
     }
+    
 
 });
+
 
 
 module.exports = router;

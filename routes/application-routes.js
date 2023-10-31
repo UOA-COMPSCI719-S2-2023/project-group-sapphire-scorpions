@@ -24,6 +24,7 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
     const user = res.locals.user;
     const messages = await messagesDao.retrieveMessagesReceivedBy(user.id);
     res.locals.messages = messages;
+    // need to add a fetch function to retrieve the users avatar 
 
     res.render("home");
 });
