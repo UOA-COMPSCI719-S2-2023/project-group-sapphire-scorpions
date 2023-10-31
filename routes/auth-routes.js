@@ -61,10 +61,16 @@ router.post('/login', async (req, res) => {
     }
 
     const authToken = uuid();
-    user.authToken = authToken;
-    res.locals.user = user;
+
+    // Storing the authToken in the database
+    await datahandling.updateUserbyId(user.id, { authToken: authToken }); // Assuming you have an updateUserbyId function
+
+    // Setting the authToken as a cookie
+    res.cookie('authToken', authToken, { httpOnly: true }); // This makes sure JavaScript on the client side can't access this cookie
+
     res.redirect("/");
 });
+
 
 // Route for Logout (We can add this eventually)
 // router.get("/logout", function (req, res) {

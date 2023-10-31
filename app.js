@@ -30,16 +30,15 @@ app.use(express.static(path.join(__dirname, "public")));
 
 
 // Setup our middleware
-const toaster = require("./middleware/toaster-middleware.js");
-app.use(toaster);
+const { toaster, authenticateToken } = require("./middleware/toaster-middleware");
+app.use(authenticateToken); 
+
 
 
 // Setup routes
 app.use(require("./routes/application-routes.js"));
 app.use('/auth', require('./routes/auth-routes.js'));
 
-
-// const sqlite3 = require('sqlite3').verbose();
 
 // Start the server running.
 app.listen(port, function () {

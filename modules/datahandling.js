@@ -41,12 +41,24 @@ async function findUserById(id) {
     }
 }
 
+// added this as it has a AuthToken - can delete if not needed
+async function findUserByAuthToken(authToken) {
+    try {
+        const db = await dbPromise;
+        const result = await db.get(SQL`
+            select * from UserAccount where authToken = ${authToken}`);
+        return result;
+    } catch (error) {
+        console.error("Error finding user by authToken:", error);
+    }
+}
+
 async function updateUserPasswordbyId(user) {
     try {
         const db = await dbPromise;
         const result = await db.run(SQL`
             update UserAccount 
-            set PasswordHash = ${user.PasswordHash},
+            set PasswordHash = ${user.PasswordHash}
             where id = ${user.id}`);
         return result;
     } catch (error) {
@@ -121,6 +133,7 @@ module.exports = {
     findUserById,
     updateUserPasswordbyId,
     updateUserbyId,
+    findUserByAuthToken,
     isUsernameAvailable,
     createblog,
     publishblog
