@@ -16,14 +16,14 @@ router.get("/login-signup", function (req, res) {
 
 // Accessing personal blog once user signed in and has been authenticated
 router.get("/personal-blog", verifyAuthenticated, async function (req, res) {
-    const user = await datahandling.findUserById(req.session.userId);
+    const user = await datahandling.findUser(req.session.user);
     res.locals.user = user;
     res.render("personal-blog");
 });
 
 // Ability to edit profile by going into edit-profile.handlebars
 router.get("/edit-profile", verifyAuthenticated, async function (req, res) {
-    const user = await datahandling.findUserById(req.session.userId);
+    const user = await datahandling.findUser(req.session.user);
     res.locals.user = user; 
     res.locals.title = "Edit Profile";
     res.render("edit-profile");
@@ -32,7 +32,7 @@ router.get("/edit-profile", verifyAuthenticated, async function (req, res) {
 //Update profile page
 router.post("/update-profile", verifyAuthenticated, async function (req, res) {
     const updatedData = {
-        id: req.session.userId, 
+        user: req.session.user, 
         UserName: req.body.username,
         Email: req.body.email,
         FirstName: req.body.firstName,
@@ -42,7 +42,7 @@ router.post("/update-profile", verifyAuthenticated, async function (req, res) {
     };
 
     // function call to pass the whole updatedData object
-    await datahandling.updateUserbyId(updatedData);
+    await datahandling.updateUser(updatedData);
     res.redirect("/personal-blog");
 });
 

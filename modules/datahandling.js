@@ -30,6 +30,7 @@ async function findUser(user) {
     }
 }
 
+//i added this one (but we want the above instead)
 async function findUserById(id) {
     try {
         const db = await dbPromise;
@@ -66,6 +67,7 @@ async function updateUserPasswordbyId(user) {
     }
 }
 
+// i added this one too
 async function updateUserbyId(user) {
     try {
         const db = await dbPromise;
