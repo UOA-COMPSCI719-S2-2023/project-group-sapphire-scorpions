@@ -15,13 +15,20 @@
     <div class="blog-body" id="login-body">
         <div class="sign-up">
             <h1>Sign up:</h1>
+            <p>Choose an Avatar:</p>
             <form action="/signup" method="post">
+                <div class="avatar-buttons">
+                    <button type="button" data-avatar="plant1"><img class="avatar" src="/images/plant1.png"></button>
+                    <button type="button" data-avatar="plant2"><img class="avatar" src="/images/plant2.png"></button>
+                    <button type="button" data-avatar="plant3"><img class="avatar" src="/images/plant3.png"></button>
+                </div>
                 <input type="text" name="username" placeholder="Username" required>
                 <input type="email" name="email" placeholder="Email" required>
                 <input type="password" name="password" placeholder="Password" required>
                 <input type="password" name="password-repeat" placeholder="Confirm Password" required>
                 <button type="submit">Submit</button>
             </form>
+
             <!-- Displaying an error message, this will be populated from the server -->
             <p class="signup-error" style="color: red;"></p>
         </div>

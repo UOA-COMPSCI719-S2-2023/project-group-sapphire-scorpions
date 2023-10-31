@@ -171,6 +171,20 @@ img:hover {
     z-index: 0;
 }
 
+.avatar-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar-buttons button{
+ background-color: var(--beige-light);
+ margin: 5px 5px;
+}
+
+.avatar{
+    width: 100%;
+}
+
 .sign-up, .login {
     margin: 0px 150px;
     background-color: var(--beige-medium);
@@ -257,8 +271,13 @@ border-radius: 15px;
     padding: 50px;
     margin: 50px 50px 50px 50px;
 }
+.add-blogpost {
+    background:transparent;
+}
 
-
+.add-blogpost button {
+    background-color: var(--beige-medium);
+}
 
 /* following for don't kill my plant inside the profile page  */
 

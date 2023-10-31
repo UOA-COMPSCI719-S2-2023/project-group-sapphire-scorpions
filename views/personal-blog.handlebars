@@ -1,66 +1,77 @@
 <body>
-    <div class="nav" id="profile-nav">
-        <div class="profile-name">
-            <h1>Jane Doe</h1>
-        </div>
-        <div class="profile-nav-links">
-            <a href="/"><button>Home</button></a>
-            <a href="/explore"><button>Explore</button></a>
-            <a href="/daily-quiz"><button>Daily Quiz</button></a>
-        </div>
-    </div>
-    <div class="blog-body">
-        <div class="about-profile-body">
-            <div class="about-me-section">
-                <h2>About Me:</h2>
-                <p class="about-me-text">
-                    Hello, I'm Jane Doe, and I'm passionate about the beauty and wonder of gardening. For me, tending to
-                    a garden is more than just a hobby; it's a deep-rooted connection to the natural world. With every
-                    bloom and every bud, I find solace and inspiration, as the earth unfolds its secrets. My journey in
-                    the world of horticulture has been a flourishing adventure, nurturing not only plants but also my
-                    soul. I'm excited to share my love for all things green, offering tips, insights, and the simple joy
-                    of sowing the seeds of life. Join me in this botanical voyage, where together, we'll cultivate the
-                    extraordinary beauty of the world outside our windows.
-                </p>
-                <!-- Assuming a route to edit profile info -->
-                <a href="/edit-profile"><button>Edit</button></a>
+    <div class="container">
+        <div class="nav" id="profile-nav">
+            <div class="profile-name">
+                <h1>Jane Doe</h1>
             </div>
-            <div class="profile-image">
-                <img id="profile-dp"
-                    src="https://images.unsplash.com/photo-1604751344909-7dafcca7e760?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
-                <!-- Assuming a route to edit profile image -->
-                <a href="/edit-profile-image"><button>Change Picture</button></a>
+            <div class="profile-nav-links">
+                <a href="/"><button>Home</button></a>
+                <a href="/explore"><button>Explore</button></a>
+                <a href="/daily-quiz"><button>Daily Quiz</button></a>
             </div>
         </div>
-        <div class="tamagotchi-section">
-            <div class="tamagotchi-container">
-                <div class="tamagotchi">
-                    <h1>DON'T KILL MY PLANT!</h1>
-                    <img class="dont-kill-my-plant-image"
-                        src="https://media.geeksforgeeks.org/wp-content/uploads/20230203125107/Seed-Germination.jpg">
-                    <div class="tamagotchi-buttons">
-                        <!-- Add routes for watering, sunning, and changing seed as needed -->
-                        <button><span class="water-counter">0</span><img src="../public/images/water.png"></button>
-                        <button><span class="sun-counter">0</span><img src="../public/images/sun.jpg"></button>
-                        <button><span class="seed-counter">0</span><img src="../public/images/seed.png"></button>
+        <div class="blog-body">
+            <div class="about-profile-body">
+                <div class="about-me-section">
+                    <h2>About Me:</h2>
+                    <p class="about-me-text">
+                        Hello, I'm Jane Doe, and I'm passionate about the beauty and wonder of gardening. For me,
+                        tending to
+                        a garden is more than just a hobby; it's a deep-rooted connection to the natural world. With
+                        every
+                        bloom and every bud, I find solace and inspiration, as the earth unfolds its secrets. My journey
+                        in
+                        the world of horticulture has been a flourishing adventure, nurturing not only plants but also
+                        my
+                        soul. I'm excited to share my love for all things green, offering tips, insights, and the simple
+                        joy
+                        of sowing the seeds of life. Join me in this botanical voyage, where together, we'll cultivate
+                        the
+                        extraordinary beauty of the world outside our windows.
+                    </p>
+                    <!-- Assuming a route to edit profile info -->
+                    <a href="/edit-profile"><button>Edit</button></a>
+                </div>
+                <div class="profile-image">
+                    <img id="profile-dp"
+                        src="https://images.unsplash.com/photo-1604751344909-7dafcca7e760?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D">
+                    <!-- Assuming a route to edit profile image -->
+                    <a href="/edit-profile-image"><button>Change Picture</button></a>
+                </div>
+            </div>
+            <div class="tamagotchi-section">
+                <div class="tamagotchi-container">
+                    <div class="tamagotchi">
+                        <h1>DON'T KILL MY PLANT!</h1>
+                        <img class="dont-kill-my-plant-image"
+                            src="https://media.geeksforgeeks.org/wp-content/uploads/20230203125107/Seed-Germination.jpg">
+                        <div class="tamagotchi-buttons">
+                            <!-- Add routes for watering, sunning, and changing seed as needed -->
+                            <button><span class="water-counter">0</span><img src="../public/images/water.png"></button>
+                            <button><span class="sun-counter">0</span><img src="../public/images/sun.jpg"></button>
+                            <button><span class="seed-counter">0</span><img src="../public/images/seed.png"></button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="new-blogpost"></div>
-        <div class="add-blogpost">
-            <!-- Assuming a route to add a blog post -->
-            <a href="/add-blog-post"><button>Add Post</button></a>
-        </div>
-        <div class="footer">
-            <h3>About Garden With Me</h3>
-            <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
-                join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
-                own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
-                on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
-                magical, one reader at a time.</p>
-            <br>
-            <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or sell
-                your information to any organization.</p>
+            {{!-- following div is location where new blogposts are uploaded --}}
+            <div class="new-blogpost"></div>
+            {{!-- following div is just containing the button to add new blogpost --}}
+            <div class="add-blogpost">
+                <!-- Assuming a route to add a blog post -->
+                <a href="/add-blog-post"><button>Add Post</button></a>
+            </div>
+            <div class="footer">
+                <h3>About Garden With Me</h3>
+                <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+                    join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+                    own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+                    on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+                    magical, one reader at a time.</p>
+                <br>
+                <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or
+                    sell
+                    your information to any organization.</p>
+            </div>
         </div>
 </body>
