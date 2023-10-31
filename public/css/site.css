@@ -186,6 +186,7 @@ img:hover {
 }
 
 .sign-up, .login {
+    height: 80vh;
     margin: 0px 150px;
     background-color: var(--beige-medium);
     padding: 50px;
@@ -371,9 +372,12 @@ border-radius: 15px;
 /* following for daily quiz page  */
 
 #daily-quiz-page{
+    height: 80vh;
     display: flex;
     flex-direction: row;
-    margin: 50px;
+    justify-content: center;
+    background-image: url("https://images.unsplash.com/photo-1601654253194-260e0b6984f9?auto=format&fit=crop&q=80&w=3398&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
 }
 
 .scoreboard {
@@ -382,6 +386,7 @@ border-radius: 15px;
     margin: 50px;
     padding: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
 }
 
 h3 {
@@ -394,10 +399,10 @@ h3 {
     padding: 0;
 }
 
-.scoreboard-list li {
+.scoreboard-list li, .scoreboard-list > div {
     display: flex;
     align-items: center;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
 }
 
 .scoreboard-avatar {
@@ -408,16 +413,10 @@ h3 {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); 
 }
 
-.score,.username {
+.score,.username, .my-username {
     font-size: 20px;
     font-weight: bold; 
     margin: 10px;
-}
-
-#daily-quiz-page{
-    background-image: url("https://images.unsplash.com/photo-1601654253194-260e0b6984f9?auto=format&fit=crop&q=80&w=3398&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-size: cover;
-    margin: 0px;
 }
 
 .quiz{
@@ -426,19 +425,28 @@ h3 {
     margin: 50px;
     padding: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+   
 }
 
 .multichoice{
     display: flex;
     flex-direction: column;
+    justify-content: space-around;
+    height: 60%;
 }
 
 .multichoice button{
     background-color: var(--beige-medium);
+    margin-bottom: 10px;
 }
 
 .multichoice button:hover{
     background-color: var(--beige-dark);
+}
+
+#nextBtn{
+margin: 20px;
 }
 
 
