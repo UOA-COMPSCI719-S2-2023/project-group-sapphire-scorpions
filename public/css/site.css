@@ -49,7 +49,8 @@ body {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 4px 4px 10px var(--beige-dark);
+    box-shadow: 4px 4px 10px grey;
+    z-index: 5;
 }
 
 .left-nav, .right-nav {
@@ -57,7 +58,7 @@ body {
     padding: 10px;
 }
 
-.left-nav button, .right-nav button {
+.left-nav button, .right-nav button, .profile-nav-links button, .about-profile-body button{
     margin: 0px 10px;
     text-decoration: none;
     background-color: transparent;
@@ -67,9 +68,11 @@ body {
 }
 
 button {
-    background-color: transparent;
     color: white;
     cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: none;
 }
 
 button:hover {
@@ -90,6 +93,11 @@ button:hover {
     text-align: center;
     padding: 10px 20%;
   }
+
+  .copyright{
+    font-size: x-small;
+  }
+
 
   .wide-image {
     width: 100%;
@@ -119,20 +127,33 @@ button:hover {
     "link-blog-image find-more-in-explore";
 }
 
-  .copyright{
-    font-size: x-small;
-  }
-
-.description{
+.description {
     grid-area: description;
-    padding: 30px;
+    font-style: italic;
+    font-size: 23px;
+    text-align:justify;
+    line-height: 1.5;
+    padding: 40px;
+    color: var(--dark-green);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+img:hover {
+    transform: scale(1.005); 
+    transition: transform 0.2s ease-in-out;
 }
 
 .find-more-in-explore{
     grid-area: find-more-in-explore ;
-    width: auto;
-    height: auto;
-    margin: 30px;
+    width: min-content;
+    height: min-content;
+    margin: auto;
+    background-color: var(--beige-medium);
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: var(--dark-green);
 }
 
 /* following for login/signup page  */
@@ -146,6 +167,7 @@ button:hover {
     background-image: url("https://images.unsplash.com/photo-1597764983031-60a74afb8692?auto=format&fit=crop&q=80&w=3431&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size:cover;
     background-repeat: no-repeat;
+    z-index: 0;
 }
 
 .sign-up, .login {
@@ -188,6 +210,139 @@ button:focus {
     border-color: #007bff;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
+
+/* following for profile page  */
+#profile-nav{
+    flex-direction: column;
+    align-content: center;
+}
+
+.profile-name{
+    padding: 0;
+    margin-top: 30px;
+}
+
+.profile-nav-links{
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.about-profile-body{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-image{
+    width:70%;
+    border-radius: 15px;
+    padding: 50px 50px 0px 50px;
+    background-color: var(--beige-neutral);
+    margin: 50px 50px 50px 0px;
+}
+
+#profile-dp{
+width: 100%;
+border-radius: 15px;
+}
+
+.about-me-section{
+    width: 60%;
+    text-align: justify;
+    font-size: medium;
+    line-height: 1.6;
+    color: var(--beige-dark);
+    background-color: var(--beige-neutral);
+    border-radius: 15px;
+    padding: 50px;
+    margin: 50px 50px 50px 50px;
+}
+
+/* following for don't kill my plant inside the profile page  */
+
+.tamagotchi-container {
+    width: 440px;
+    height: 600px;
+    background: linear-gradient(135deg, var(--soft-blue), var(--soft-green));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    border-radius: 50%;
+    text-align: center;
+    font-size: small;
+    font-stretch: extra-expanded;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tamagotchi-oval {
+    width: 240px;
+    height: 300px;
+    background: linear-gradient(135deg, var(--soft-blue), var(--soft-green));
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.tamagotchi-screen {
+    width: 200px;
+    height: 260px;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dont-kill-my-plant-image {
+    max-width: 350px;
+    margin: 10px 0;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.tamagotchi-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.tamagotchi-buttons button {
+    background-color: var(--pale-yellow);
+    border: 2px solid var(--soft-blue);
+    border-radius: 50%;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tamagotchi-buttons button img {
+    max-width: 120%;
+    max-height: 120%;
+}
+
+
+
+
+/* following for explore page  */
+
+
+
+
+
+/* following for daily quiz page  */
+
+
+
 
 
 
