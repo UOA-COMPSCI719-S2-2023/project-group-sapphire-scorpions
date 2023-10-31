@@ -1,69 +1,86 @@
 const express = require("express");
 const router = express.Router();
-const datahandling = require("../modules/datahandling.js");
-const { verifyAuthenticated } = require("../middleware/toaster-middleware.js");
-const { findUserByAuthToken } = datahandling; // This line imports the function from datahandling.js
+const upload = require('../middleware/multer-uploader.js');
 
 
-router.get("/", async function (req, res) {
-    res.render("website-home");
+const { verifyAuthenticated } = require("../middleware/auth-middleware.js");
+
+// Whenever we navigate to /, verify that we're authenticated. If we are, render the home view.
+const messagesDao = require("../modules/messages-dao.js");
+const usersDao = require("../modules/users-dao.js");
+
+// Default landing page
+router.get("/", function(req, res) {
+    if (res.locals.user) {  // Check if user is authenticated
+        res.redirect("/home");  // Redirect to authenticated user's home page
+    } else {
+        res.render("website-home");  // Render website homepage for unauthenticated users
+    }
 });
 
-// Sign-up page
-router.get("/login-signup", function (req, res) {
-    res.render("login-signup");
+// Whenever we navigate to /home, verify that we're authenticated. If we are, render the home view.
+router.get("/home", verifyAuthenticated, async function (req, res) {
+
+    const user = res.locals.user;
+    const messages = await messagesDao.retrieveMessagesReceivedBy(user.id);
+    res.locals.messages = messages;
+
+    res.render("home");
 });
 
-// Accessing personal blog once user signed in and has been authenticated
-router.get("/personal-blog", verifyAuthenticated, async function (req, res) {
-    const user = await datahandling.findUser(req.session.user);
-    res.locals.user = user;
-    res.render("personal-blog");
+router.post("/uploadPhoto", verifyAuthenticated, upload.single('blogPhoto'), async (req, res) => {
+    try {
+        // Get the path of the uploaded file
+        const filePath = req.file.path;
+
+        // Get the authenticated user's ID
+        const userId = res.locals.user.id;
+
+        // Update the database with the filePath.
+        // Here, you'd use whatever method you have to save the filePath to your user or photos table.
+        // This is a hypothetical function: await photosDao.saveUserPhoto(userId, filePath);
+        
+        await photosDao.saveUserPhoto(userId, filePath);
+        
+        res.locals.photoUploadMessage = "Photo uploaded successfully!";
+    } catch (error) {
+        console.error("Error uploading photo:", error);
+        res.locals.photoUploadMessage = "There was an error uploading your photo. Please try again.";
+    }
+
+    res.redirect("/home");
 });
 
-// Ability to edit profile by going into edit-profile.handlebars
-router.get("/edit-profile", verifyAuthenticated, async function (req, res) {
-    const user = await datahandling.findUser(req.session.user);
-    res.locals.user = user; 
-    res.locals.title = "Edit Profile";
-    res.render("edit-profile");
+
+// Whenever we POST to /sendMessage, verify that we're authenticated. If we are,
+// add a new message to the database (specified by the form submission)
+router.post("/sendMessage", verifyAuthenticated, async function (req, res) {
+
+    const sender = res.locals.user;
+    const receiver = await usersDao.retrieveUserByUsername(req.body.receiver);
+
+    if (receiver) {
+
+        await messagesDao.createMessage(sender.id, receiver.id, req.body.content);
+        res.setToastMessage("Message sent!");
+    }
+
+    else {
+        res.setToastMessage("A user with that username doesn't exist!");
+    }
+
+    res.redirect("/home");
 });
 
-//Update profile page
-router.post("/update-profile", verifyAuthenticated, async function (req, res) {
-    const updatedData = {
-        user: req.session.user, 
-        UserName: req.body.username,
-        Email: req.body.email,
-        FirstName: req.body.firstName,
-        LastName: req.body.lastName,
-        Profile: req.body.profile,
-        ProfilePicURL: req.body.profilePicURL
-    };
-
-    // function call to pass the whole updatedData object
-    await datahandling.updateUser(updatedData);
-    res.redirect("/personal-blog");
-});
-
-// Explorer page Route 
-router.get("/explore", verifyAuthenticated, async function (req, res) {
-    const posts = await datahandling.findAllPosts(); // Assuming you have this function in your datahandling
-    res.locals.posts = posts;
+//Explorer route:
+router.get("/explore", verifyAuthenticated, function (req, res) {
     res.render("explore");
-    // there is currently no findAllPosts function in datahandling.js module currently 
 });
 
-// Daily Quiz Page Route
-router.get("/daily-quiz", verifyAuthenticated, async function (req, res) {
-    res.locals.title = "Daily Quiz";
+//Daily quiz route
+router.get("/daily-quiz", verifyAuthenticated, function (req, res) {
     res.render("daily-quiz");
 });
 
-// Adding a route to show the daily quiz results
-router.get("/daily-quiz-results", verifyAuthenticated, function (req, res) {
-    res.locals.title = "Daily Quiz Results";
-    res.render("daily-quiz-results");
-});
 
 module.exports = router;

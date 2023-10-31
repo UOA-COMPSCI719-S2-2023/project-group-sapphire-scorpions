@@ -1,83 +1,88 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
 const { v4: uuid } = require("uuid");
+const express = require("express");
 const router = express.Router();
-const datahandling = require('../modules/datahandling.js');
-const {toaster} = require('../middleware/toaster-middleware.js');
 
-router.use(toaster);
+// The DAO that handles CRUD operations for users.
+const userDao = require("../modules/users-dao.js");
 
-// Route for Login/Signup
-router.get("/login-signup", function (req, res) {
+// Whenever we navigate to /login, if we're already logged in, redirect to "/".
+// Otherwise, render the "login" view.
+router.get("/login", function (req, res) {
+
     if (res.locals.user) {
-        res.json({ success: true, message: 'Login successful.' });
-    } else {
-        res.render("login-signup");
+        res.redirect("/");
+    }
+
+    else {
+        res.render("login");
+    }
+
+});
+
+// Whenever we POST to /login, check the username and password submitted by the user.
+// If they match a user in the database, give that user an authToken, save the authToken
+// in a cookie, and redirect to "/". Otherwise, redirect to "/login", with a "login failed" message.
+router.post("/login", async function (req, res) {
+
+    // Get the username and password submitted in the form
+    const username = req.body.username;
+    const password = req.body.password;
+
+    // Find a matching user in the database
+    const user = await userDao.retrieveUserWithCredentials(username, password);
+
+    // if there is a matching user...
+    if (user) {
+        // Auth success - give that user an authToken, save the token in a cookie, and redirect to the homepage.
+        const authToken = uuid();
+        user.authToken = authToken;
+        await userDao.updateUser(user);
+        res.cookie("authToken", authToken);
+        res.locals.user = user;
+        res.redirect("/");
+    }
+
+    // Otherwise, if there's no matching user...
+    else {
+        // Auth fail
+        res.locals.user = null;
+        res.setToastMessage("Authentication failed!");
+        res.redirect("./login");
     }
 });
 
-// Route for Signup
-router.post('/signup', async (req, res) => {
-    const { password, username, email, firstname, lastname } = req.body;
+// Whenever we navigate to /logout, delete the authToken cookie.
+// redirect to "/login", supplying a "logged out successfully" message.
+router.get("/logout", function (req, res) {
+    res.clearCookie("authToken");
+    res.locals.user = null;
+    res.setToastMessage("Successfully logged out!");
+    res.redirect("./");
+});
 
-    if (password !== req.body['password-repeat']) {
-        res.setToastMessage("Passwords don't match.");
-        return res.status(400).json({ error: "Passwords don't match." });
-    }
+// Account creation
+router.get("/newAccount", function (req, res) {
+    res.render("new-account");
+})
 
-    const existingUser = await datahandling.findUser({ UserName: username, Email: email });
-    if (existingUser) {
-        res.setToastMessage("Username or email is already taken. Choose a different one.");
-        return res.status(400).json({ error: "Username or email is already taken. Choose a different one." });
-    }
+router.post("/newAccount", async function (req, res) {
 
-    const hashedPassword = await bcrypt.hash(password, 10);
     const user = {
-        UserName: username,
-        Email: email,
-        FirstName: firstname,
-        LastName: lastname,
-        PasswordHash: hashedPassword
+        username: req.body.username,
+        password: req.body.password,
+        name: req.body.name
     };
 
     try {
-        await datahandling.createUser(user);
-        res.setToastMessage("User signed up successfully.");
-        res.json({ success: true, message: "User signed up successfully." });
-    } catch (error) {
-        res.setToastMessage("Error during sign-up.");
-        res.status(500).json({ error: 'Error during sign-up' });
+        await userDao.createUser(user);
+        res.setToastMessage("Account creation successful. Please login using your new credentials.");
+        res.redirect("/login");
     }
-});
-
-// Route for Login
-router.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-
-    const user = await datahandling.findUser({ UserName: username });
-    if (!user || !(await bcrypt.compare(password, user.PasswordHash))) {
-        res.setToastMessage("Invalid username or password.");
-        return res.status(400).json({ error: 'Invalid username or password.' });
+    catch (err) {
+        res.setToastMessage("That username was already taken!");
+        res.redirect("/newAccount");
     }
 
-    const authToken = uuid();
-
-    // Storing the authToken in the database
-    await datahandling.updateUserbyId(user.id, { authToken: authToken }); // Assuming you have an updateUserbyId function
-
-    // Setting the authToken as a cookie
-    res.cookie('authToken', authToken, { httpOnly: true }); // This makes sure JavaScript on the client side can't access this cookie
-
-    res.redirect("/");
 });
-
-
-// Route for Logout (We can add this eventually)
-// router.get("/logout", function (req, res) {
-//     res.clearCookie("authToken");
-//     res.locals.user = null;
-//     res.setToastMessage("Successfully logged out!");
-//     res.redirect("/login-signup");
-// });
 
 module.exports = router;

@@ -1,79 +1,34 @@
-/*
- * Upon submission, this file should contain the SQL script to initialize your database.
- * It should contain all DROP TABLE and CREATE TABLE statments, and any INSERT statements
- * required.
- */
+-- Run this script to create or re-initialize the database.
 
-drop table if exists test;
+drop table if exists messages;
+drop table if exists users;
 
-create table test (
+create table users (
+
     id integer not null primary key,
-    stuff text  
+    username varchar(64) unique not null,
+    password varchar(64) not null,
+    name varchar(64),
+    authToken varchar(128)
 );
 
-insert into test (stuff) values
-    ('Things'),
-    ('More things'),
-    ('One More Thing');
+create table messages (
 
-drop table if exists UserAccount;
-create table UserAccount (
-	id integer not null primary key,
-	UserName text not null,
-	PasswordHash text not null,
-	FirstName text not null,
-	LastName text not null,
-	Email text not null,
-	Profile text,
-	ProfilePicURL text,
-	LastLogin text,
-	CreatedAt text
+    id integer not null primary key,
+    senderId integer not null,
+    receiverId integer not null,
+    timestamp timestamp not null,
+    content varchar(256) not null,
+    foreign key (senderId) references users(id),
+    foreign key (receiverId) references users(id)
 );
 
-drop table if exists blogs;
-create table blogs (
-	id integer not null primary key,
-	Title text,
-	Content text,
-	Published integer,
-	UpdatedAt text,
-	PublishedAt text,
-	CreatedAt text,
-    UserId integer not null,
-	FOREIGN KEY (UserId)
-       REFERENCES UserAccount (id)
-);
+insert into users (id, username, password, name) values
+    (1, 'user1', 'pa55word', 'Alice'),
+    (2, 'user2', 'pa55word', 'Bob');
 
-drop table if exists blogs_meta;
-create table blogs_meta (
-	id integer not null primary key,
-	Content text,
-	blogImgURL text,
-	UpdatedAt text,
-	CreatedAt text,
-    blogId integer not null,
-	FOREIGN KEY (blogId)
-       REFERENCES blogs (id)
-);
-
-drop table if exists blogs_comments;
-create table blogs_comments (
-	id integer not null primary key,
-	Title text,
-	Content text,
-	Published integer,
-	UpdatedAt text,
-	PublishedAt text,
-	CreatedAt text,
-    blogId integer not null,
-	FOREIGN KEY (blogId)
-       REFERENCES blogs (id)
-);
-
-
-INSERT INTO UserAccount(UserName,PasswordHash,FirstName,LastName,Email,Profile,ProfilePicURL,LastLogin,CreatedAt) 
-VALUES ('test','test','FirstName','LastName','test\@test.com','Hi Its test account','images/placeholderimg.png',DateTime('now'),DateTime('now'));
-
-INSERT INTO blogs(UserId,Title,Content,Published,UpdatedAt,PublishedAt,CreatedAt)
-VALUES (1,'Dummy Title','Dummy Content',1,DateTime('now'),DateTime('now'),DateTime('now'));
-
+insert into messages (id, senderId, receiverId, timestamp, content) values
+    (1, 1, 2, datetime('2021-05-15 15:00:00'), 'Hi, Bob!'),
+    (2, 2, 1, datetime('2021-05-15 15:02:00'), 'Hi, Alice!'),
+    (3, 1, 2, datetime('2021-05-15 15:04:00'), 'I like pie.'),
+    (4, 2, 1, datetime('2021-05-15 15:10:00'), 'COMPSCI 719 is awesome! And I like pie also too.');

@@ -1,0 +1,80 @@
+<div class="nav">
+    <div class="left-nav">
+        <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
+        <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
+    </div>
+
+    <div class="right-nav">
+        <a href="/"><button>Home</button></a>
+    </div>
+
+    <div class="title">
+        <h1>Garden With Me</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <h1>Hello, {{user.name}}!</h1>
+    <p>This is your homepage!</p>
+    <p>Click <a href="./logout">here</a> to log out.</p>
+
+
+
+    <h3>Upload a Photo to Your Blog</h3>
+    <form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
+        <div class="flex-col mb">
+            <label for="blogPhoto">Choose a photo:</label>
+            <input type="file" name="blogPhoto" id="blogPhoto" accept="image/*" required>
+        </div>
+        <button type="submit">Upload!</button>
+        {{#if photoUploadMessage}}
+        <p> {{photoUploadMessage}}</p>
+        {{/if}}
+    </form>
+
+    <h3>Send a message</h3>
+    <form action="./sendMessage" method="POST">
+        <div class="flex-col mb">
+            <label for="txtReceiver">To (username):</label>
+            <input type="text" name="receiver" id="txtReceiver" required>
+        </div>
+
+        <div class="flex-col mb">
+            <label for="txtContent">Content:</label>
+            <textarea name="content" id="txtContent" required rows="5"></textarea>
+        </div>
+
+        <div class="flex-row justify-sb align-center">
+            <button type="submit">Send!</button>
+            {{#if toastMessage}}
+            <p> {{toastMessage}}</p>
+            {{/if}}
+        </div>
+    </form>
+
+    <h3>Your received messages</h3>
+    {{#if messages}}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Date / Time</th>
+                <th>Sender</th>
+                <th>Content</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each messages}}
+            <tr>
+                <td>{{timestamp}}</td>
+                <td>{{senderUsername}}</td>
+                <td>{{content}}</td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+    {{else}}
+    <p>You have no messages. Get some friends!</p>
+    {{/if}}
+
+</div>

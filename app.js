@@ -1,9 +1,3 @@
-/**
- * Main application file.
- * 
- * NOTE: This file contains many required packages, but not all of them - you may need to add more!
- */
-
 // Setup Express
 const express = require("express");
 const app = express();
@@ -18,7 +12,6 @@ app.set("view engine", "handlebars");
 
 // Setup body-parser
 app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 // Setup cookie-parser
 const cookieParser = require("cookie-parser");
@@ -28,18 +21,26 @@ app.use(cookieParser());
 const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
-
 // Setup our middleware
-const { toaster, verifyAuthenticated } = require("./middleware/toaster-middleware");
-app.use(verifyAuthenticated); 
+const { toaster } = require("./middleware/toaster-middleware.js");
+app.use(toaster);
+const { addUserToLocals } = require("./middleware/auth-middleware.js");
+app.use(addUserToLocals);
+
+// Setup our routes
+const authRouter = require("./routes/auth-routes.js");
+app.use(authRouter);
+
+//Direcotry to upload photos:
+//app.use('/uploads', express.static('path_to_your_uploads_directory'));
 
 
-// Setup routes
-app.use(require("./routes/application-routes.js"));
-app.use('/auth', require('./routes/auth-routes.js'));
+const appRouter = require("./routes/application-routes.js");
+app.use(appRouter);
 
-
-// Start the server running.
+// Start the server running. Once the server is running, the given function will be called, which will
+// log a simple message to the server console. Any console.log() statements in your node.js code
+// can be seen in the terminal window used to run the server.
 app.listen(port, function () {
-    console.log(`The Best App In The World ™️ listening on port ${port}!`);
+    console.log(`App listening on port ${port}!`);
 });
