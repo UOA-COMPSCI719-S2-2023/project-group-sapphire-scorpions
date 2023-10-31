@@ -25,19 +25,19 @@ router.post('/signup', async (req, res) => {
         return res.status(400).json({ error: "Passwords don't match." });
     }
 
-    const existingUser = await datahandling.findUser({ UserName: username, Email: email });
+    const existingUser = await datahandling.findUser({ UserName: req.body.username, Email: req.body.email });
     if (existingUser) {
         res.setToastMessage("Username or email is already taken. Choose a different one.");
         return res.status(400).json({ error: "Username or email is already taken. Choose a different one." });
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+  //  const hashedPassword = await bcrypt.hash(password, 10);
     const user = {
         UserName: username,
         Email: email,
         FirstName: firstname,
         LastName: lastname,
-        PasswordHash: hashedPassword
+        PasswordHash: password
     };
 
     try {

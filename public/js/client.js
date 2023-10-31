@@ -40,7 +40,7 @@ window.addEventListener("load", function () {
   if (signupForm) {
     signupForm.addEventListener('submit', function (event) {
       event.preventDefault();
-      performFetch('/signup', signupForm, () => {
+      performFetch('/auth/signup', signupForm, () => {
         window.location.href = '/login-signup'; 
     });    
     });
