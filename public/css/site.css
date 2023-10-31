@@ -408,16 +408,17 @@ h3 {
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); 
 }
 
-.score {
+.score,.username {
     font-size: 20px;
     font-weight: bold; 
+    margin: 10px;
 }
 
-
-
-
-
-
+#daily-quiz-page{
+    background-image: url("https://images.unsplash.com/photo-1601654253194-260e0b6984f9?auto=format&fit=crop&q=80&w=3398&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    margin: 0px;
+}
 
 .quiz{
     background-color: var(--beige-neutral);
@@ -425,8 +426,21 @@ h3 {
     margin: 50px;
     padding: 30px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
-
 }
+
+.multichoice{
+    display: flex;
+    flex-direction: column;
+}
+
+.multichoice button{
+    background-color: var(--beige-medium);
+}
+
+.multichoice button:hover{
+    background-color: var(--beige-dark);
+}
+
 
 
 

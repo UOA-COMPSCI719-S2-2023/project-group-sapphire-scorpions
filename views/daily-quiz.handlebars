@@ -20,22 +20,33 @@
                     <ul>
                         <li>
                             <img class="scoreboard-avatar" src="/images/plant1.png">
-                            <span class="score">100</span>
+                            <span class="username">Jane</span>
+                            <span class="score">100 Points</span>
                         </li>
                         <li>
                             <img class="scoreboard-avatar" src="/images/plant2.png">
-                            <span class="score">150</span>
+                            <span class="username">John</span>
+                            <span class="score">150 Points</span>
                         </li>
                     </ul>
+                    <h3>Your Score</h3>
+                    <div>
+                        <img class="scoreboard-avatar" src="/images/plant2.png">
+                        <span class="score" id="my-score">150</span>
+                    </div>
+
                 </div>
             </div>
             <div class="quiz">
                 <h2>Question:</h2>
-                <p>What is the term for the practice of trimming and shaping a plant to control its growth and appearance?</p>
-                <button>A</button><span>Watering</span>
-                <button>B</button><span>Fertilising</span>
-                <button>C</button><span>Pruning</span>
-                <button>D</button><span>Mulching</span>
+                <p>What is the term for the practice of trimming and shaping a plant to control its growth and
+                    appearance?</p>
+                <div class="multichoice">
+                    <button><span id="A">Watering</span></button>
+                    <button><span id="B">Fertilising</span></button>
+                    <button><span id="C">Pruning</span></button>
+                    <button><span id="D">Mulching</span></button>
+                </div>
                 <!-- Assuming a function or route for "Next" -->
                 <button id="nextBtn">Next</button>
             </div>
