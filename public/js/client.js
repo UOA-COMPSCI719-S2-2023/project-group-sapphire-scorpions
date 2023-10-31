@@ -4,7 +4,7 @@ window.addEventListener("load", function () {
   const signupForm = document.querySelector('.sign-up form');
   const signupError = document.querySelector('.signup-error');
   const loginForm = document.querySelector('.login form');
-  
+
   // Factoring out common fetch logic into a function
   function performFetch(url, form, onSuccess) {
     const formData = new FormData(form);
@@ -12,22 +12,22 @@ window.addEventListener("load", function () {
       method: 'POST',
       body: formData,
     })
-    .then(response => {
-      if (response.status === 200) {
-        onSuccess();
-      } else {
-        return response.text().then(errorMessage => {
-          if (form === signupForm) {
-            signupError.innerText = errorMessage;
-          } else {
-            alert(errorMessage);
-          }
-        });
-      }
-    })
-    .catch(error => {
-      console.error(`There was an error with the ${url} request:`, error);
-    });
+      .then(response => {
+        if (response.status === 200) {
+          onSuccess();
+        } else {
+          return response.text().then(errorMessage => {
+            if (form === signupForm) {
+              signupError.innerText = errorMessage;
+            } else {
+              alert(errorMessage);
+            }
+          });
+        }
+      })
+      .catch(error => {
+        console.error(`There was an error with the ${url} request:`, error);
+      });
   }
 
   if (signupForm) {
@@ -52,7 +52,7 @@ window.addEventListener("load", function () {
 
   const editProfileButton = document.querySelector('.about-me-section button');
   if (editProfileButton) {
-    editProfileButton.addEventListener('click', function() {
+    editProfileButton.addEventListener('click', function () {
       window.location.href = '/edit-profile';
     });
   }
@@ -63,7 +63,7 @@ window.addEventListener("load", function () {
 
   // Generic placeholder function for plant care buttons
   function plantCarePlaceholder(alertMessage) {
-    return function() {
+    return function () {
       alert(`${alertMessage} (Backend integration coming soon)`);
     }
   }
@@ -75,13 +75,39 @@ window.addEventListener("load", function () {
   if (waterButton) waterButton.addEventListener('click', plantCarePlaceholder('You watered the plant!'));
   if (sunButton) sunButton.addEventListener('click', plantCarePlaceholder('You gave light to the plant!'));
   if (changeSeedButton) changeSeedButton.addEventListener('click', plantCarePlaceholder('You changed the seed!'));
-      
+
   //THE FOLLOWING ARE FUNCTIONS FOR THE DAILY QUIZ
-  
+
   const nextButton = document.getElementById('nextBtn');
   if (nextButton) {
     nextButton.addEventListener('click', function () {
       window.location.href = '/daily-quiz-results';
     });
   }
+
+  // THIS FUNCTION CURRENTLY NOT WORKING: 
+
+  // Get the scoreboard list and convert the list items to an array
+  var scoreboardList = document.getElementById('scoreboard-list');
+  var listItems = Array.from(scoreboardList.getElementsByTagName('li'));
+
+  // Sort the list items by score in descending order
+  listItems.sort(function (a, b) {
+    var scoreA = parseInt(a.querySelector('.score').textContent);
+    var scoreB = parseInt(b.querySelector('.score').textContent);
+    return scoreB - scoreA;
+  });
+
+  // Append the sorted list items back to the scoreboard list
+  listItems.forEach(function (item) {
+    scoreboardList.appendChild(item);
+  });
+
+
+
+
+
+
+
+
 });
