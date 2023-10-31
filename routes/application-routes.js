@@ -33,14 +33,15 @@ router.post("/uploadPhoto", verifyAuthenticated, upload.single('blogPhoto'), asy
         // Get the path of the uploaded file
         const filePath = req.file.path;
 
+        // Get the photo description
+        const photoDescription = req.body.photoDescription; 
+
         // Get the authenticated user's ID
         const userId = res.locals.user.id;
 
-        // Update the database with the filePath.
-        // Here, you'd use whatever method you have to save the filePath to your user or photos table.
-        // This is a hypothetical function: await photosDao.saveUserPhoto(userId, filePath);
-        
-        await photosDao.saveUserPhoto(userId, filePath);
+        // Update the database with the filePath and the photoDescription.
+        // Adjusted the hypothetical function to saveUserPhoto to handle description as well.
+        await photosDao.saveUserPhoto(userId, filePath, photoDescription);
         
         res.locals.photoUploadMessage = "Photo uploaded successfully!";
     } catch (error) {

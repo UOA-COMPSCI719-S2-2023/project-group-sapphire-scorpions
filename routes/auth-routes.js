@@ -67,10 +67,21 @@ router.get("/newAccount", function (req, res) {
 
 router.post("/newAccount", async function (req, res) {
 
+    const username = req.body.username;
+    const password = req.body.password;
+    const confirmPassword = req.body.confirmPassword; // Retrieve the confirmed password from the request
+    const name = req.body.name;
+
+    // Check if passwords match
+    if (password !== confirmPassword) {
+        res.setToastMessage("Passwords do not match!");
+        return res.redirect("/newAccount"); // Redirect back to the new account page
+    }
+
     const user = {
-        username: req.body.username,
-        password: req.body.password,
-        name: req.body.name
+        username: username,
+        password: password,
+        name: name
     };
 
     try {
@@ -84,5 +95,6 @@ router.post("/newAccount", async function (req, res) {
     }
 
 });
+
 
 module.exports = router;

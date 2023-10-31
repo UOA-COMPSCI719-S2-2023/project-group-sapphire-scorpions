@@ -2,6 +2,7 @@
 
 drop table if exists messages;
 drop table if exists users;
+drop table if exists user_photos;
 
 create table users (
 
@@ -10,6 +11,15 @@ create table users (
     password varchar(64) not null,
     name varchar(64),
     authToken varchar(128)
+);
+
+-- creating a table for the user's photo
+create table user_photos (
+    id integer not null primary key,
+    userId integer not null,
+    photoPath varchar(256) not null,
+    description varchar(256),  -- you can adjust the size as needed
+    foreign key (userId) references users(id)
 );
 
 create table messages (

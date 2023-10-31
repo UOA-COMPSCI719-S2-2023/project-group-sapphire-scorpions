@@ -108,6 +108,14 @@ async function updateUser(user) {
         where id = ${user.id}`);
 }
 
+// to save the users photo
+async function saveUserPhoto(userId, photoPath, description) {
+    const db = await dbPromise;
+    const query = "INSERT INTO user_photos (userId, photoPath, description) VALUES (?, ?, ?)";
+    await db.run(query, [userId, photoPath, description]);
+}
+
+
 /**
  * Deletes the user with the given id from the database.
  * 
@@ -129,6 +137,7 @@ module.exports = {
     retrieveUserWithAuthToken,
     retrieveUserByUsername,
     retrieveAllUsers,
+    saveUserPhoto,
     updateUser,
     deleteUser
 };

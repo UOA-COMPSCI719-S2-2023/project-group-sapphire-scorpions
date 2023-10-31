@@ -21,17 +21,24 @@
 
 
 
-    <h3>Upload a Photo to Your Blog</h3>
-    <form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
-        <div class="flex-col mb">
-            <label for="blogPhoto">Choose a photo:</label>
-            <input type="file" name="blogPhoto" id="blogPhoto" accept="image/*" required>
-        </div>
-        <button type="submit">Upload!</button>
-        {{#if photoUploadMessage}}
-        <p> {{photoUploadMessage}}</p>
-        {{/if}}
-    </form>
+   <h3>Upload a Photo to Your Blog</h3>
+<form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
+    <div class="flex-col mb">
+        <label for="blogPhoto">Choose a photo:</label>
+        <input type="file" name="blogPhoto" id="blogPhoto" accept="image/*" required>
+    </div>
+    
+    <div class="flex-col mb">
+        <label for="photoDescription">Photo Description:</label>
+        <textarea name="photoDescription" id="photoDescription" rows="4" placeholder="Describe your photo..."></textarea>
+    </div>
+    
+    <button type="submit">Upload!</button>
+    
+    {{#if photoUploadMessage}}
+    <p> {{photoUploadMessage}}</p>
+    {{/if}}
+</form>
 
     <h3>Send a message</h3>
     <form action="./sendMessage" method="POST">
