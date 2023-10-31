@@ -58,7 +58,7 @@ async function createblog(blog) {
     const db = await dbPromise;
     const result = await db.run(SQL`
         insert into blogs (Title,Content,Published,UserId,UpdatedAt,PublishedAt,CreatedAt) 
-        values(${blog.Title},${blog.Content},${blog.Published},${blog.UserId},DateTime('now'),DateTime('now'),DateTime('now'))`);
+        values(${blog.Title},${blog.Content},${blog.Published},${blog.UserId},DateTime('now'),null,DateTime('now'))`);
 
     blog.id = result.lastID;
     console.log(`Blog: ${blog.Title} ${blog.Content}`);
@@ -81,6 +81,139 @@ async function publishblog(blog) {
     return result;
 }
 
+async function createblog_comment(blog_comment) {
+
+    const db = await dbPromise;
+    const result = await db.run(SQL`
+        insert into blogs_comments (Title,Content,Published,UpdatedAt,PublishedAt,CreatedAt,blogId) 
+        values(${blog_comment.Title},${blog_comment.Content},${blog_comment.Published},DateTime('now'),null,DateTime('now'),${blog_comment.blogId})`);
+
+    blog_comment.id = result.lastID;
+    console.log(`Blog_comment created: ${blog_comment.Title} ${blog_comment.Content}`);
+    return result;
+}
+
+async function createblog_meta(blog_meta) {
+
+    const db = await dbPromise;
+    const result = await db.run(SQL`
+        insert into blogs_meta (Content,blogImgURL,UpdatedAt,CreatedAt,blogId) 
+        values(${blog_meta.Content},${blog_meta.blogImgURL},DateTime('now'),DateTime('now'),${blog_meta.blogId})`);
+
+        blog_meta.id = result.lastID;
+    console.log(`blog_meta created: ${blog_meta.Content}`);
+    return result;
+}
+
+async function updateblog(blog) {
+
+    const db = await dbPromise;
+    const result = await db.run(SQL`
+        update blogs 
+        set Content = ${blog.Content},
+        Title = ${blog.Title},
+        UpdatedAt = DateTime('now')
+        Where
+        id = ${blog.id} 
+        and UserId = ${blog.UserId}
+        `);
+
+    return result;
+}
+
+async function updateblog_comment(blog_comment) {
+
+    const db = await dbPromise;
+    const result = await db.run(SQL`
+        update blogs_comments 
+        set Title = ${blog_comment.Title},
+        Content = ${blog_comment.Content},
+        UpdatedAt = DateTime('now')
+        Where
+        id = ${blog_comment.id}
+        and
+        blogId = ${blog_comment.blogId}
+        `);
+    return result;
+}
+
+async function updateblog_meta(blog_meta) {
+
+    const db = await dbPromise;
+    const result = await db.run(SQL`
+        update blogs_meta 
+        set
+        Content = ${blog_meta.Content},
+        blogImgURL = ${blog_meta.blogImgURL},
+        UpdatedAt = DateTime('now')
+        Where
+        id = ${blog_meta.id}
+        and
+        blogId = ${blog_meta.blogId}
+        `);
+    return result;
+}
+
+async function getallblogs() {
+
+    const db = await dbPromise;
+    var blogs = [];
+    blogs = await db.all(SQL`select * from blogs`);
+    var blogs_comments = [];
+    blogs_comments = await db.all(SQL`select * from blogs_comments`);
+    var blogs_meta = [];
+    blogs_meta = await db.all(SQL`select * from blogs_meta`);
+    const result = {};
+
+    for (const blog of blogs) {
+        const blog_id = blog.id;
+        result[blog_id] = {
+            id: blog.id,
+            Title: blog.Title, 
+            Content: blog.Content,
+            Published: blog.Published,
+            UserId: blog.UserId,
+            UpdatedAt: blog.UpdatedAt,
+            PublishedAt: blog.PublishedAt,
+            CreatedAt: blog.CreatedAt,
+            blog_comments: [],
+            blog_meta: []
+        };
+    }
+    
+    for (const blog_comment of blogs_comments) {
+        const blog_id = blog_comment.blogId;
+        if (result[blog_id]) {
+            result[blog_id].blog_comments.push({
+                id: blog_comment.id,
+                Title: blog_comment.Title,
+                Content: blog_comment.Content,
+                Published: blog_comment.Published,
+                UpdatedAt: blog_comment.UpdatedAt,
+                PublishedAt: blog_comment.PublishedAt,
+                CreatedAt: blog_comment.CreatedAt,
+                blogId: blog_comment.blogId
+            });
+        }
+    }
+
+    for (const blog_meta of blogs_meta) {
+        const blog_id = blog_meta.blogId;
+        if (result[blog_id]) {
+            result[blog_id].blog_meta.push({
+                id: blog_meta.id,
+                Content: blog_meta.Content,
+                blogImgURL: blog_meta.blogImgURL,
+                UpdatedAt: blog_meta.UpdatedAt,
+                CreatedAt: blog_meta.CreatedAt,
+                blogId: blog_meta.blogId
+            });
+        }
+    }
+    //const stringresult = JSON.stringify(result);
+    return result;
+}
+
 //async function deleteTestData(id) {
 //    const db = await dbPromise;
 //
@@ -97,5 +230,12 @@ module.exports = {
     updateUserPasswordbyId,
     updateUserbyId,
     createblog,
-    publishblog
+    publishblog,
+    createblog_comment,
+    createblog_meta,
+    updateblog,
+    updateblog_comment,
+    updateblog_meta,
+    getallblogs
+
 };
