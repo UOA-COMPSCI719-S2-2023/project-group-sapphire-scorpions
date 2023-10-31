@@ -12,26 +12,44 @@
             <a href="/login-signup"><button>Login</button></a>
         </div>
     </div>
-    
-   <div class="sign-up">
-    <h1>Sign up:</h1>
-    <form action="/signup" method="post">
-        <input type="text" name="username" placeholder="Username" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="password-repeat" placeholder="Confirm Password" required>
-        <button type="submit">Submit</button>
-    </form>
-    <!-- Displaying an error message, this will be populated from the server -->
-    <p class="signup-error" style="color: red;"></p>
-</div>
+    <div class="blog-body" id="login-body">
+        <div class="sign-up">
+            <h1>Sign up:</h1>
+            <p>Choose an Avatar:</p>
+            <form action="/signup" method="post">
+                <div class="avatar-buttons">
+                    <button type="button" data-avatar="plant1"><img class="avatar" src="/images/plant1.png"></button>
+                    <button type="button" data-avatar="plant2"><img class="avatar" src="/images/plant2.png"></button>
+                    <button type="button" data-avatar="plant3"><img class="avatar" src="/images/plant3.png"></button>
+                </div>
+                <input type="text" name="username" placeholder="Username" required>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <input type="password" name="password-repeat" placeholder="Confirm Password" required>
+                <button type="submit">Submit</button>
+            </form>
 
-    <div class="login">
-        <h1>Login to existing account:</h1>
-        <form action="/login" method="post">
-            <input type="email" name="email" placeholder="Email" required>
-            <input type="password" name="password" placeholder="Password" required>
-            <button type="submit">Login</button>
-        </form>
+            <!-- Displaying an error message, this will be populated from the server -->
+            <p class="signup-error" style="color: red;"></p>
+        </div>
+        <div class="login">
+            <h1>Login to existing account:</h1>
+            <form action="/login" method="post">
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <h3>About Garden With Me</h3>
+        <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+            join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+            own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+            on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+            magical, one reader at a time.</p>
+        <br>
+        <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or sell
+            your information to any organization.</p>
     </div>
 </body>

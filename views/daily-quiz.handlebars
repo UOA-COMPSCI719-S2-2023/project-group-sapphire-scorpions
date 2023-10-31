@@ -1,43 +1,55 @@
 <body>
-    <div class="nav">
-        <div class="left-nav">
-            <a href="/"><button>Home</button></a>
-            <a href="/daily-quiz"><button>Daily Quiz</button></a>
-        </div>
-        <div class="title">
-            <h1>Garden With Me</h1>
-        </div>
-        <div class="right-nav">
-            <a href="/explore"><button>Explore</button></a>
-            <a href="/login-signup"><button>Login</button></a>
-        </div>
-    </div>
-    <div class="quiz-body">
-        <div class="scoreboard">
-            <h3>Scoreboard</h3>
-            <div class="scoreboard-list">
-                <ul>
-                    <li>
-                        <img src="/images/placeholderimg.png">
-                        <span class="score">100</span>
-                    </li>
-                    <li>
-                        <img src="/images/placeholderimg.png">
-                        <span class="score">100</span>
-                    </li>
-                </ul>
+    <div class="container">
+        <div class="nav">
+            <div class="left-nav">
+                <a href="/"><button>Home</button></a>
+                <a href="/daily-quiz"><button>Daily Quiz</button></a>
+            </div>
+            <div class="title">
+                <h1>Garden With Me</h1>
+            </div>
+            <div class="right-nav">
+                <a href="/explore"><button>Explore</button></a>
+                <a href="/login-signup"><button>Login</button></a>
             </div>
         </div>
-        <div class="quiz">
-            <h2>Question:</h2>
-            <button>A</button>
-            <button>B</button>
-            <button>C</button>
-            <button>D</button>
-            <!-- Assuming a function or route for "Next" -->
-            <button id="nextBtn">Next</button>
+        <div class="blog-body" id="daily-quiz-page">
+            <div class="scoreboard">
+                <h3>Scoreboard</h3>
+                <div class="scoreboard-list">
+                    <ul>
+                        <li>
+                            <img class="scoreboard-avatar" src="/images/plant1.png">
+                            <span class="score">100</span>
+                        </li>
+                        <li>
+                            <img class="scoreboard-avatar" src="/images/plant2.png">
+                            <span class="score">150</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="quiz">
+                <h2>Question:</h2>
+                <p>What is the term for the practice of trimming and shaping a plant to control its growth and appearance?</p>
+                <button>A</button><span>Watering</span>
+                <button>B</button><span>Fertilising</span>
+                <button>C</button><span>Pruning</span>
+                <button>D</button><span>Mulching</span>
+                <!-- Assuming a function or route for "Next" -->
+                <button id="nextBtn">Next</button>
+            </div>
+        </div>
+        <div class="footer">
+            <h3>About Garden With Me</h3>
+            <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+                join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+                own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+                on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+                magical, one reader at a time.</p>
+            <br>
+            <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or sell
+                your information to any organization.</p>
         </div>
     </div>
-    <script src="/public/js/client.js"></script>
-
 </body>
