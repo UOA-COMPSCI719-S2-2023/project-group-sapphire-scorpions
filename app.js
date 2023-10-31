@@ -34,7 +34,6 @@ const { toaster, authenticateToken } = require("./middleware/toaster-middleware"
 app.use(authenticateToken); 
 
 
-
 // Setup routes
 app.use(require("./routes/application-routes.js"));
 app.use('/auth', require('./routes/auth-routes.js'));
