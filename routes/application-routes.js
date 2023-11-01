@@ -53,7 +53,7 @@ router.post('/uploadPhoto', uploader.single('blogPhoto'), async (req, res) => {
 
     const userId = res.locals.user.id;
     const photoPath = req.file.path;    // get the saved path from multer's output
-    const description = req.body.photoDescription;
+    const description = req.body.blogContent;
 
     try {
         await userDao.saveUserPhoto(userId, photoPath, description);

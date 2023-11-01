@@ -21,20 +21,28 @@
         <img src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
         <p>Click <a href="./logout">here</a> to log out.</p>
 
+        <h3>Create a blog post</h3>
 
-
-        <h3>Upload a Photo to Your Blog</h3>
         <form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
+            <div class="flex-col mb">
+                <label for="blogContent"></label>
+            <textarea name="blogContent" id="blogContent"></textarea>
+        
+            <script>
+                function getEditorContent() {
+                    var content = tinymce.get("blogContent").getContent();
+                    alert("Blog Content:\n" + content);
+                }
+            </script>
+            
+            </div>
+            
             <div class="flex-col mb">
                 <label for="blogPhoto">Choose a photo:</label>
                 <input type="file" name="blogPhoto" id="blogPhoto" accept="image/*" required>
             </div>
 
-            <div class="flex-col mb">
-                <label for="photoDescription">Photo Description:</label>
-                <textarea name="photoDescription" id="photoDescription" rows="4"
-                    placeholder="Describe your photo..."></textarea>
-            </div>
+            
 
             <button type="submit">Upload!</button>
 
@@ -46,7 +54,7 @@
         {{#each photos}}
         <div class="photo-entry">
             <img src="{{this.photoPath}}" alt="Uploaded photo">
-            <p>{{this.description}}</p>
+            <p>{{{this.description}}}</p>
         </div>
         {{/each}}
 
