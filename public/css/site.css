@@ -3,38 +3,483 @@
     --soft-green: rgb(152, 193, 154);
     --olive-green: rgb(145, 165, 103);
     --moss-green: rgb(150, 177, 37);
-    --beige-light: rgb(245, 245, 220);
-    --beige-neutral: rgb(235, 222, 205);
-
-    /* Botanical Harmony Palette */
     --soft-green: rgb(152, 193, 154);
     --soft-blue: rgb(188, 206, 215);
-    --pale-yellow: rgb(255, 221, 159);
-    --dark-green: rgb(69, 125, 0);
-    --beige-medium: rgb(199, 159, 116);
+    --dark-green: rgb(69, 122, 6);
 
     /* Warm and Earthy Palette */
-    --beige-warm: rgb(239, 222, 205);
+    --beige-medium: rgb(199, 159, 116);
+    --beige-dark:rgb(147, 118, 86);
+    --pale-yellow: rgb(255, 221, 159);
+    --beige-light: rgb(245, 245, 220);
     --beige-neutral: rgb(235, 222, 205);
     --beige-cool: rgb(230, 222, 205);
-    --beige-neutral2: rgb(226, 222, 206);
-    --beige-warm2: rgb(221, 222, 206);
 }
 
 * {
     font-family: Verdana, Geneva, sans-serif;
+    /* border: 1px solid red; */
 }
 
+/* following for all pages  */
+.container {
+    display: grid;
+    grid-template-areas:
+        "nav"
+        "blog-body"
+        "footer";
+    padding: 0;
+    margin: 0;
+}
 
 body {
     background-color: var(--beige-light);
+    padding: 0;
+    margin: 0;
 }
 
-@media screen and (max-width: 1200px) {
+.nav {
+    grid-area: nav;
+    width: 100%;
+    height: 20vh;
+    margin: auto;
+    padding: 0px;
+    background-color: var(--olive-green);
+    color: var(--beige-light);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 4px 4px 10px grey;
+    z-index: 5;
 }
 
-@media screen and (max-width: 1000px) {
+.left-nav, .right-nav {
+    margin: 0px 50px ;
+    padding: 10px;
 }
 
-@media screen and (max-width: 800px) {
+.left-nav button, .right-nav button, .profile-nav-links button, .about-profile-body button{
+    margin: 0px 10px;
+    text-decoration: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
 }
+
+button {
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+    outline: none;
+    border: none;
+}
+
+button:hover {
+    background-color: var(--beige-dark);
+}
+
+.blog-body {
+    grid-area: blog-body;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.footer {
+    background-color: var(--beige-cool);
+    color: black;
+    grid-area: footer;
+    text-align: center;
+    padding: 10px 20%;
+  }
+
+  .copyright{
+    font-size: x-small;
+  }
+
+
+  .wide-image {
+    width: 100%;
+}
+
+.link-blog-image{
+    width: 100%;
+    grid-area: link-blog-image;
+}
+
+.blog-image{
+    width: 33%;
+    grid-area: blog-image;
+}
+
+/* following for website home page */
+
+.middle-home-body{
+    background-color: var(--pale-yellow);
+    margin: 10px 10px;
+    padding: 10px;
+    border-radius: 15px;
+    display: grid;
+    grid-template-areas: 
+    "link-blog-image description"
+    "link-blog-image description"
+    "link-blog-image find-more-in-explore";
+}
+
+.description {
+    grid-area: description;
+    font-style: italic;
+    font-size: 23px;
+    text-align:justify;
+    line-height: 1.5;
+    padding: 40px;
+    color: var(--dark-green);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+img:hover {
+    transform: scale(1.005); 
+    transition: transform 0.2s ease-in-out;
+}
+
+.find-more-in-explore{
+    grid-area: find-more-in-explore ;
+    width: min-content;
+    height: min-content;
+    margin: auto;
+    background-color: var(--beige-medium);
+    outline: none;
+    border: none;
+    box-shadow: none;
+    color: var(--dark-green);
+}
+
+/* following for login/signup page  */
+
+#login-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-image: url("https://images.unsplash.com/photo-1597764983031-60a74afb8692?auto=format&fit=crop&q=80&w=3431&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size:cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+.avatar-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.avatar-buttons button{
+ background-color: var(--beige-light);
+ margin: 5px 5px;
+}
+
+.avatar{
+    width: 100%;
+}
+
+.sign-up, .login {
+    height: 80vh;
+    margin: 0px 150px;
+    background-color: var(--beige-medium);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px var(--beige-dark);
+}
+
+.sign-up h1, .login h1 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    color: var(--pale-yellow);
+}
+
+.sign-up form , .login form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+button {
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+button:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* following for profile page  */
+#profile-nav{
+    flex-direction: column;
+    align-content: center;
+}
+
+.profile-name{
+    padding: 0;
+    margin-top: 30px;
+}
+
+.profile-nav-links{
+    padding: 0;
+    margin-bottom: 30px;
+}
+
+.about-profile-body{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile-image{
+    width:70%;
+    border-radius: 15px;
+    padding: 50px 50px 0px 50px;
+    background-color: var(--beige-neutral);
+    margin: 50px 50px 50px 0px;
+}
+
+#profile-dp{
+width: 100%;
+border-radius: 15px;
+}
+
+.about-me-section{
+    width: 60%;
+    text-align: justify;
+    font-size: medium;
+    line-height: 1.6;
+    color: var(--beige-dark);
+    background-color: var(--beige-neutral);
+    border-radius: 15px;
+    padding: 50px;
+    margin: 50px 50px 50px 50px;
+}
+.add-blogpost {
+    background:transparent;
+}
+
+.add-blogpost button {
+    background-color: var(--beige-medium);
+}
+
+/* following for don't kill my plant inside the profile page  */
+
+.tamagotchi-container {
+    width: 450px;
+    height: 550px;
+    background: linear-gradient(135deg, var(--soft-blue), var(--soft-green));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0px 50px;
+    border-radius: 50%;
+    border: 2px solid black;
+    text-align: center;
+    font-size:9px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tamagotchi-oval {
+    background: linear-gradient(135deg, var(--soft-blue), var(--soft-green));
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.tamagotchi-screen {
+    width: 200px;
+    height: 260px;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.dont-kill-my-plant-image {
+    max-width: 350px;
+    margin: 10px 0;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
+    border-radius: 20%;
+    border: 2px solid black;
+}
+
+.tamagotchi-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.tamagotchi-buttons button {
+    background-color: var(--pale-yellow);
+    border: 2px solid black;
+    border-radius: 50%;
+    padding: 10px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.tamagotchi-buttons button img {
+    max-width: 120%;
+    max-height: 120%;
+}
+
+.tamagotchi-section{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 50px;
+    background-image: url("https://images.unsplash.com/photo-1640519066824-9f76e650fc15?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* following for explore page  */
+
+
+
+
+
+/* following for daily quiz page  */
+
+#daily-quiz-page{
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("https://images.unsplash.com/photo-1601654253194-260e0b6984f9?auto=format&fit=crop&q=80&w=3398&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: cover;
+}
+
+.scoreboard {
+    background-color: var(--beige-neutral);
+    border-radius: 15px;
+    margin: 50px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+}
+
+h3 {
+    font-size: 24px; 
+    margin-bottom: 20px; 
+}
+
+.scoreboard-list ul {
+    list-style:none; 
+    padding: 0;
+}
+
+.scoreboard-list li, .scoreboard-list > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.scoreboard-avatar {
+    background-color: var(--soft-blue);
+    max-width: 50px;
+    border-radius: 50%; 
+    margin-right: 10px; 
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.2); 
+}
+
+.score,.username, .my-username {
+    font-size: 20px;
+    font-weight: bold; 
+    margin: 10px;
+}
+
+.quiz, .quiz-result{
+    background-color: var(--beige-neutral);
+    height: 600px;
+    width: 840px;
+    border-radius: 15px;
+    margin: 50px;
+    padding: 30px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+    text-align: center;
+   
+}
+
+.multichoice{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 60%;
+}
+
+.multichoice button{
+    background-color: var(--beige-medium);
+    margin-bottom: 10px;
+}
+
+.multichoice button:hover{
+    background-color: var(--beige-dark);
+}
+
+#nextBtn{
+margin: 20px;
+background-color: var(--beige-dark);
+}
+
+/* quiz result  */
+
+.quiz-result img {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    margin-right: 10px; /* Add space between icon and text */
+}
+
+.quiz-result ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quiz-result li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.quiz-result .new-seed {
+    font-weight: bold; /* Highlight the "New Seed" item */
+}
+
+
+
+/* following for different screen sizes */
+
+@media screen and (max-width: 1000px) {}
+
+@media screen and (max-width: 800px) {}
