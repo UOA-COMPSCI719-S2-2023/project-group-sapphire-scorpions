@@ -419,8 +419,10 @@ h3 {
     margin: 10px;
 }
 
-.quiz{
+.quiz, .quiz-result{
     background-color: var(--beige-neutral);
+    height: 600px;
+    width: 840px;
     border-radius: 15px;
     margin: 50px;
     padding: 30px;
@@ -447,8 +449,32 @@ h3 {
 
 #nextBtn{
 margin: 20px;
+background-color: var(--beige-dark);
 }
 
+/* quiz result  */
+
+.quiz-result img {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    margin-right: 10px; /* Add space between icon and text */
+}
+
+.quiz-result ul {
+    list-style: none;
+    padding: 0;
+}
+
+.quiz-result li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+.quiz-result .new-seed {
+    font-weight: bold; /* Highlight the "New Seed" item */
+}
 
 
 
