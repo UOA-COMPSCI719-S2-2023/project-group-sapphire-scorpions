@@ -25,18 +25,24 @@ router.get("/", function(req, res) {
 // Whenever we navigate to /home, verify that we're authenticated. If we are, render the home view.
 router.get("/home", verifyAuthenticated, async function (req, res) {
     const user = res.locals.user;
+    try {
+        // Fetch the messages
+        const messages = await messagesDao.retrieveMessagesReceivedBy(user.id);
+        res.locals.messages = messages;
 
-    // Fetch the messages
-    const messages = await messagesDao.retrieveMessagesReceivedBy(user.id);
-    res.locals.messages = messages;
+        // Fetch the user's photos
+        const photos = await userDao.getUserPhotos(user.id);
+        res.locals.photos = photos;
 
-    // Fetch the user's photos
-    const photos = await userDao.getUserPhotos(user.id);
-    res.locals.photos = photos;
-
-    // Render the home (blog) page
-    res.render("home");
+        // Render the home (blog) page
+        res.render("home");
+    } catch (error) {
+        console.error('Error fetching data for home page:', error);
+        res.locals.error = 'There was an error fetching data. Please try again later.';
+        res.render("home");
+    }
 });
+
 
 
 router.post('/uploadPhoto', uploader.single('blogPhoto'), async (req, res) => {

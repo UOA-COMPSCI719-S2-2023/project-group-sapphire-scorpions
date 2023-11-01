@@ -71,7 +71,7 @@ router.post("/newAccount", async function (req, res) {
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword; // Retrieve the confirmed password from the request
     const name = req.body.name;
-    const avatar = req.body.avatar; // Retrieve the chosen avatar from the request
+    //const avatar = req.body.avatar; // Retrieve the chosen avatar from the request
 
     // Check if passwords match
     if (password !== confirmPassword) {
