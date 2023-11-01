@@ -1,8 +1,6 @@
 const { v4: uuid } = require("uuid");
 const express = require("express");
 const router = express.Router();
-
-// The DAO that handles CRUD operations for users.
 const userDao = require("../modules/users-dao.js");
 
 // Whenever we navigate to /login, if we're already logged in, redirect to "/".

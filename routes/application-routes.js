@@ -51,7 +51,7 @@ router.post('/uploadPhoto', uploader.single('blogPhoto'), async (req, res) => {
         return res.redirect('/');  // redirect to home or any appropriate page
     }
 
-    const userId = res.locals.user.id;  // assuming you have the logged-in user details in res.locals
+    const userId = res.locals.user.id;
     const photoPath = req.file.path;    // get the saved path from multer's output
     const description = req.body.photoDescription;
 
