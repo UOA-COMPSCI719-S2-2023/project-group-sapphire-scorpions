@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const upload = require('../middleware/multer-uploader.js');
+const multer = require('multer');
+const uploader = require('../middleware/multer-uploader');  // path might change based on your setup in multer-uploader.js
+const userDao = require('../modules/users-dao');
+
 
 
 const { verifyAuthenticated } = require("../middleware/auth-middleware.js");
@@ -20,37 +24,40 @@ router.get("/", function(req, res) {
 
 // Whenever we navigate to /home, verify that we're authenticated. If we are, render the home view.
 router.get("/home", verifyAuthenticated, async function (req, res) {
-
     const user = res.locals.user;
+
+    // Fetch the messages
     const messages = await messagesDao.retrieveMessagesReceivedBy(user.id);
     res.locals.messages = messages;
-    // need to add a fetch function to retrieve the users avatar 
 
+    // Fetch the user's photos
+    const photos = await userDao.getUserPhotos(user.id);
+    res.locals.photos = photos;
+
+    // Render the home (blog) page
     res.render("home");
 });
 
-router.post("/uploadPhoto", verifyAuthenticated, upload.single('blogPhoto'), async (req, res) => {
-    try {
-        // Get the path of the uploaded file
-        const filePath = req.file.path;
 
-        // Get the photo description
-        const photoDescription = req.body.photoDescription; 
-
-        // Get the authenticated user's ID
-        const userId = res.locals.user.id;
-
-        // Update the database with the filePath and the photoDescription.
-        // Adjusted the hypothetical function to saveUserPhoto to handle description as well.
-        await photosDao.saveUserPhoto(userId, filePath, photoDescription);
-        
-        res.locals.photoUploadMessage = "Photo uploaded successfully!";
-    } catch (error) {
-        console.error("Error uploading photo:", error);
-        res.locals.photoUploadMessage = "There was an error uploading your photo. Please try again.";
+router.post('/uploadPhoto', uploader.single('blogPhoto'), async (req, res) => {
+    if (!req.file) {
+        res.locals.photoUploadMessage = "File upload failed!";
+        return res.redirect('/');  // redirect to home or any appropriate page
     }
 
-    res.redirect("/home");
+    const userId = res.locals.user.id;  // assuming you have the logged-in user details in res.locals
+    const photoPath = req.file.path;    // get the saved path from multer's output
+    const description = req.body.photoDescription;
+
+    try {
+        await userDao.saveUserPhoto(userId, photoPath, description);
+        res.locals.photoUploadMessage = "Photo uploaded successfully!";
+    } catch (error) {
+        console.error(error);
+        res.locals.photoUploadMessage = "There was an error uploading the photo.";
+    }
+
+    res.redirect('/');  // redirect to home or any appropriate page after upload
 });
 
 
