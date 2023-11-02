@@ -23,6 +23,10 @@
 
         <h3>Create a blog post</h3>
 
+        
+
+        <form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
+
         <div class="flex-col mb">
             <label for="blogContent"></label>
             <textarea name="blogContent" id="blogContent"></textarea>
@@ -34,7 +38,6 @@
                 </script>
         </div>
 
-        <form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
             <div class="flex-col mb">
                 <label for="blogPhoto">Choose a photo:</label>
                 <input type="file" name="blogPhoto" id="blogPhoto" accept="image/*" required>
@@ -87,11 +90,6 @@
                     }
                 </script>
             </div>
-
-            {{!-- <div class="flex-col mb">
-                <label for="txtContent">Content:</label>
-                <textarea name="content" id="txtContent" required rows="5"></textarea>
-            </div> --}}
 
             <div class="flex-row justify-sb align-center">
                 <button type="submit">Send!</button>
