@@ -1,10 +1,19 @@
 const express = require("express");
-const router = express.Router();
-const upload = require('../middleware/multer-uploader.js');
+const fs = require('fs');
 const multer = require('multer');
-const uploader = require('../middleware/multer-uploader');  // path might change based on your setup in multer-uploader.js
 const userDao = require('../modules/users-dao');
+const router = express.Router();
 
+// multer storage
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/')  // this is the directory where files will be temporarily saved
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)  // Use the original file name
+    }
+});
+const uploader = multer({ storage: storage });
 
 
 const { verifyAuthenticated } = require("../middleware/auth-middleware.js");
@@ -44,15 +53,23 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
 });
 
 
+// uploading and image and updating it on the blog page
 
-router.post('/uploadPhoto', uploader.single('blogPhoto'), async (req, res) => {
-    if (!req.file) {
+router.post("/uploadPhoto", uploader.single("blogPhoto"), async (req, res) => {
+    const fileInfo = req.file;
+    if (!fileInfo) {
         res.locals.photoUploadMessage = "File upload failed!";
-        return res.redirect('/');  // redirect to home or any appropriate page
+        return res.redirect('/'); 
     }
 
+    // Move the file from temporary storage to a more permanent location
+    const oldFileName = fileInfo.path;
+    const newFileName = `./public/uploads/${fileInfo.originalname}`;
+    fs.renameSync(oldFileName, newFileName);
+
+    // Store the reference to this file in the database
     const userId = res.locals.user.id;
-    const photoPath = req.file.path;    // get the saved path from multer's output
+    const photoPath = newFileName;  // now the path includes the original file name
     const description = req.body.blogContent;
 
     try {

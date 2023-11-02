@@ -27,6 +27,7 @@ app.use(toaster);
 const { addUserToLocals } = require("./middleware/auth-middleware.js");
 app.use(addUserToLocals);
 
+
 // Setup our routes
 const authRouter = require("./routes/auth-routes.js");
 app.use(authRouter);
