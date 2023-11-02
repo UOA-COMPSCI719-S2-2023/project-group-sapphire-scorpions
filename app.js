@@ -33,8 +33,7 @@ const authRouter = require("./routes/auth-routes.js");
 app.use(authRouter);
 
 //Direcotry to upload photos:
-//app.use('/uploads', express.static('path_to_your_uploads_directory'));
-
+app.use('/uploads', express.static('public/uploads'));
 
 const appRouter = require("./routes/application-routes.js");
 app.use(appRouter);
