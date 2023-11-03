@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById('loginForm');
     const logoutButton = document.getElementById('logoutButton');
     const newAccountForm = document.getElementById('newAccountForm');
+    const uploadForm = document.getElementById('uploadForm');
+
 
     // Adding event listeners
     if (loginForm) {
@@ -18,6 +20,11 @@ document.addEventListener("DOMContentLoaded", () => {
     if (newAccountForm) {
         newAccountForm.addEventListener('submit', handleNewAccount);
     }
+
+    if (uploadForm) {
+        uploadForm.addEventListener('submit', handleImageUpload);
+    }
+    
 });
 
 function handleLogin(event) {
@@ -46,6 +53,30 @@ function handleLogin(event) {
         }
     });
 }
+
+function handleImageUpload(event) {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    
+    fetch("/uploadPhoto", {
+        method: 'POST',
+        credentials: 'include',
+        body: formData 
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = "/"; // Redirect or handle successful upload
+        } else {
+            alert(data.message || "An error occurred while uploading the image.");
+        }
+    })
+    .catch(error => {
+        console.error("Error uploading the image:", error);
+        alert("An error occurred. Please try again.");
+    });
+}
+
 
 function handleLogout() {
     fetch("/logout", {

@@ -3,6 +3,7 @@ const fs = require('fs');
 const multer = require('multer');
 const userDao = require('../modules/users-dao');
 const router = express.Router();
+const path = require('path'); 
 
 // multer storage
 const storage = multer.diskStorage({
@@ -55,33 +56,33 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
 
 // uploading and image and updating it on the blog page
 
-router.post("/uploadPhoto", uploader.single("blogPhoto"), async (req, res) => {
+router.post("/uploadPhoto", uploader.single("imageFile"), async (req, res) => {
     const fileInfo = req.file;
+
     if (!fileInfo) {
-        res.locals.photoUploadMessage = "File upload failed!";
-        return res.redirect('/'); 
+        return res.json({ success: false, message: "File upload failed!" });
     }
+
+    // Access the caption
+    const caption = req.body.caption;
 
     // Move the file from temporary storage to a more permanent location
     const oldFileName = fileInfo.path;
-    const newFileName = `./public/uploads/${fileInfo.originalname}`;
-    fs.renameSync(oldFileName, newFileName);
-
-    // Store the reference to this file in the database
-    const userId = res.locals.user.id;
-    const photoPath = newFileName;  // now the path includes the original file name
-    const description = req.body.blogContent;
+    const newFileName = path.join(__dirname, 'public', 'uploads', fileInfo.originalname);
 
     try {
-        await userDao.saveUserPhoto(userId, photoPath, description);
-        res.locals.photoUploadMessage = "Photo uploaded successfully!";
-    } catch (error) {
-        console.error(error);
-        res.locals.photoUploadMessage = "There was an error uploading the photo.";
-    }
+        fs.renameSync(oldFileName, newFileName);
 
-    res.redirect('/');  // redirect to home or any appropriate page after upload
+        console.log("Uploaded with caption:", caption);
+
+        // Send a success response after the file is renamed
+        res.json({ success: true, message: "File uploaded successfully!" });
+    } catch (error) {
+        console.error("Error renaming the file:", error);
+        return res.json({ success: false, message: "There was an error processing the uploaded photo." });
+    }
 });
+
 
 
 // Whenever we POST to /sendMessage, verify that we're authenticated. If we are,

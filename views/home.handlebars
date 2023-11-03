@@ -24,38 +24,43 @@
         <h3>Create a blog post</h3>
 
         
+<form id="uploadForm" action="/uploadPhoto" method="POST" enctype="multipart/form-data">
 
-        <form action="/uploadPhoto" method="POST" enctype="multipart/form-data">
+    <div class="flex-col mb">
+        <label for="blogContent"></label>
+        <textarea name="blogContent" id="blogContent"></textarea>
+        <script>
+            function getEditorContent() {
+                var content = tinymce.get("blogContent").getContent();
+                alert("Blog Content:\n" + content);
+            }
+        </script>
+    </div>
 
-        <div class="flex-col mb">
-            <label for="blogContent"></label>
-            <textarea name="blogContent" id="blogContent"></textarea>
-                <script>
-                    function getEditorContent() {
-                        var content = tinymce.get("blogContent").getContent();
-                        alert("Blog Content:\n" + content);
-                    }
-                </script>
-        </div>
+    <div class="flex-col mb">
+        <label for="inpFile">Upload an image here:</label>
+        <input type="file" name="imageFile" id="inpFile" accept=".png, .jpg, .jpeg, .bmp" required>
+    </div>
 
-            <div class="flex-col mb">
-                <label for="blogPhoto">Choose a photo:</label>
-                <input type="file" name="blogPhoto" id="blogPhoto" accept="image/*" required>
-            </div>
+    <div class="flex-col mb">
+        <label for="txtCaption">Caption:</label>
+        <input type="text" name="caption" id="txtCaption">
+    </div>
 
-            <button type="submit">Upload!</button>
+    <button type="submit">Upload!</button>
 
-            {{#if photoUploadMessage}}
-            <p> {{photoUploadMessage}}</p>
-            {{/if}}
-        </form>
+    {{#if photoUploadMessage}}
+    <p> {{photoUploadMessage}}</p>
+    {{/if}}
+</form>
 
-        {{#each photos}}
-        <div class="photo-entry">
-            <img src="{{this.photoPath}}" alt="Uploaded photo">
-            <p>{{{this.description}}}</p>
-        </div>
-        {{/each}}
+{{#each photos}}
+<div class="photo-entry">
+    <img src="{{this.photoPath}}" alt="Uploaded photo">
+    <p>{{{this.description}}}</p>
+</div>
+{{/each}}
+
 
         <div class="tamagotchi-section">
             <div class="tamagotchi-container">
