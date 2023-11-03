@@ -1,8 +1,8 @@
 -- Run this script to create or re-initialize the database.
 
 drop table if exists messages;
-drop table if exists users;
 drop table if exists user_photos;
+drop table if exists users;
 
 create table users (
 
