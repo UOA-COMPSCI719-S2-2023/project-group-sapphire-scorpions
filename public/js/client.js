@@ -255,4 +255,35 @@ function handleNewAccount(event) {
     });
 }
 
+// Add an event listener to handle image removal
+document.addEventListener('click', function (event) {
+  if (event.target.classList.contains('remove-image-button')) {
+      const photoEntry = event.target.parentNode;
+      const imageSrc = photoEntry.querySelector('img').src;
+
+      // Make a fetch request to the server to delete the image and caption
+      fetch("/removeImage", {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ imageSrc })
+      })
+      .then(response => response.json())
+      .then(data => {
+          if (data.success) {
+              // Remove the photo entry from the DOM
+              photoEntry.remove();
+          } else {
+              alert(data.message || "An error occurred while removing the image.");
+          }
+      })
+      .catch(error => {
+          console.error("Error removing the image:", error);
+          alert("An error occurred. Please try again.");
+      });
+  }
+});
+
 

@@ -120,5 +120,16 @@ router.get("/daily-quiz", verifyAuthenticated, function (req, res) {
     res.render("daily-quiz");
 });
 
+router.post("/removeImage", verifyAuthenticated, (req, res) => {
+    const imageSrc = req.body.imageSrc; // Get the image source URL from the request
+
+    // Perform the logic to remove the image and caption from the database or file system
+    // You may use the URL to identify the image to be removed
+
+    // Respond with a success message or an error message
+    res.json({ success: true, message: "Image and caption removed successfully" });
+    // or
+    // res.json({ success: false, message: "An error occurred while removing the image" });
+});
 
 module.exports = router;
