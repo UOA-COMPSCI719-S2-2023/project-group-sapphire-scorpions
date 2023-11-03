@@ -1,10 +1,20 @@
 const express = require("express");
-const router = express.Router();
-const upload = require('../middleware/multer-uploader.js');
+const fs = require('fs');
 const multer = require('multer');
-const uploader = require('../middleware/multer-uploader');  // path might change based on your setup in multer-uploader.js
 const userDao = require('../modules/users-dao');
+const router = express.Router();
+const path = require('path'); 
 
+// multer storage
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, './public/uploads/')  // this is the directory where files will be temporarily saved
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname)  // Use the original file name
+    }
+});
+const uploader = multer({ storage: storage });
 
 
 const { verifyAuthenticated } = require("../middleware/auth-middleware.js");
@@ -44,27 +54,40 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
 });
 
 
+// uploading and image and updating it on the blog page
 
-router.post('/uploadPhoto', uploader.single('blogPhoto'), async (req, res) => {
-    if (!req.file) {
-        res.locals.photoUploadMessage = "File upload failed!";
-        return res.redirect('/');  // redirect to home or any appropriate page
+router.post("/uploadPhoto", verifyAuthenticated, uploader.single("imageFile"), async (req, res) => {
+    const user = res.locals.user;
+    const fileInfo = req.file;
+
+    if (!fileInfo) {
+        return res.json({ success: false, message: "File upload failed!" });
     }
 
-    const userId = res.locals.user.id;
-    const photoPath = req.file.path;    // get the saved path from multer's output
-    const description = req.body.blogContent;
+    // Access the caption
+    const caption = req.body.caption;
+
+    // Move the file from temporary storage to a more permanent location
+    const oldFileName = fileInfo.path;
+
+    // static location since we are using middleware to serve images from public folder
+    const newFileStaticLocation = path.join('uploads', fileInfo.originalname)
+    // actual location we want to save the image to
+    const newFileLocation = path.join('public', newFileStaticLocation);
 
     try {
-        await userDao.saveUserPhoto(userId, photoPath, description);
-        res.locals.photoUploadMessage = "Photo uploaded successfully!";
+        fs.renameSync(oldFileName, newFileLocation);
+        usersDao.saveUserPhoto(user.id,newFileStaticLocation,caption);
+        console.log("Uploaded with caption:", caption);
+
+        // Send a success response after the file is renamed
+        res.json({ success: true, message: "File uploaded successfully!" });
     } catch (error) {
         console.error(error);
-        res.locals.photoUploadMessage = "There was an error uploading the photo.";
+        return res.json({ success: false, message: "There was an error processing the uploaded photo." });
     }
-
-    res.redirect('/');  // redirect to home or any appropriate page after upload
 });
+
 
 
 // Whenever we POST to /sendMessage, verify that we're authenticated. If we are,
