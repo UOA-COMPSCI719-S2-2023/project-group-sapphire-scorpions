@@ -11,9 +11,8 @@ async function createUser(user) {
     const db = await dbPromise;
 
     const result = await db.run(SQL`
-        insert into users (username, password, name) values(${user.username}, ${user.password}, ${user.name})`);
-        // need to insert avatar and ${user, avatar} when ready
-
+        insert into users (username, password, name, dob, description) values(${user.username}, ${user.password}, ${user.name}, ${user.dob}, ${user.description})`);
+        // need to insert avatar and ${user.avatar} when ready
 
     // Get the auto-generated ID value, and assign it back to the user object.
     user.id = result.lastID;
@@ -89,7 +88,6 @@ async function getUserPhotos(userId) {
     const photos = await db.all(query, [userId]);
     return photos;
 }
-
 
 
 /**
