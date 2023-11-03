@@ -71,6 +71,7 @@ function handleImageUpload(event) {
             alert(data.message || "An error occurred while uploading the image.");
         }
     })
+  
     .catch(error => {
         console.error("Error uploading the image:", error);
         alert("An error occurred. Please try again.");

@@ -3,18 +3,41 @@ const fs = require('fs');
 const multer = require('multer');
 const userDao = require('../modules/users-dao');
 const router = express.Router();
-const path = require('path'); 
+const path = require('path');
 
-// multer storage
+// // multer storage
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, './public/uploads/')  // this is the directory where files will be temporarily saved
+//     },
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname)  // Use the original file name
+//     }
+// });
+// const uploader = multer({ storage: storage });
+
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './public/uploads/')  // this is the directory where files will be temporarily saved
+        cb(null, './public/uploads/');
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname)  // Use the original file name
+        const originalFileName = file.originalname;
+        let filename = originalFileName;
+        let count = 1;
+
+        while (fs.existsSync(path.join('./public/uploads/', filename))) {
+            const ext = path.extname(originalFileName);
+            filename = path.basename(originalFileName, ext) + `_${count}` + ext;
+            count++;
+        }
+
+        cb(null, filename);
     }
 });
 const uploader = multer({ storage: storage });
+
+
+
 
 
 const { verifyAuthenticated } = require("../middleware/auth-middleware.js");
@@ -24,7 +47,7 @@ const messagesDao = require("../modules/messages-dao.js");
 const usersDao = require("../modules/users-dao.js");
 
 // Default landing page
-router.get("/", function(req, res) {
+router.get("/", function (req, res) {
     if (res.locals.user) {  // Check if user is authenticated
         res.redirect("/home");  // Redirect to authenticated user's home page
     } else {
@@ -53,35 +76,66 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
     }
 });
 
-
-// uploading and image and updating it on the blog page
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 router.post("/uploadPhoto", uploader.single("imageFile"), async (req, res) => {
-    const fileInfo = req.file;
-
-    if (!fileInfo) {
-        return res.json({ success: false, message: "File upload failed!" });
-    }
-
-    // Access the caption
-    const caption = req.body.caption;
-
-    // Move the file from temporary storage to a more permanent location
-    const oldFileName = fileInfo.path;
-    const newFileName = path.join(__dirname, 'public', 'uploads', fileInfo.originalname);
-
     try {
-        fs.renameSync(oldFileName, newFileName);
+        const fileInfo = req.file;
 
-        console.log("Uploaded with caption:", caption);
+        if (!fileInfo) {
+            return res.json({ success: false, message: "File upload failed!" });
+        }
 
-        // Send a success response after the file is renamed
-        res.json({ success: true, message: "File uploaded successfully!" });
+        // Access the caption
+        const caption = req.body.caption;
+
+        // Ensure the temporary file exists
+        const oldFileName = fileInfo.path;
+
+        await delay(1000); 
+
+        if (!fs.existsSync(oldFileName)) {
+            console.error("Temporary file not found:", oldFileName);
+            return res.json({ success: false, message: "Temporary file not found." });
+        }
+
+        // Specify the new file path
+        const newFileName = path.join(__dirname, 'public', 'uploads', fileInfo.originalname);
+
+        // Move the file
+        // fs.rename(oldFileName, newFileName, (err) => {
+        //     if (err) {
+        //         console.error("Error renaming the file:", err);
+        //         return res.json({ success: false, message: "Error renaming the file." });
+        //     }
+        //     console.log("Uploaded with caption:", caption);
+
+        //     // Send a success response after the file is renamed
+        //     res.json({ success: true, message: "File uploaded successfully!" });
+        // });
+        console.log("Old File Name:", oldFileName);
+        console.log("New File Name:", newFileName);
+
+        fs.rename(oldFileName, newFileName, (err) => {
+            if (err) {
+                console.error("Error renaming the file:", err);
+                return res.json({ success: false, message: "Error renaming the file." });
+            }
+            console.log("Uploaded with caption:", caption);
+
+            // Send a success response after the file is renamed
+            res.json({ success: true, message: "File uploaded successfully!" });
+        });
+
+
     } catch (error) {
-        console.error("Error renaming the file:", error);
+        console.error("Error processing the uploaded photo:", error);
         return res.json({ success: false, message: "There was an error processing the uploaded photo." });
     }
 });
+
+
+
 
 
 
