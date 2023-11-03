@@ -56,7 +56,8 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
 
 // uploading and image and updating it on the blog page
 
-router.post("/uploadPhoto", uploader.single("imageFile"), async (req, res) => {
+router.post("/uploadPhoto", verifyAuthenticated, uploader.single("imageFile"), async (req, res) => {
+    const user = res.locals.user;
     const fileInfo = req.file;
 
     if (!fileInfo) {
@@ -68,17 +69,21 @@ router.post("/uploadPhoto", uploader.single("imageFile"), async (req, res) => {
 
     // Move the file from temporary storage to a more permanent location
     const oldFileName = fileInfo.path;
-    const newFileName = path.join(__dirname, 'public', 'uploads', fileInfo.originalname);
+
+    // static location since we are using middleware to serve images from public folder
+    const newFileStaticLocation = path.join('uploads', fileInfo.originalname)
+    // actual location we want to save the image to
+    const newFileLocation = path.join('public', newFileStaticLocation);
 
     try {
-        fs.renameSync(oldFileName, newFileName);
-
+        fs.renameSync(oldFileName, newFileLocation);
+        usersDao.saveUserPhoto(user.id,newFileStaticLocation,caption);
         console.log("Uploaded with caption:", caption);
 
         // Send a success response after the file is renamed
         res.json({ success: true, message: "File uploaded successfully!" });
     } catch (error) {
-        console.error("Error renaming the file:", error);
+        console.error(error);
         return res.json({ success: false, message: "There was an error processing the uploaded photo." });
     }
 });
