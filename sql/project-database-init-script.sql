@@ -10,8 +10,8 @@ create table users (
     username varchar(64) unique not null,
     password varchar(64) not null,
     name varchar(64),
-    dob date,  -- New Date of Birth field
-    description varchar(256),  -- New Short Description field
+    dob date, 
+    description varchar(256),
     -- avatar varchar(128), need to include this when it works
     authToken varchar(128)
 );

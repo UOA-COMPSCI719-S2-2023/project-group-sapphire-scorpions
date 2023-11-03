@@ -83,8 +83,8 @@ router.post("/newAccount", async function (req, res) {
         username: username,
         password: password,
         name: name,
-        dob: dob,  // <-- Include the date of birth in the user object
-        description: description  // <-- Include the description in the user object
+        dob: dob, 
+        description: description 
         //avatar: avatar 
     };
 
