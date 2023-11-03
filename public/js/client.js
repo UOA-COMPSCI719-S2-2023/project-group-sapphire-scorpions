@@ -25,6 +25,133 @@ document.addEventListener("DOMContentLoaded", () => {
         uploadForm.addEventListener('submit', handleImageUpload);
     }
     
+
+   //#####Tamagotchi Code########
+
+   // Retrieve stored counters from local storage, or initialize to zero if not found
+   let waterCounter = parseInt(localStorage.getItem('waterCounter')) || 0;
+   let sunCounter = parseInt(localStorage.getItem('sunCounter')) || 0;
+   let foodCounter = parseInt(localStorage.getItem('foodCounter')) || 0;
+   let lifeCycleCounter = parseInt(localStorage.getItem('lifeCycleCounter')) || 0;
+   console.log(lifeCycleCounter);
+ 
+   // Define an array to store the stage names
+   const stageNames = ["(seed)", "(root)", "(sprout)", "(baby plant)", "(adult plant)", "(seeding)"];
+ 
+   // Function to update counters and check if they are equal to 3
+   function updateCounter(buttonId, counterId) {
+     if (buttonId === 'water-button' && waterCounter < 3) {
+       waterCounter++;
+       document.getElementById(counterId).textContent = waterCounter;
+     } else if (buttonId === 'sun-button' && sunCounter < 3) {
+       sunCounter++;
+       document.getElementById(counterId).textContent = sunCounter;
+     } else if (buttonId === 'food-button' && foodCounter < 3) {
+       foodCounter++;
+       document.getElementById(counterId).textContent = foodCounter;
+     }
+ 
+     // Check if all counters are equal to 3
+     if (waterCounter === 3 && sunCounter === 3 && foodCounter === 3) {
+       waterCounter = 0;
+       sunCounter = 0;
+       foodCounter = 0;
+       // Increment the lifeCycleCounter when all counters reach 3
+       lifeCycleCounter++;
+ 
+       // Update the life cycle counter in the HTML with the stage name
+       document.getElementById('life-cycle-counter').textContent = `${lifeCycleCounter} ${stageNames[lifeCycleCounter]}`;
+ 
+       // Update the h2 message based on the lifeCycleCounter
+       if (lifeCycleCounter === 0) {
+           document.querySelector("h2").textContent = "You have a seed. Give water, sun, and nutrients to see your sunflower grow roots.";
+         document.querySelector("h2").style.color = "green";
+         document.querySelector(".sunflower-stage-image").src = "./images/sf0.JPG"; //Ana to change!!!!!!!!!!!!
+       } else if (lifeCycleCounter === 1) {
+         document.querySelector("h2").textContent = "Congratulation, you completed stage one. Your sunflower has grown roots.";
+         document.querySelector("h2").style.color = "green";
+         document.querySelector(".sunflower-stage-image").src = "./images/sf2.JPG"; //Ana to change!!!!!!!!!!!!
+       } else if (lifeCycleCounter === 2) {
+         document.querySelector("h2").textContent = "Congratulation, you completed stage two. Your sunflower has sprouted.";
+         document.querySelector("h2").style.color = "green";
+         document.querySelector(".sunflower-stage-image").src = "./images/sf3.JPG"; //Ana to change!!!!!!!!!!!!
+       } else if (lifeCycleCounter === 3) {
+         document.querySelector("h2").textContent = "Congratulation, you completed stage three. Your sunflower is a baby plant.";
+         document.querySelector("h2").style.color = "green";
+         document.querySelector(".sunflower-stage-image").src = "./images/sf4.JPG"; //Ana to change!!!!!!!!!!!!
+       } else if (lifeCycleCounter === 4) {
+         document.querySelector("h2").textContent = "Congratulation, you completed stage four. Your sunflower is an adult plant.";
+         document.querySelector("h2").style.color = "green";
+         document.querySelector(".sunflower-stage-image").src = "./images/sf4.JPG"; //Ana to change!!!!!!!!!!!!
+       } else {
+        document.querySelector("h2").textContent = "Congratulation, completed the entire life cycle. Your sunflower's seeds have fallen.";
+        document.querySelector("h2").style.color = "red";
+        document.querySelector(".sunflower-stage-image").src = "./images/sf5.JPG";
+      }
+     }
+ 
+     // Update local storage
+     localStorage.setItem('waterCounter', waterCounter);
+     localStorage.setItem('sunCounter', sunCounter);
+     localStorage.setItem('foodCounter', foodCounter);
+     localStorage.setItem('lifeCycleCounter', lifeCycleCounter);
+   }
+ 
+   // Add event listeners to the life-needs-buttons
+   document.getElementById('water-button').addEventListener('click', function () {
+     if (lifeCycleCounter < 5) {
+       updateCounter('water-button', 'water-counter');
+     }
+   });
+ 
+   document.getElementById('sun-button').addEventListener('click', function () {
+     if (lifeCycleCounter < 5) {
+       updateCounter('sun-button', 'sun-counter');
+     }
+   });
+ 
+   document.getElementById('food-button').addEventListener('click', function () {
+     if (lifeCycleCounter < 5) {
+       updateCounter('food-button', 'food-counter');
+     }
+   });
+ 
+   // Add event listener to reset-button
+   document.getElementById('reset-button').addEventListener('click', function () {
+     if (lifeCycleCounter < 5) {
+       waterCounter = 0;
+       sunCounter = 0;
+       foodCounter = 0;
+ 
+       document.getElementById('water-counter').textContent = waterCounter;
+       document.getElementById('sun-counter').textContent = sunCounter;
+       document.getElementById('food-counter').textContent = foodCounter;
+     }
+   });
+ 
+   // Add event listener to reset-life-cycle
+   document.getElementById('reset-life-cycle').addEventListener('click', function () {
+     waterCounter = 0;
+     sunCounter = 0;
+     foodCounter = 0;
+     lifeCycleCounter = 0;
+ 
+     document.getElementById('water-counter').textContent = waterCounter;
+     document.getElementById('sun-counter').textContent = sunCounter;
+     document.getElementById('food-counter').textContent = foodCounter;
+     document.getElementById('life-cycle-counter').textContent = `${lifeCycleCounter} (seed)`;
+ 
+     // Clear local storage
+     localStorage.removeItem('waterCounter');
+     localStorage.removeItem('sunCounter');
+     localStorage.removeItem('foodCounter');
+     localStorage.removeItem('lifeCycleCounter');
+     document.querySelector("h2").textContent = "You have a seed. Give water, sun, and nutrients to see your sunflower grow roots";
+     document.querySelector("h2").style.color = "black";
+     document.querySelector(".sunflower-stage-image").src = "./images/sf0.JPG";
+   });
+
+   //#####End Tamagotchi Code########
 });
 
 function handleLogin(event) {
