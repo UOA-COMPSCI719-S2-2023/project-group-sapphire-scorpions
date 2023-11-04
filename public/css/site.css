@@ -176,13 +176,9 @@ img:hover {
     flex-direction: row;
 }
 
-.avatar-buttons button{
+.avatar{
  background-color: var(--beige-light);
  margin: 5px 5px;
-}
-
-.avatar{
-    width: 100%;
 }
 
 .sign-up, .login {

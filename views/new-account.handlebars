@@ -1,14 +1,14 @@
 <body>
-<div class="nav">
-    <div class="left-nav">
-        <a href="/"><button>Home</button></a> <!-- Navigate to the homepage -->
-    </div>
-    <div class="title">
-        <h1>Garden With Me</h1>
+    <div class="nav">
+        <div class="left-nav">
+            <a href="/"><button>Home</button></a> <!-- Navigate to the homepage -->
+        </div>
+        <div class="title">
+            <h1>Garden With Me</h1>
+        </div>
     </div>
 
     <div class="container">
-
         {{! Display a message if one was provided. }}
         {{#if toastMessage}}
         <p>{{toastMessage}}</p>
@@ -18,32 +18,32 @@
         <form action="./newAccount" method="POST">
 
 
-            <!--<div class="flex-col mb">
+            <div class="avatar-buttons">
                 <label>Choose an Avatar:</label>
-                <div class="flex-row align-center mb">
+                <div class="avatar">
                     <input type="radio" name="avatar" id="avatar1" value="avatar1" required>
                     <label for="avatar1">
-                        <img src="/images/placeholderimg.png" alt="Avatar 1" width="50">
+                        <img src="/images/plant1.png" alt="Avatar 1" width="50">
                         <!-- Adjust the path and size as needed -->
-                  <!--  </label>
+                    </label>
                 </div>
 
-                <div class="flex-row align-center mb">
+                <div class="avatar">
                     <input type="radio" name="avatar" id="avatar2" value="avatar2" required>
                     <label for="avatar2">
-                        <img src="/images/placeholderimg.png" alt="Avatar 2" width="50">
+                        <img src="/images/plant2.png" alt="Avatar 2" width="50">
                         <!-- Adjust the path and size as needed -->
-                    <!-- </label>
+                    </label>
                 </div>
 
-                <div class="flex-row align-center mb">
+                <div class="avatar">
                     <input type="radio" name="avatar" id="avatar3" value="avatar3" required>
                     <label for="avatar3">
-                        <img src="/images/placeholderimg.png" alt="Avatar 3" width="50">
+                        <img src="/images/plant3.png" alt="Avatar 3" width="50">
                         <!-- Adjust the path and size as needed -->
-                   <!-- </label>
+                    </label>
                 </div>
-            </div> -->
+            </div>
 
             <div class="flex-col mb">
                 <label for="txtUsername">Username:</label>
@@ -65,18 +65,19 @@
                 <input type="text" name="name" id="txtName" required>
             </div>
 
-             <!-- Date of Birth Field -->
-                <div class="flex-col mb">
-                    <label for="dob">Date of Birth:</label>
-                    <input type="date" name="dob" id="dob" required>
-                </div>
+            <!-- Date of Birth Field -->
+            <div class="flex-col mb">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" name="dob" id="dob" required>
+            </div>
 
-                <!-- Short Description Field -->
-                <div class="flex-col mb">
-                    <label for="description">Short Description:</label>
-                    <textarea name="description" id="description" rows="4" placeholder="Tell us a bit about yourself..."></textarea>
-                </div>
-                
+            <!-- Short Description Field -->
+            <div class="flex-col mb">
+                <label for="description">Short Description:</label>
+                <textarea name="description" id="description" rows="4"
+                    placeholder="Tell us a bit about yourself..."></textarea>
+            </div>
+
             <div class="flex-row justify-sb align-center">
                 <button type="submit">Create account</button>
             </div>
@@ -84,8 +85,5 @@
         </form>
 
     </div>
-    </div>
 
-
-
-    </body>
+</body>
