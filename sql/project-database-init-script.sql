@@ -21,7 +21,8 @@ create table user_photos (
     id integer not null primary key,
     userId integer not null,
     photoPath varchar(256) not null,
-    description varchar(256),  -- you can adjust the size as needed
+    blogContentConst varchar(256),  -- you can adjust the size as needed
+    caption VARCHAR(256),
     foreign key (userId) references users(id)
 );
 
