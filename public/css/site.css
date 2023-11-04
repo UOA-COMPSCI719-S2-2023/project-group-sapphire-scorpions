@@ -18,7 +18,7 @@
 
 * {
     font-family: Verdana, Geneva, sans-serif;
-    /* border: 1px solid red; */
+    border: 1px solid red;
 }
 
 /* following for all pages  */
@@ -40,15 +40,15 @@ body {
 
 .nav {
     grid-area: nav;
-    width: 100%;
+    width: 100vw;
     height: 20vh;
     margin: auto;
-    padding: 0px;
+    padding: 10px;
     background-color: var(--olive-green);
     color: var(--beige-light);
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     box-shadow: 4px 4px 10px grey;
     z-index: 5;
@@ -57,6 +57,9 @@ body {
 .left-nav, .right-nav {
     margin: 0px 50px ;
     padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .left-nav button, .right-nav button, .profile-nav-links button, .about-profile-body button{
@@ -116,6 +119,15 @@ button:hover {
 
 /* following for website home page */
 
+/* #website-home-nav{
+    width: 100vw;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
 .middle-home-body{
     background-color: var(--pale-yellow);
     margin: 10px 10px;
@@ -126,6 +138,16 @@ button:hover {
     "link-blog-image description"
     "link-blog-image description"
     "link-blog-image find-more-in-explore";
+}
+
+#login-button-website-home{
+    color: var(--dark-green);
+    padding: 10px;
+    font-size: larger;
+}
+
+#login-button-website-home:hover{
+    background-color: var(--beige-medium);
 }
 
 .description {
@@ -145,25 +167,14 @@ img:hover {
     transition: transform 0.2s ease-in-out;
 }
 
-.find-more-in-explore{
-    grid-area: find-more-in-explore ;
-    width: min-content;
-    height: min-content;
-    margin: auto;
-    background-color: var(--beige-medium);
-    outline: none;
-    border: none;
-    box-shadow: none;
-    color: var(--dark-green);
-}
-
 /* following for login/signup page  */
 
-#login-body{
+#login-body,.new-account-body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 80vh;
     margin: 0;
     background-image: url("https://images.unsplash.com/photo-1597764983031-60a74afb8692?auto=format&fit=crop&q=80&w=3431&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size:cover;
@@ -182,8 +193,9 @@ img:hover {
 }
 
 .sign-up, .login {
-    height: 80vh;
+    height: auto;
     margin: 0px 150px;
+    text-align: justify;
     background-color: var(--beige-medium);
     padding: 50px;
     border-radius: 15px;
@@ -224,24 +236,20 @@ button:focus {
 }
 
 /* following for profile page  */
-#profile-nav{
-    flex-direction: column;
-    align-content: center;
-}
-
-.profile-name{
-    padding: 0;
-    margin-top: 30px;
-}
-
-.profile-nav-links{
-    padding: 0;
-    margin-bottom: 30px;
-}
 
 .about-profile-body{
     display: flex;
     flex-direction: row;
+}
+
+.about-me-body{
+ display: flex;
+ flex-direction: column;
+}
+
+.about-me-text{
+    margin: 5px;
+
 }
 
 .profile-image{
@@ -258,7 +266,9 @@ border-radius: 15px;
 }
 
 .about-me-section{
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    width: auto;
     text-align: justify;
     font-size: medium;
     line-height: 1.6;

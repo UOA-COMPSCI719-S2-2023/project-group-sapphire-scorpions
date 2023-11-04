@@ -1,14 +1,15 @@
 <body>
     <div class="nav">
-        <div class="left-nav">
-            <a href="/"><button>Home</button></a> <!-- Navigate to the homepage -->
-        </div>
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
+        <div class="left-nav">
+            <a href="/"><button>Home</button></a> <!-- Navigate to the homepage -->
+        </div>
     </div>
 
-    <div class="container">
+    <div class="new-account-body">
+        <div class="sign-up">
         {{! Display a message if one was provided. }}
         {{#if toastMessage}}
         <p>{{toastMessage}}</p>
@@ -16,7 +17,6 @@
 
         <h1>New Account</h1>
         <form action="./newAccount" method="POST">
-
 
             <div class="avatar-buttons">
                 <label>Choose an Avatar:</label>
@@ -83,6 +83,7 @@
             </div>
 
         </form>
+        </div>
 
     </div>
 

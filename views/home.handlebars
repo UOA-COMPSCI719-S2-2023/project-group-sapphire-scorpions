@@ -1,32 +1,29 @@
 <body>
     <div class="nav">
-        <div class="left-nav">
-            <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
-            <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
-        </div>
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
         <div class="right-nav">
             <a href="/"><button>Home</button></a>
+            <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
+            <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
+            <img id="profile-dp" src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
         </div>
     </div>
 
     <div class="blog-body">
-
         <div class="about-profile-body">
             <div class="about-me-section">
                 <h1>Hello, {{user.name}}!</h1>
                 <p>This is your homepage!</p>
-                <div class="about-profile-body">
+                <div class="about-me-body">
                     <h2>About Me:</h2>
                     <p class="about-me-text"> {{user.description}}!</p>
-                    {{!-- <img src="{{user.avatar}}" alt="User's Avatar" class="user-avatar"> --}}
                     <p>Click <a href="./logout">here</a> to log out.</p>
                 </div>
             </div>
             <div class="profile-image">
-                <img id="profile-dp" src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
+                <img id="profile-dp" src="" alt="User's dp" id="#profile-dp">
                 <!-- Assuming a route to edit profile image -->
                 <a href="/edit-profile-image"><button>Change Picture</button></a>
             </div>
