@@ -95,8 +95,8 @@
             {{#each photos}}
             <div class="photo-entry">
                 <img src="{{this.photoPath}}" alt="Uploaded photo">
-                <p class="blog-content">{{{user_photos.blogContentConst}}}</p>
-                <p class="caption">{{{caption}}}</p>
+                <p class="blog-content">{{{this.blogContentConst}}}</p>
+                <p class="caption">{{{this.caption}}}</p>
                 <button class="remove-image-button">Remove</button>
             </div>
             {{/each}}
