@@ -1,36 +1,47 @@
 <body>
-<div class="nav">
+    <div class="nav">
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
-        
-<div class="container">
+    </div>
 
-    {{! Display a toast message if one was provided. }}
-    {{#if toastMessage}}
-    <p>{{toastMessage}}</p>
-    {{/if}}
+    <div class="blog-body" id="login-body">
 
-    <h1>Login</h1>
-    <form action="./login" method="POST">
-        <div class="flex-col mb">
-            <label for="txtUsername">Username:</label>
-            <input type="text" name="username" id="txtUsername" required>
+        {{! Display a toast message if one was provided. }}
+        {{#if toastMessage}}
+        <p>{{toastMessage}}</p>
+        {{/if}}
+
+        <div class="login">
+            <h1>Login to existing account:</h1>
+            <form action="./login" method="POST">
+                <div class="flex-col mb">
+                    <label for="txtUsername">Username:</label>
+                    <input type="text" name="username" id="txtUsername" required>
+                </div>
+
+                <div class="flex-col mb">
+                    <label for="txtPassword">Password:</label>
+                    <input type="password" name="password" id="txtPassword" required>
+                </div>
+
+                <div class="flex-row justify-sb align-center">
+                    <button type="submit">Log in</button>
+                </div>
+            </form>
+
+            <p>Don't have an account? <a href="./newAccount">Create one here.</a></p>
         </div>
-
-        <div class="flex-col mb">
-            <label for="txtPassword">Password:</label>
-            <input type="password" name="password" id="txtPassword" required>
-        </div>
-
-        <div class="flex-row justify-sb align-center">
-            <button type="submit">Log in</button>
-        </div>
-    </form>
-
-    <p>Don't have an account? <a href="./newAccount">Create one here.</a></p>
-
-</div>
-</div>
-
+    </div>
+    <div class="footer">
+        <h3>About Garden With Me</h3>
+        <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+            join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+            own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+            on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+            magical, one reader at a time.</p>
+        <br>
+        <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or sell
+            your information to any organization.</p>
+    </div>
 </body>

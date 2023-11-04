@@ -10,11 +10,9 @@ router.get("/login", function (req, res) {
     if (res.locals.user) {
         res.redirect("/");
     }
-
     else {
         res.render("login");
     }
-
 });
 
 // Whenever we POST to /login, check the username and password submitted by the user.
