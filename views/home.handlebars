@@ -79,8 +79,8 @@
                 </div>
 
                 <div class="flex-col mb">
-                    <label for="txtCaption">Caption:</label>
-                    <input type="text" name="caption" id="txtCaption">
+                    <label for="caption">Caption:</label>
+                    <input type="text" name="caption" id="caption">
                 </div>
 
                 <button type="submit">Upload!</button>
@@ -95,7 +95,8 @@
             {{#each photos}}
             <div class="photo-entry">
                 <img src="{{this.photoPath}}" alt="Uploaded photo">
-                <p>{{{this.description}}}</p>
+                <p class="blog-content">{{{user_photos.blogContentConst}}}</p>
+                <p class="caption">{{{caption}}}</p>
                 <button class="remove-image-button">Remove</button>
             </div>
             {{/each}}
