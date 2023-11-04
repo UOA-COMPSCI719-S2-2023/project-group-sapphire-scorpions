@@ -4,80 +4,100 @@
             <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
             <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
         </div>
-
-        <div class="right-nav">
-            <a href="/"><button>Home</button></a>
-        </div>
-
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
+        <div class="right-nav">
+            <a href="/"><button>Home</button></a>
+        </div>
     </div>
 
-    <div class="container">
+    <div class="blog-body">
 
-        <h1>Hello, {{user.name}}!</h1>
-        <p>This is your homepage!</p>
-        <p>A bit about me!, {{user.description}}!</p>
-        <img src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
-        <p>Click <a href="./logout">here</a> to log out.</p>
+        <div class="about-profile-body">
+            <div class="about-me-section">
+                <h1>Hello, {{user.name}}!</h1>
+                <p>This is your homepage!</p>
+                <div class="about-profile-body">
+                    <h2>About Me:</h2>
+                    <p class="about-me-text"> {{user.description}}!</p>
+                    {{!-- <img src="{{user.avatar}}" alt="User's Avatar" class="user-avatar"> --}}
+                    <p>Click <a href="./logout">here</a> to log out.</p>
+                </div>
+            </div>
+            <div class="profile-image">
+                <img id="profile-dp" src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
+                <!-- Assuming a route to edit profile image -->
+                <a href="/edit-profile-image"><button>Change Picture</button></a>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>You have a seed. Give water, sun, and nutrients to see your sunflower grow roots</h2>
+            <div class="tamagotchi-section">
+                <div class="tamagotchi-container">
+                    <div class="tamagotchi">
+                        <h1>SUNFLOWER LIFECYCLE!</h1>
+                        <h3>Life Cycle Counter: <span id="life-cycle-counter"></span></h3>
+                        <button id="reset-life-cycle">Initialize Life Cycle</button>
+                        <div>
+                            <img class="sunflower-stage-image" src="./images/sf0.JPG">
+                        </div>
+
+                        <div class="life-needs-buttons">
+                            <button id="water-button">Water: <span id="water-counter">0</span><img
+                                    src="./images/water.png" width="100" height="100"></button>
+                            <button id="sun-button">Sun: <span id="sun-counter">0</span><img src="./images/sun.png"
+                                    width="100" height="100"></button>
+                            <button id="food-button">food: <span id="food-counter">0</span><img src="./images/food.JPG"
+                                    width="100" height="100"></button>
+                            <button id="reset-button">Initialize Counters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <h3>Create a blog post</h3>
 
-        
-<form id="uploadForm" action="/uploadPhoto" method="POST" enctype="multipart/form-data">
 
-    <div class="flex-col mb">
-        <label for="blogContent"></label>
-        <textarea name="blogContent" id="blogContent"></textarea>
-        <script>
-            function getEditorContent() {
-                var content = tinymce.get("blogContent").getContent();
-                alert("Blog Content:\n" + content);
-            }
-        </script>
-    </div>
+        <form id="uploadForm" action="/uploadPhoto" method="POST" enctype="multipart/form-data">
 
-    <div class="flex-col mb">
-        <label for="inpFile">Upload an image here:</label>
-        <input type="file" name="imageFile" id="inpFile" accept=".png, .jpg, .jpeg, .bmp" required>
-    </div>
+            <div class="flex-col mb">
+                <label for="blogContent"></label>
+                <textarea name="blogContent" id="blogContent"></textarea>
+                <script>
+                    function getEditorContent() {
+                        var content = tinymce.get("blogContent").getContent();
+                        alert("Blog Content:\n" + content);
+                    }
+                </script>
+            </div>
 
-    <div class="flex-col mb">
-        <label for="txtCaption">Caption:</label>
-        <input type="text" name="caption" id="txtCaption">
-    </div>
+            <div class="flex-col mb">
+                <label for="inpFile">Upload an image here:</label>
+                <input type="file" name="imageFile" id="inpFile" accept=".png, .jpg, .jpeg, .bmp" required>
+            </div>
 
-    <button type="submit">Upload!</button>
+            <div class="flex-col mb">
+                <label for="txtCaption">Caption:</label>
+                <input type="text" name="caption" id="txtCaption">
+            </div>
 
-    {{#if photoUploadMessage}}
-    <p> {{photoUploadMessage}}</p>
-    {{/if}}
-</form>
+            <button type="submit">Upload!</button>
 
-{{#each photos}}
-<div class="photo-entry">
-    <img src="{{this.photoPath}}" alt="Uploaded photo">
-    <p>{{{this.description}}}</p>
-    <button class="remove-image-button">Remove</button>
-</div>
-{{/each}}
+            {{#if photoUploadMessage}}
+            <p> {{photoUploadMessage}}</p>
+            {{/if}}
+        </form>
 
-
-         <h1>SUNFLOWER LIFECYCLE!</h1>
-    <h2>You have a seed. Give water, sun, and nutrients to see your sunflower grow roots</h2>
-    <h3>Life Cycle Counter: <span id="life-cycle-counter"></span></h3>
-    <button id="reset-life-cycle">Initialize Life Cycle</button>
-    <div>
-        <img class="sunflower-stage-image" src="./images/sf0.JPG">
-    </div>
-
-    <div class="life-needs-buttons">
-        <button id="water-button">Water: <span id="water-counter">0</span><img src="./images/water.png" width="100" height="100"></button>
-        <button id="sun-button">Sun: <span id="sun-counter">0</span><img src="./images/sun.png" width="100" height="100"></button>
-        <button id="food-button">food: <span id="food-counter">0</span><img src="./images/food.JPG" width="100" height="100"></button>
-        <button id="reset-button">Initialize Counters</button>
-    </div>
+        {{#each photos}}
+        <div class="photo-entry">
+            <img src="{{this.photoPath}}" alt="Uploaded photo">
+            <p>{{{this.description}}}</p>
+            <button class="remove-image-button">Remove</button>
+        </div>
+        {{/each}}
 
         <h3>Send a message</h3>
         <form action="./sendMessage" method="POST">
@@ -87,8 +107,8 @@
             </div>
 
             <div class="flex-col mb">
-            <label for="txtContent"></label>
-            <textarea name="txtContent" id="txtContent"></textarea>
+                <label for="txtContent"></label>
+                <textarea name="txtContent" id="txtContent"></textarea>
                 <script>
                     function getEditorContent() {
                         var content = tinymce.get("txtContent").getContent();
@@ -129,5 +149,17 @@
         <p>You have no messages!</p>
         {{/if}}
 
+    </div>
+    <div class="footer">
+        <h3>About Garden With Me</h3>
+        <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+            join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+            own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+            on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+            magical, one reader at a time.</p>
+        <br>
+        <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or
+            sell
+            your information to any organization.</p>
     </div>
 </body>

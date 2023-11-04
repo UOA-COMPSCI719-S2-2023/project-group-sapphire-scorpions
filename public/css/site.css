@@ -315,7 +315,7 @@ border-radius: 15px;
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.dont-kill-my-plant-image {
+.sunflower-stage-image {
     max-width: 350px;
     margin: 10px 0;
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -323,7 +323,7 @@ border-radius: 15px;
     border: 2px solid black;
 }
 
-.tamagotchi-buttons {
+.life-needs-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -331,7 +331,7 @@ border-radius: 15px;
     width: 100%;
 }
 
-.tamagotchi-buttons button {
+.life-needs-buttons button {
     background-color: var(--pale-yellow);
     border: 2px solid black;
     border-radius: 50%;
@@ -344,7 +344,7 @@ border-radius: 15px;
     align-items: center;
 }
 
-.tamagotchi-buttons button img {
+.life-needs-buttons button img {
     max-width: 120%;
     max-height: 120%;
 }
