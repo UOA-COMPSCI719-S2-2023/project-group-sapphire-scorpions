@@ -111,9 +111,16 @@ router.post("/sendMessage", verifyAuthenticated, async function (req, res) {
 });
 
 //Explorer route:
-router.get("/explore", verifyAuthenticated, function (req, res) {
-    res.render("explore");
+router.get("/explore", async (req, res) => {
+    try {
+        const photos = await usersDao.getAllPhotos();
+        res.render("explore", { photos: photos });
+    } catch (error) {
+        console.error("Error fetching images:", error);
+        res.status(500).send("An error occurred while trying to display the explore page.");
+    }
 });
+
 
 //Daily quiz route
 router.get("/daily-quiz", verifyAuthenticated, function (req, res) {

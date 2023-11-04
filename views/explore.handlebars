@@ -11,9 +11,14 @@
             <a href="/login"><button>Login</button></a> <!-- Navigate to the login/signup page -->
         </div>
     </div>
-    <div class="explore-body">
-        <img src="/images/placeholderimg.png">
-        <img src="/images/placeholderimg.png">
-        <img src="/images/placeholderimg.png">
+   <div class="explore-container">
+  {{#each photos}}
+    <div class="photo-card">
+      <img src="{{this.photoPath}}" alt="User photo"> <!-- Display the photo -->
+      <p>{{this.description}}</p> <!-- Display the photo's description -->
     </div>
-</body>
+  {{/each}}
+</div>
+
+    </div>
+    </body>
