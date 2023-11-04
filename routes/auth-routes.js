@@ -10,11 +10,9 @@ router.get("/login", function (req, res) {
     if (res.locals.user) {
         res.redirect("/");
     }
-
     else {
         res.render("login");
     }
-
 });
 
 // Whenever we POST to /login, check the username and password submitted by the user.
@@ -67,21 +65,25 @@ router.post("/newAccount", async function (req, res) {
 
     const username = req.body.username;
     const password = req.body.password;
-    const confirmPassword = req.body.confirmPassword; // Retrieve the confirmed password from the request
+    const confirmPassword = req.body.confirmPassword; 
     const name = req.body.name;
-    //const avatar = req.body.avatar; // Retrieve the chosen avatar from the request
+    const dob = req.body.dob;  // <-- Retrieve the date of birth from the request
+    const description = req.body.description;  // <-- Retrieve the description from the request
+    //const avatar = req.body.avatar; 
 
     // Check if passwords match
     if (password !== confirmPassword) {
         res.setToastMessage("Passwords do not match!");
-        return res.redirect("/newAccount"); // Redirect back to the new account page
+        return res.redirect("/newAccount"); 
     }
 
     const user = {
         username: username,
         password: password,
         name: name,
-        //avatar: avatar // Include the avatar in the user object
+        dob: dob, 
+        description: description 
+        //avatar: avatar 
     };
 
     try {
@@ -93,14 +95,11 @@ router.post("/newAccount", async function (req, res) {
         if (err.code === 'SQLITE_CONSTRAINT') {
             res.setToastMessage("That username was already taken!");
         } else {
-            res.setToastMessage("An error occurred. Please try again."); // Generic error message
+            res.setToastMessage("An error occurred. Please try again."); 
         }
         res.redirect("/newAccount");
     }
-    
-
 });
-
 
 
 module.exports = router;

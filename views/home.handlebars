@@ -1,132 +1,176 @@
 <body>
     <div class="nav">
-        <div class="left-nav">
-            <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
-            <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
-        </div>
-
-        <div class="right-nav">
-            <a href="/"><button>Home</button></a>
-        </div>
-
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
+        <div class="right-nav">
+            <a href="/"><button>Home</button></a>
+            <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
+            <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
+            <img id="profile-dp" src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
+        </div>
     </div>
 
-    <div class="container">
-
-        <h1>Hello, {{user.name}}!</h1>
-        <p>This is your homepage!</p>
-        <img src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
-        <p>Click <a href="./logout">here</a> to log out.</p>
-
-        <h3>Create a blog post</h3>
-
-        
-<form id="uploadForm" action="/uploadPhoto" method="POST" enctype="multipart/form-data">
-
-    <div class="flex-col mb">
-        <label for="blogContent"></label>
-        <textarea name="blogContent" id="blogContent"></textarea>
-        <script>
-            function getEditorContent() {
-                var content = tinymce.get("blogContent").getContent();
-                alert("Blog Content:\n" + content);
-            }
-        </script>
-    </div>
-
-    <div class="flex-col mb">
-        <label for="inpFile">Upload an image here:</label>
-        <input type="file" name="imageFile" id="inpFile" accept=".png, .jpg, .jpeg, .bmp" required>
-    </div>
-
-    <div class="flex-col mb">
-        <label for="txtCaption">Caption:</label>
-        <input type="text" name="caption" id="txtCaption">
-    </div>
-
-    <button type="submit">Upload!</button>
-
-    {{#if photoUploadMessage}}
-    <p> {{photoUploadMessage}}</p>
-    {{/if}}
-</form>
-
-{{#each photos}}
-<div class="photo-entry">
-    <img src="{{this.photoPath}}" alt="Uploaded photo">
-    <p>{{{this.description}}}</p>
-    <button class="remove-image-button">Remove</button>
-</div>
-{{/each}}
-
-
-         <h1>SUNFLOWER LIFECYCLE!</h1>
-    <h2>You have a seed. Give water, sun, and nutrients to see your sunflower grow roots</h2>
-    <h3>Life Cycle Counter: <span id="life-cycle-counter"></span></h3>
-    <button id="reset-life-cycle">Initialize Life Cycle</button>
-    <div>
-        <img class="sunflower-stage-image" src="./images/sf0.JPG">
-    </div>
-
-    <div class="life-needs-buttons">
-        <button id="water-button">Water: <span id="water-counter">0</span><img src="./images/water.png" width="100" height="100"></button>
-        <button id="sun-button">Sun: <span id="sun-counter">0</span><img src="./images/sun.png" width="100" height="100"></button>
-        <button id="food-button">food: <span id="food-counter">0</span><img src="./images/food.JPG" width="100" height="100"></button>
-        <button id="reset-button">Initialize Counters</button>
-    </div>
-
-        <h3>Send a message</h3>
-        <form action="./sendMessage" method="POST">
-            <div class="flex-col mb">
-                <label for="txtReceiver">To (username):</label>
-                <input type="text" name="receiver" id="txtReceiver" required>
+    <div class="blog-body">
+        <div class="about-profile-body">
+            <div class="about-me-section">
+                <h1>Hello, {{user.name}}!</h1>
+                <p>This is your homepage!</p>
+                <div class="about-me-body">
+                    <h2>About Me:</h2>
+                    <p class="about-me-text"> {{user.description}}!</p>
+                    <p>Click <a href="./logout">here</a> to log out.</p>
+                </div>
             </div>
-
-            <div class="flex-col mb">
-            <label for="txtContent"></label>
-            <textarea name="txtContent" id="txtContent"></textarea>
-                <script>
-                    function getEditorContent() {
-                        var content = tinymce.get("txtContent").getContent();
-                        alert("Text Content:\n" + content);
-                    }
-                </script>
+            <div class="profile-image">
+                <img id="profile-dp"
+                    src="https://images.unsplash.com/photo-1604751344909-7dafcca7e760?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="dp" id="#profile-dp">
+                <!-- Assuming a route to edit profile image -->
+                <a href="/edit-profile-image"><button>Change Picture</button></a>
             </div>
+        </div>
 
-            <div class="flex-row justify-sb align-center">
-                <button type="submit">Send!</button>
-                {{#if toastMessage}}
-                <p> {{toastMessage}}</p>
-                {{/if}}
+        <div class="instructions">
+            <div class="tamagotchi-section">
+                <p>Instructions: You have a seed. Give water, sun, and nutrients to see your sunflower grow roots</p>
+                <div class="tamagotchi-container">
+                    <div class="tamagotchi">
+                        <h1>SUNFLOWER LIFECYCLE!</h1>
+                        <h3>Life Cycle Counter: <span id="life-cycle-counter"></span></h3>
+                        <div>
+                            <img class="sunflower-stage-image" src="./images/sf0.JPG">
+                        </div>
+
+                        <div class="life-needs-buttons">
+                            <button id="water-button"><span id="water-counter">0</span><img src="./images/water.png"
+                                    width="100" height="100"></button>
+                            <button id="sun-button"><span id="sun-counter">0</span><img src="./images/sun.png"
+                                    width="100" height="100"></button>
+                            <button id="food-button"><span id="food-counter">0</span><img src="./images/food.png"
+                                    width="100" height="100"></button>
+                        </div>
+                    </div>
+                </div>
+                <button id="reset-life-cycle">Restart Life Cycle</button>
+                <button id="reset-button">Reset Buttons</button>
             </div>
-        </form>
+        </div>
 
-        <h3>Your received messages</h3>
-        {{#if messages}}
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Date / Time</th>
-                    <th>Sender</th>
-                    <th>Content</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#each messages}}
-                <tr>
-                    <td>{{timestamp}}</td>
-                    <td>{{senderUsername}}</td>
-                    <td>{{content}}</td>
-                </tr>
-                {{/each}}
-            </tbody>
-        </table>
-        {{else}}
-        <p>You have no messages!</p>
-        {{/if}}
+        <button id="toggleButton">Show/Hide Blog Posting Form</button>
+        <div class="blog-post-body">
+            <h3>Create a blog post</h3>
+            <form id="uploadForm" action="/uploadPhoto" method="POST" enctype="multipart/form-data">
 
+                <div class="flex-col mb">
+                    <label for="blogContent"></label>
+                    <textarea name="blogContent" id="blogContent"></textarea>
+                    <script>
+                        function getEditorContent() {
+                            var content = tinymce.get("blogContent").getContent();
+                            alert("Blog Content:\n" + content);
+                        }
+                    </script>
+                </div>
+
+                <div class="flex-col mb">
+                    <label for="inpFile">Upload an image here:</label>
+                    <input type="file" name="imageFile" id="inpFile" accept=".png, .jpg, .jpeg, .bmp" required>
+                </div>
+
+                <div class="flex-col mb">
+                    <label for="caption">Caption:</label>
+                    <input type="text" name="caption" id="caption">
+                </div>
+
+                <button type="submit">Upload!</button>
+        </div>
+        <div class="new-blog-posts">
+
+            {{#if photoUploadMessage}}
+            <p> {{photoUploadMessage}}</p>
+            {{/if}}
+            </form>
+
+            {{#each photos}}
+            <div class="photo-entry">
+                <img src="{{this.photoPath}}" alt="Uploaded photo">
+                <p class="blog-content">{{{user_photos.blogContentConst}}}</p>
+                <p class="caption">{{{caption}}}</p>
+                <button class="remove-image-button">Remove</button>
+            </div>
+            {{/each}}
+
+        </div>
+
+        <button id="toggleButtonForMessages">Show/Hide Messaging Form</button>
+        <div class="message-function">
+            <h3>Send a message</h3>
+            <form action="./sendMessage" method="POST">
+                <div class="flex-col mb">
+                    <label for="txtReceiver">To (username):</label>
+                    <input type="text" name="receiver" id="txtReceiver" required>
+                </div>
+
+                <div class="flex-col mb">
+                    <label for="txtContent"></label>
+                    <textarea name="txtContent" id="txtContent"></textarea>
+                    <script>
+                        function getEditorContent() {
+                            var content = tinymce.get("txtContent").getContent();
+                            alert("Text Content:\n" + content);
+                        }
+                    </script>
+                </div>
+
+                <div class="flex-row justify-sb align-center">
+                    <button type="submit">Send!</button>
+                    {{#if toastMessage}}
+                    <p> {{toastMessage}}</p>
+                    {{/if}}
+                </div>
+            </form>
+        </div>
+
+        <div class="my-messages">
+
+            <h3>Your received messages</h3>
+            {{#if messages}}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Date / Time</th>
+                        <th>Sender</th>
+                        <th>Content</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each messages}}
+                    <tr>
+                        <td>{{timestamp}}</td>
+                        <td>{{senderUsername}}</td>
+                        <td>{{content}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+            {{else}}
+            <p>You have no messages!</p>
+            {{/if}}
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <h3>About Garden With Me</h3>
+        <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+            join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+            own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+            on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+            magical, one reader at a time.</p>
+        <br>
+        <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or
+            sell
+            your information to any organization.</p>
     </div>
 </body>
