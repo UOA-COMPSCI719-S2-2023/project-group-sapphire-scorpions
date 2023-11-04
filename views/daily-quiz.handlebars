@@ -1,4 +1,72 @@
 <body>
+    <div class="container">
+        <div class="nav">
+            <div class="left-nav">
+                <a href="/"><button>Home</button></a>
+                <a href="/daily-quiz"><button>Daily Quiz</button></a>
+            </div>
+            <div class="title">
+                <h1>Garden With Me</h1>
+            </div>
+            <div class="right-nav">
+                <a href="/explore"><button>Explore</button></a>
+                <a href="/login-signup"><button>Login</button></a>
+            </div>
+        </div>
+        <div class="blog-body" id="daily-quiz-page">
+            <div class="scoreboard">
+                <h3>Scoreboard</h3>
+                <div class="scoreboard-list">
+                    <ul>
+                        <li>
+                            <img class="scoreboard-avatar" src="/images/plant1.png">
+                            <span class="username">Jane</span>
+                            <span class="score">100 Points</span>
+                        </li>
+                        <li>
+                            <img class="scoreboard-avatar" src="/images/plant2.png">
+                            <span class="username">John</span>
+                            <span class="score">150 Points</span>
+                        </li>
+                    </ul>
+                    <br>
+                    <h3>Your Score</h3>
+                    <div>
+                        <img class="scoreboard-avatar" src="/images/plant2.png">
+                        <span class="my-username">Anna</span>
+                        <span class="score" id="my-score">150 Points</span>
+                    </div>
+                </div>
+            </div>
+            <div class="quiz">
+                <h2>Question <span id="question-number">1</span>:</h2>
+                <p>What is the term for the practice of trimming and shaping a plant to control its growth and
+                    appearance?</p>
+                <div class="multichoice">
+                    <button><span id="A">Watering</span></button>
+                    <button><span id="B">Fertilising</span></button>
+                    <button><span id="C">Pruning</span></button>
+                    <button><span id="D">Mulching</span></button>
+                </div>
+                <!-- Assuming a function or route for "Next" -->
+                <button id="nextBtn">Next</button>
+            </div>
+        </div>
+        <div class="footer">
+            <h3>About Garden With Me</h3>
+            <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
+                join us on this journey of discovery, where you can exchange ideas, seek advice, and showcase your
+                own flourishing havens. Whether you're tending to roses in the countryside or nurturing succulents
+                on a city windowsill, Garden With Me is here to inspire and unite, making every garden a little more
+                magical, one reader at a time.</p>
+            <br>
+            <p class="copyright">Copyright 2023 - Garden With Me. All rights reserved. We will never rent, trade or sell
+                your information to any organization.</p>
+        </div>
+    </div>
+</body>
+
+{{!-- <body>
     <div class="nav">
         <div class="left-nav">
             <a href="/explore"><button>Explore</button></a>
@@ -37,3 +105,4 @@
         </div>
     </div>
 </body>
+ --}}
