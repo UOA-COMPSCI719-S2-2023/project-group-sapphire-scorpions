@@ -1,42 +1,74 @@
 <body>
     <div class="nav">
-        <div class="left-nav">
-            <a href="/"><button>Home</button></a> <!-- Navigate to the homepage -->
-        </div>
+
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
+        <div class="left-nav">
+            <a href="/"><button>Home</button></a> <!-- Navigate to the homepage -->
+        </div>
+    </div>
 
-        <div class="container">
-
-            {{! Display a message if one was provided. }}
-            {{#if toastMessage}}
-            <p>{{toastMessage}}</p>
-            {{/if}}
+    <div class="new-account-body">
+        <div class="sign-up">
+        {{! Display a message if one was provided. }}
+        {{#if toastMessage}}
+        <p>{{toastMessage}}</p>
+        {{/if}}
 
             <h1>New Account</h1>
             <form action="./newAccount" method="POST">
 
 
-                <div class="flex-col mb">
-                    <label for="txtUsername">Username:</label>
-                    <input type="text" name="username" id="txtUsername" required>
+            <div class="avatar-buttons">
+                <label>Choose an Avatar:</label>
+                <div class="avatar">
+                    <input type="radio" name="avatar" id="avatar1" value="/images/plant1.png" required>
+                    <label for="avatar1">
+                        <img src="/images/plant1.png" alt="Avatar 1" width="50">
+                        <!-- Adjust the path and size as needed -->
+                    </label>
                 </div>
 
-                <div class="flex-col mb">
-                    <label for="txtPassword">Password:</label>
-                    <input type="password" name="password" id="txtPassword" required>
+                <div class="avatar">
+                    <input type="radio" name="avatar" id="avatar2" value="/images/plant2.png" required>
+                    <label for="avatar2">
+                        <img src="/images/plant2.png" alt="Avatar 2" width="50">
+                        <!-- Adjust the path and size as needed -->
+                    </label>
                 </div>
 
-                <div class="flex-col mb">
-                    <label for="txtConfirmPassword">Confirm Password:</label>
-                    <input type="password" name="confirmPassword" id="txtConfirmPassword" required>
+                <div class="avatar">
+                    <input type="radio" name="avatar" id="avatar3" value="/images/plant3.png" required>
+                    <label for="avatar3">
+                        <img src="/images/plant3.png" alt="Avatar 3" width="50">
+                        <!-- Adjust the path and size as needed -->
+                    </label>
                 </div>
+            </div>
+
+            <div class="flex-col mb">
+                <label for="txtUsername">Username:</label>
+                <input type="text" name="username" id="txtUsername" required>
+            </div>
+
+            <div class="flex-col mb">
+                <label for="txtPassword">Password:</label>
+                <input type="password" name="password" id="txtPassword" required>
+            </div>
+
+            <div class="flex-col mb">
+                <label for="txtConfirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="txtConfirmPassword" required>
+            </div>
+
 
                 <div class="flex-col mb">
                     <label for="txtName">Name:</label>
                     <input type="text" name="name" id="txtName" required>
                 </div>
+
+
 
                 <!-- Date of Birth Field -->
                 <div class="flex-col mb">
@@ -58,6 +90,7 @@
             </form>
 
         </div>
+
     </div>
 
 </body>

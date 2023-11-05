@@ -40,15 +40,15 @@ body {
 
 .nav {
     grid-area: nav;
-    width: 100%;
+    width: 100vw;
     height: 20vh;
     margin: auto;
-    padding: 0px;
+    padding: 10px;
     background-color: var(--olive-green);
     color: var(--beige-light);
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
     box-shadow: 4px 4px 10px grey;
     z-index: 5;
@@ -57,6 +57,9 @@ body {
 .left-nav, .right-nav {
     margin: 0px 50px ;
     padding: 10px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .left-nav button, .right-nav button, .profile-nav-links button, .about-profile-body button{
@@ -71,7 +74,7 @@ body {
 button {
     color: white;
     cursor: pointer;
-    background-color: transparent;
+    background-color: var(--beige-neutral);
     outline: none;
     border: none;
 }
@@ -116,6 +119,15 @@ button:hover {
 
 /* following for website home page */
 
+/* #website-home-nav{
+    width: 100vw;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+} */
+
 .middle-home-body{
     background-color: var(--pale-yellow);
     margin: 10px 10px;
@@ -126,6 +138,16 @@ button:hover {
     "link-blog-image description"
     "link-blog-image description"
     "link-blog-image find-more-in-explore";
+}
+
+#login-button-website-home{
+    color: var(--dark-green);
+    padding: 10px;
+    font-size: larger;
+}
+
+#login-button-website-home:hover{
+    background-color: var(--beige-medium);
 }
 
 .description {
@@ -145,25 +167,27 @@ img:hover {
     transition: transform 0.2s ease-in-out;
 }
 
-.find-more-in-explore{
-    grid-area: find-more-in-explore ;
-    width: min-content;
-    height: min-content;
-    margin: auto;
-    background-color: var(--beige-medium);
-    outline: none;
-    border: none;
-    box-shadow: none;
-    color: var(--dark-green);
-}
-
 /* following for login/signup page  */
 
-#login-body{
+#login-body,.new-account-body {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 150vh;
+    margin: 0;
+    background-image: url("https://images.unsplash.com/photo-1597764983031-60a74afb8692?auto=format&fit=crop&q=80&w=3431&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size:cover;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+#login-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
     margin: 0;
     background-image: url("https://images.unsplash.com/photo-1597764983031-60a74afb8692?auto=format&fit=crop&q=80&w=3431&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size:cover;
@@ -176,18 +200,32 @@ img:hover {
     flex-direction: row;
 }
 
-.avatar-buttons button{
+.avatar{
  background-color: var(--beige-light);
  margin: 5px 5px;
 }
 
-.avatar{
-    width: 100%;
+.avatar-img{
+
+    border: 0px solid transparent;
+    margin: 0px;
+    background-color: transparent;
 }
 
-.sign-up, .login {
-    height: 80vh;
+.login{
+    height: min-content;
     margin: 0px 150px;
+    text-align: justify;
+    background-color: var(--beige-medium);
+    padding: 50px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px var(--beige-dark);
+}
+
+.sign-up{
+    height: 100vh;
+    margin: 0px 150px;
+    text-align: justify;
     background-color: var(--beige-medium);
     padding: 50px;
     border-radius: 15px;
@@ -228,24 +266,20 @@ button:focus {
 }
 
 /* following for profile page  */
-#profile-nav{
-    flex-direction: column;
-    align-content: center;
-}
-
-.profile-name{
-    padding: 0;
-    margin-top: 30px;
-}
-
-.profile-nav-links{
-    padding: 0;
-    margin-bottom: 30px;
-}
 
 .about-profile-body{
     display: flex;
     flex-direction: row;
+}
+
+.about-me-body{
+ display: flex;
+ flex-direction: column;
+}
+
+.about-me-text{
+    margin: 5px;
+
 }
 
 .profile-image{
@@ -262,7 +296,9 @@ border-radius: 15px;
 }
 
 .about-me-section{
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    width: auto;
     text-align: justify;
     font-size: medium;
     line-height: 1.6;
@@ -272,13 +308,171 @@ border-radius: 15px;
     padding: 50px;
     margin: 50px 50px 50px 50px;
 }
-.add-blogpost {
-    background:transparent;
+
+  /* Style the main container for the blog post form and uploaded photos */
+  .blog-post-body {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+
+  .hidden {
+    display: none;
+}
+  
+  /* Style the heading for the blog post form */
+  .blog-post-body h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  /* Style the form elements */
+  .flex-col {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  label {
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  textarea,
+  input[type="file"],
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  textarea {
+    height: 150px;
+    resize: vertical;
+  }
+  
+  /* Style the submit button */
+  button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  /* Style the uploaded photos */
+  
+  .photo-entry {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 100px;
+    background-color: var(--beige-neutral);
+    border: 1px solid #ccc;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .photo-entry img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .blog-content {
+    font-size: 24px;
+    margin-top: 30px;
+  }
+  
+  .caption {
+    font-style: italic;
+    color: #555;
+    margin-top: 5px;
+    font-size: xx-large;
+    font-weight: bolder;
+  }
+  
+
+  .remove-image-button {
+    background-color: var(--beige-neutral);
+    color: #fff;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .remove-image-button:hover {
+    background-color: #d84315;
+  }
+
+  
+
+
+
+
+
+
+
+  
+  /* Style the message-function container */
+.message-function {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f7f7f7;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
-.add-blogpost button {
-    background-color: var(--beige-medium);
+.message-function h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
 }
+
+/* Style the form elements */
+.flex-col {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+textarea,
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+/* Style the submit button */
+button[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Style the toast message (if present) */
+.message-function p {
+    margin-top: 10px;
+}
+
 
 /* following for don't kill my plant inside the profile page  */
 
@@ -319,7 +513,7 @@ border-radius: 15px;
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
 }
 
-.dont-kill-my-plant-image {
+.sunflower-stage-image {
     max-width: 350px;
     margin: 10px 0;
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
@@ -327,7 +521,7 @@ border-radius: 15px;
     border: 2px solid black;
 }
 
-.tamagotchi-buttons {
+.life-needs-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -335,7 +529,7 @@ border-radius: 15px;
     width: 100%;
 }
 
-.tamagotchi-buttons button {
+.life-needs-buttons button {
     background-color: var(--pale-yellow);
     border: 2px solid black;
     border-radius: 50%;
@@ -348,19 +542,34 @@ border-radius: 15px;
     align-items: center;
 }
 
-.tamagotchi-buttons button img {
+.life-needs-buttons button img {
     max-width: 120%;
     max-height: 120%;
 }
 
 .tamagotchi-section{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     padding: 50px;
     background-image: url("https://images.unsplash.com/photo-1640519066824-9f76e650fc15?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
     background-size: cover;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#reset-life-cycle, #reset-button{
+    margin: 0px 10px;
+    text-decoration: none;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    box-shadow: none;
+    height: fit-content;
+    width: fit-content;
+}
+
+#reset-life-cycle:hover, #reset-button:hover{
+    background-color: var(--beige-medium);
 }
 
 /* following for explore page  */

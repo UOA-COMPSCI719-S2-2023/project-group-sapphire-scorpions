@@ -12,7 +12,7 @@ create table users (
     name varchar(64),
     dob date, 
     description varchar(256),
-    -- avatar varchar(128), need to include this when it works
+    avatar,
     authToken varchar(128)
 );
 
@@ -21,7 +21,8 @@ create table user_photos (
     id integer not null primary key,
     userId integer not null,
     photoPath varchar(256) not null,
-    description varchar(256),  -- you can adjust the size as needed
+    blogContentConst varchar(256),  -- you can adjust the size as needed
+    caption VARCHAR(256),
     foreign key (userId) references users(id)
 );
 

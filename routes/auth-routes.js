@@ -10,11 +10,9 @@ router.get("/login", function (req, res) {
     if (res.locals.user) {
         res.redirect("/");
     }
-
     else {
         res.render("login");
     }
-
 });
 
 // Whenever we POST to /login, check the username and password submitted by the user.
@@ -64,14 +62,13 @@ router.get("/newAccount", function (req, res) {
 })
 
 router.post("/newAccount", async function (req, res) {
-
     const username = req.body.username;
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword; 
     const name = req.body.name;
     const dob = req.body.dob;  // <-- Retrieve the date of birth from the request
     const description = req.body.description;  // <-- Retrieve the description from the request
-    //const avatar = req.body.avatar; 
+    const avatar = req.body.avatar; 
 
     // Check if passwords match
     if (password !== confirmPassword) {
@@ -84,8 +81,8 @@ router.post("/newAccount", async function (req, res) {
         password: password,
         name: name,
         dob: dob, 
-        description: description 
-        //avatar: avatar 
+        description: description, 
+        avatar: avatar 
     };
 
     try {

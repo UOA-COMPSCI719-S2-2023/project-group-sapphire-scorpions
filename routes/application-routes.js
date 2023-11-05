@@ -54,7 +54,7 @@ router.get("/home", verifyAuthenticated, async function (req, res) {
 });
 
 
-// uploading and image and updating it on the blog page
+// uploading an image, blog content and updating it on the blog page
 
 router.post("/uploadPhoto", verifyAuthenticated, uploader.single("imageFile"), async (req, res) => {
     const user = res.locals.user;
@@ -67,17 +67,21 @@ router.post("/uploadPhoto", verifyAuthenticated, uploader.single("imageFile"), a
     // Access the caption
     const caption = req.body.caption;
 
+    //Access the blogContent
+    const blogContentConst = req.body.blogContent;
+
     // Move the file from temporary storage to a more permanent location
     const oldFileName = fileInfo.path;
 
     // static location since we are using middleware to serve images from public folder
     const newFileStaticLocation = path.join('uploads', fileInfo.originalname)
+
     // actual location we want to save the image to
     const newFileLocation = path.join('public', newFileStaticLocation);
 
     try {
         fs.renameSync(oldFileName, newFileLocation);
-        usersDao.saveUserPhoto(user.id,newFileStaticLocation,caption);
+        usersDao.saveUserPhoto(user.id,newFileStaticLocation,caption,blogContentConst);
         console.log("Uploaded with caption:", caption);
 
         // Send a success response after the file is renamed
