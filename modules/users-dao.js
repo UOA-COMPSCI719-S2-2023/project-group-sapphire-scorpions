@@ -13,8 +13,6 @@ async function createUser(user) {
     const result = await db.run(SQL`
         insert into users (username, password, name, dob, description
             , avatar) values(${user.username}, ${user.password}, ${user.name}, ${user.dob}, ${user.description}, ${user.avatar})`);
-        // need to insert avatar and ${user.avatar} when ready
-
     // Get the auto-generated ID value, and assign it back to the user object.
     user.id = result.lastID;
 }
@@ -83,6 +81,10 @@ async function retrieveUserByUsername(username) {
 
     return user;
 }
+
+/**
+* Gets the user photos that have been uploaded
+*/
 async function getUserPhotos(userId) {
     const db = await dbPromise;
     const query = "select id, photoPath, blogContentConst, caption from user_photos where userId = ?";
@@ -102,17 +104,18 @@ async function retrieveAllUsers() {
     return users;
 }
 
-// to save the users photo
+// To save the users photo
 async function saveUserPhoto(userId, photoPath, caption, blogContentConst) {
     const db = await dbPromise;
     const query = "INSERT INTO user_photos (userId, photoPath, caption, blogContentConst) VALUES (?, ?, ?, ?)";
     console.log("Saving photo with path:", photoPath);
     await db.run(query, [userId, photoPath, caption, blogContentConst]);
 }
-// to retrieve all user photos 
+
+// To retrieve all user photos 
 async function getAllPhotos() {
     const db = await dbPromise;
-    const query = "SELECT id, userId, photoPath, blogContentConst, caption FROM user_photos ORDER BY id DESC"; // Assuming there's an 'id' column for ordering
+    const query = "SELECT id, userId, photoPath, blogContentConst, caption FROM user_photos ORDER BY id DESC";
     const photos = await db.all(query);
     return photos;
 }
