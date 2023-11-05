@@ -366,18 +366,14 @@ border-radius: 15px;
   }
   
   /* Style the uploaded photos */
-
-  .new-blog-posts {
+  
+  .photo-entry {
     max-width: 1200px;
     margin: 50px auto;
     padding: 100px;
     background-color: var(--beige-neutral);
     border: 1px solid #ccc;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .photo-entry {
-    margin: 20px 0;
   }
   
   .photo-entry img {
