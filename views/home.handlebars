@@ -65,12 +65,24 @@
                 <div class="flex-col mb">
                     <label for="blogContent"></label>
                     <textarea name="blogContent" id="blogContent"></textarea>
+                    <br>
+                    <button type="button" id="saveButton">Save blog before proceeding</button>
                     <script>
-                        function getEditorContent() {
-                            var content = tinymce.get("blogContent").getContent();
-                            alert("Blog Content:\n" + content);
-                        }
+                        const saveButton = document.getElementById('saveButton');
+                        const contentTextarea = document.getElementById('blogContent');        
+                        saveButton.addEventListener('click', () => {
+                            const content = tinymce.get(contentTextarea.id).getContent();
+                            contentTextarea.value = content; // Save content back to the textarea
+                            saveButton.textContent = "Saved";
+                            saveButton.style.backgroundColor = "green";
+                            setTimeout(() => {
+                                saveButton.textContent = "Save blog before proceeding";
+                                saveButton.style.backgroundColor = "";
+                            }, 2000); // Reset after 2 seconds (adjust as needed)
+                        
+                        });
                     </script>
+                    <br>
                 </div>
 
                 <div class="flex-col mb">
@@ -83,7 +95,7 @@
                     <input type="text" name="caption" id="caption">
                 </div>
 
-                <button type="submit">Upload!</button>
+                <button type="submit">Upload the complete blog now with image!</button>
         </div>
         <div class="new-blog-posts" id="blogPostContainer">
 

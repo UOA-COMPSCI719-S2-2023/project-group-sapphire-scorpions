@@ -85,7 +85,7 @@ async function retrieveUserByUsername(username) {
 }
 async function getUserPhotos(userId) {
     const db = await dbPromise;
-    const query = "SELECT photoPath, blogContentConst FROM user_photos WHERE userId = ?";
+    const query = "select photoPath, blogContentConst from user_photos where userId = ?";
     const photos = await db.all(query, [userId]);
     return photos;
 }
@@ -103,11 +103,11 @@ async function retrieveAllUsers() {
 }
 
 // to save the users photo
-async function saveUserPhoto(userId, photoPath, blogContentConst) {
+async function saveUserPhoto(userId, photoPath, caption, blogContentConst) {
     const db = await dbPromise;
-    const query = "INSERT INTO user_photos (userId, photoPath, blogContentConst) VALUES (?, ?, ?)";
+    const query = "INSERT INTO user_photos (userId, photoPath, caption, blogContentConst) VALUES (?, ?, ?, ?)";
     console.log("Saving photo with path:", photoPath);
-    await db.run(query, [userId, photoPath, blogContentConst]);
+    await db.run(query, [userId, photoPath, caption, blogContentConst]);
 }
 // to retrieve all user photos 
 async function getAllPhotos() {
