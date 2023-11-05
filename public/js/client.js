@@ -17,6 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
     messageFunction.classList.toggle('hidden');
   });
 
+
+// // Sample data to check for content
+// const blogContent = [/* Your array of blog content */];
+
+// // Check for content in blogContent
+// const hasContent = blogContent.length > 0;
+
+// // Get a reference to the blog post container
+// const blogPostContainer = document.getElementById('blogPostContainer');
+
+// // Conditionally set the display style based on the presence of content
+// if (blogPostContainer) {
+//     blogPostContainer.style.display = hasContent ? 'block' : 'none';
+// }
+
+
+
+
   // Grabbing references to important DOM elements
   const loginForm = document.getElementById('loginForm');
   const logoutButton = document.getElementById('logoutButton');

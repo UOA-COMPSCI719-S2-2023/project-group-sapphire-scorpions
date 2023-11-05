@@ -7,7 +7,6 @@
             <a href="/"><button>Home</button></a>
             <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
             <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
-            <img id="profile-dp" src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
         </div>
     </div>
 
@@ -19,6 +18,7 @@
                 <div class="about-me-body">
                     <h2>About Me:</h2>
                     <p class="about-me-text"> {{user.description}}!</p>
+                    <img id="avatar-img" src="{{user.avatar}}" alt="User's Avatar" class="user-avatar">
                     <p>Click <a href="./logout">here</a> to log out.</p>
                 </div>
             </div>
@@ -85,7 +85,7 @@
 
                 <button type="submit">Upload!</button>
         </div>
-        <div class="new-blog-posts">
+        <div class="new-blog-posts" id="blogPostContainer">
 
             {{#if photoUploadMessage}}
             <p> {{photoUploadMessage}}</p>
@@ -94,13 +94,12 @@
 
             {{#each photos}}
             <div class="photo-entry">
+                <p class="caption">{{{caption}}}</p>
                 <img src="{{this.photoPath}}" alt="Uploaded photo">
                 <p class="blog-content">{{{user_photos.blogContentConst}}}</p>
-                <p class="caption">{{{caption}}}</p>
                 <button class="remove-image-button">Remove</button>
             </div>
             {{/each}}
-
         </div>
 
         <button id="toggleButtonForMessages">Show/Hide Messaging Form</button>
