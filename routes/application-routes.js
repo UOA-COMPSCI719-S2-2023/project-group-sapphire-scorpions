@@ -131,6 +131,7 @@ router.get("/daily-quiz", verifyAuthenticated, function (req, res) {
     res.render("daily-quiz");
 });
 
+//
 router.post("/removeImage", verifyAuthenticated, async (req, res) => {
     const blogid = req.body.blogId; // Get the blog id from request
     try {
@@ -141,19 +142,13 @@ router.post("/removeImage", verifyAuthenticated, async (req, res) => {
         console.error('Error during blog deletion:', error);
         res.status(500).send('There was an error deleting the blog.');
     }
-    // Perform the logic to remove the image and caption from the database or file system
-    // You may use the URL to identify the image to be removed
-
-    // Respond with a success message or an error message
-    //res.json({ success: true, message: "Image and caption removed successfully" });
-    // or
-    // res.json({ success: false, message: "An error occurred while removing the image" });
 });
 
 router.get('/website-home', (req, res) => {
     res.render('website-home'); // This will render the 'website-home.handlebars' template.
 });
 
+// Deleting an account 
 router.post('/deleteAccount', verifyAuthenticated, async (req, res) => {
     const userId = res.locals.user.id;
 
