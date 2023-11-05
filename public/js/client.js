@@ -17,6 +17,24 @@ document.addEventListener("DOMContentLoaded", () => {
     messageFunction.classList.toggle('hidden');
   });
 
+
+// // Sample data to check for content
+// const blogContent = [/* Your array of blog content */];
+
+// // Check for content in blogContent
+// const hasContent = blogContent.length > 0;
+
+// // Get a reference to the blog post container
+// const blogPostContainer = document.getElementById('blogPostContainer');
+
+// // Conditionally set the display style based on the presence of content
+// if (blogPostContainer) {
+//     blogPostContainer.style.display = hasContent ? 'block' : 'none';
+// }
+
+
+
+
   // Grabbing references to important DOM elements
   const loginForm = document.getElementById('loginForm');
   const logoutButton = document.getElementById('logoutButton');
@@ -78,30 +96,30 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update the life cycle counter in the HTML with the stage name
       document.getElementById('life-cycle-counter').textContent = `${lifeCycleCounter} ${stageNames[lifeCycleCounter]}`;
 
-      // Update the h2 message based on the lifeCycleCounter
+      // Update the h4 message based on the lifeCycleCounter
       if (lifeCycleCounter === 0) {
-        document.querySelector("h2").textContent = "You have a seed. Give water, sun, and nutrients to see your sunflower grow roots.";
-        document.querySelector("h2").style.color = "green";
+        document.querySelector("h4").textContent = "You have a seed. Give water, sun, and nutrients to see your sunflower grow roots.";
+        document.querySelector("h4").style.color = "green";
         document.querySelector(".sunflower-stage-image").src = "./images/sf0.JPG"; //Ana to change!!!!!!!!!!!!
       } else if (lifeCycleCounter === 1) {
-        document.querySelector("h2").textContent = "Congratulation, you completed stage one. Your sunflower has grown roots.";
-        document.querySelector("h2").style.color = "green";
+        document.querySelector("h4").textContent = "Congratulation, you completed stage one. Your sunflower has grown roots.";
+        document.querySelector("h4").style.color = "green";
         document.querySelector(".sunflower-stage-image").src = "./images/sf2.JPG"; //Ana to change!!!!!!!!!!!!
       } else if (lifeCycleCounter === 2) {
-        document.querySelector("h2").textContent = "Congratulation, you completed stage two. Your sunflower has sprouted.";
-        document.querySelector("h2").style.color = "green";
+        document.querySelector("h4").textContent = "Congratulation, you completed stage two. Your sunflower has sprouted.";
+        document.querySelector("h4").style.color = "green";
         document.querySelector(".sunflower-stage-image").src = "./images/sf3.JPG"; //Ana to change!!!!!!!!!!!!
       } else if (lifeCycleCounter === 3) {
-        document.querySelector("h2").textContent = "Congratulation, you completed stage three. Your sunflower is a baby plant.";
-        document.querySelector("h2").style.color = "green";
+        document.querySelector("h4").textContent = "Congratulation, you completed stage three. Your sunflower is a baby plant.";
+        document.querySelector("h4").style.color = "green";
         document.querySelector(".sunflower-stage-image").src = "./images/sf4.JPG"; //Ana to change!!!!!!!!!!!!
       } else if (lifeCycleCounter === 4) {
-        document.querySelector("h2").textContent = "Congratulation, you completed stage four. Your sunflower is an adult plant.";
-        document.querySelector("h2").style.color = "green";
+        document.querySelector("h4").textContent = "Congratulation, you completed stage four. Your sunflower is an adult plant.";
+        document.querySelector("h4").style.color = "green";
         document.querySelector(".sunflower-stage-image").src = "./images/sf4.JPG"; //Ana to change!!!!!!!!!!!!
       } else {
-        document.querySelector("h2").textContent = "Congratulation, completed the entire life cycle. Your sunflower's seeds have fallen.";
-        document.querySelector("h2").style.color = "red";
+        document.querySelector("h4").textContent = "Congratulation, completed the entire life cycle. Your sunflower's seeds have fallen.";
+        document.querySelector("h4").style.color = "red";
         document.querySelector(".sunflower-stage-image").src = "./images/sf5.JPG";
       }
     }
@@ -162,8 +180,8 @@ document.addEventListener("DOMContentLoaded", () => {
     localStorage.removeItem('sunCounter');
     localStorage.removeItem('foodCounter');
     localStorage.removeItem('lifeCycleCounter');
-    document.querySelector("h2").textContent = "You have a seed. Give water, sun, and nutrients to see your sunflower grow roots";
-    document.querySelector("h2").style.color = "black";
+    document.querySelector("h4").textContent = "You have a seed. Give water, sun, and nutrients to see your sunflower grow roots";
+    document.querySelector("h4").style.color = "black";
     document.querySelector(".sunflower-stage-image").src = "./images/sf0.JPG";
   });
 

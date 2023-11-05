@@ -12,7 +12,7 @@ create table users (
     name varchar(64),
     dob date, 
     description varchar(256),
-    -- avatar varchar(128), need to include this when it works
+    avatar,
     authToken varchar(128)
 );
 
