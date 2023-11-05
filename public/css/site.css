@@ -74,7 +74,7 @@ body {
 button {
     color: white;
     cursor: pointer;
-    background-color: transparent;
+    background-color: var(--beige-neutral);
     outline: none;
     border: none;
 }
@@ -203,6 +203,13 @@ img:hover {
 .avatar{
  background-color: var(--beige-light);
  margin: 5px 5px;
+}
+
+.avatar-img{
+
+    border: 0px solid transparent;
+    margin: 0px;
+    background-color: transparent;
 }
 
 .login{
@@ -359,19 +366,42 @@ border-radius: 15px;
   }
   
   /* Style the uploaded photos */
-  .photo-entry {
-    margin-top: 20px;
-  }
-  
-  img {
-    max-width: 100%;
+
+  .new-blog-posts {
+    max-width: 1200px;
+    margin: 50px auto;
+    padding: 100px;
+    background-color: var(--beige-neutral);
     border: 1px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   }
   
+  .photo-entry {
+    margin: 20px 0;
+  }
+  
+  .photo-entry img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .blog-content {
+    font-size: 24px;
+    margin-top: 30px;
+  }
+  
+  .caption {
+    font-style: italic;
+    color: #555;
+    margin-top: 5px;
+    font-size: xx-large;
+    font-weight: bolder;
+  }
+  
+
   .remove-image-button {
-    background-color: #ff5722;
+    background-color: var(--beige-neutral);
     color: #fff;
     padding: 5px 10px;
     border: none;
@@ -379,10 +409,15 @@ border-radius: 15px;
     cursor: pointer;
   }
   
-  /* Add hover effect for remove buttons */
   .remove-image-button:hover {
     background-color: #d84315;
   }
+
+  
+
+
+
+
 
 
 
