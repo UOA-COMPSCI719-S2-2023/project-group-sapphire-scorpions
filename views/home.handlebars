@@ -106,11 +106,14 @@
 
             {{#each photos}}
             <div class="photo-entry">
-                <p class="caption">{{{caption}}}</p>
+                <p class="caption">{{{this.caption}}}</p>
                 <img src="{{this.photoPath}}" alt="Uploaded photo">
-                <p class="blog-content">{{{this.blogContentConst}}}</p>  
+                <p class="blog-content">{{{this.blogContentConst}}}</p>
+                <form id="blogremove" action="/removeImage" method="POST">
+                 <input type="hidden" id="blogId" name="blogId" value={{{this.id}}}>
                  {{!-- above saves the caption instead of the blog content for some reason ..  --}}
                 <button class="remove-image-button">Remove</button>
+                </form>
             </div>
             {{/each}}
         </div>

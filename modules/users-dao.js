@@ -85,7 +85,7 @@ async function retrieveUserByUsername(username) {
 }
 async function getUserPhotos(userId) {
     const db = await dbPromise;
-    const query = "select photoPath, blogContentConst from user_photos where userId = ?";
+    const query = "select id, photoPath, blogContentConst, caption from user_photos where userId = ?";
     const photos = await db.all(query, [userId]);
     return photos;
 }
@@ -146,6 +146,20 @@ async function deleteUser(id) {
         where id = ${id}`);
 }
 
+/**
+ * Deletes the particular blog with the given id from the database.
+ * 
+ * @param {number} id the id
+ */
+async function deleteblog(id) {
+    const db = await dbPromise;
+
+    await db.run(SQL`
+        delete from user_photos
+        where id = ${id}`);
+}
+
+
 // Export functions.
 module.exports = {
     createUser,
@@ -158,5 +172,6 @@ module.exports = {
     getAllPhotos,
     saveUserPhoto,
     updateUser,
-    deleteUser
+    deleteUser,
+    deleteblog
 };

@@ -288,6 +288,7 @@ function updateCounter(buttonId, counterId) {
   }
 
   // Add an event listener to handle image removal
+/*
   document.addEventListener('click', function (event) {
     if (event.target.classList.contains('remove-image-button')) {
       const photoEntry = event.target.parentNode;
@@ -316,6 +317,7 @@ function updateCounter(buttonId, counterId) {
           alert("An error occurred. Please try again.");
         });
     }
-  });
+  }); 
+  */
 
 });
