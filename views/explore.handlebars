@@ -12,11 +12,14 @@
             <a href="/login"><button>Login</button></a> <!-- Navigate to the login/signup page -->
         </div>
     </div>
-    <div class="blog-body">
-        <img src="/images/placeholderimg.png">
-        <img src="/images/placeholderimg.png">
-        <img src="/images/placeholderimg.png">
+   <div class="explore-container">
+  {{#each photos}}
+    <div class="photo-card">
+      <img src="{{this.photoPath}}" alt="User photo"> <!-- Display the photo -->
+      <p>{{this.description}}</p> <!-- Display the photo's description -->
     </div>
+  {{/each}}
+</div>
     <div class="footer">
         <h3>About Garden With Me</h3>
         <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to

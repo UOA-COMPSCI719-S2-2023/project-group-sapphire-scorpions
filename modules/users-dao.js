@@ -109,6 +109,13 @@ async function saveUserPhoto(userId, photoPath, blogContentConst) {
     console.log("Saving photo with path:", photoPath);
     await db.run(query, [userId, photoPath, blogContentConst]);
 }
+// to retrieve all user photos 
+async function getAllPhotos() {
+    const db = await dbPromise;
+    const query = "SELECT userId, photoPath, description FROM user_photos ORDER BY id DESC"; // Assuming there's an 'id' column for ordering
+    const photos = await db.all(query);
+    return photos;
+}
 
 
 /**
@@ -148,6 +155,7 @@ module.exports = {
     retrieveUserByUsername,
     getUserPhotos,
     retrieveAllUsers,
+    getAllPhotos,
     saveUserPhoto,
     updateUser,
     deleteUser
