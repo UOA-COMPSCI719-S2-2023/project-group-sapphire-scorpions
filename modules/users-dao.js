@@ -112,7 +112,7 @@ async function saveUserPhoto(userId, photoPath, caption, blogContentConst) {
 // to retrieve all user photos 
 async function getAllPhotos() {
     const db = await dbPromise;
-    const query = "SELECT userId, photoPath, description FROM user_photos ORDER BY id DESC"; // Assuming there's an 'id' column for ordering
+    const query = "SELECT id, userId, photoPath, blogContentConst, caption FROM user_photos ORDER BY id DESC"; // Assuming there's an 'id' column for ordering
     const photos = await db.all(query);
     return photos;
 }

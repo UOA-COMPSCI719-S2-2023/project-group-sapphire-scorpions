@@ -14,9 +14,10 @@
     </div>
    <div class="explore-container">
   {{#each photos}}
-    <div class="photo-card">
-      <img src="{{this.photoPath}}" alt="User photo"> <!-- Display the photo -->
-      <p>{{this.description}}</p> <!-- Display the photo's description -->
+    <div class="photo-entry">
+                <p class="caption">{{{this.caption}}}</p>
+                <img src="{{this.photoPath}}" alt="Blog photo">
+                <p class="blog-content">{{{this.blogContentConst}}}</p>
     </div>
   {{/each}}
 </div>
