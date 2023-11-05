@@ -1,5 +1,6 @@
 <body>
     <div class="nav">
+
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
@@ -15,8 +16,9 @@
         <p>{{toastMessage}}</p>
         {{/if}}
 
-        <h1>New Account</h1>
-        <form action="./newAccount" method="POST">
+            <h1>New Account</h1>
+            <form action="./newAccount" method="POST">
+
 
             <div class="avatar-buttons">
                 <label>Choose an Avatar:</label>
@@ -60,29 +62,33 @@
                 <input type="password" name="confirmPassword" id="txtConfirmPassword" required>
             </div>
 
-            <div class="flex-col mb">
-                <label for="txtName">Name:</label>
-                <input type="text" name="name" id="txtName" required>
-            </div>
 
-            <!-- Date of Birth Field -->
-            <div class="flex-col mb">
-                <label for="dob">Date of Birth:</label>
-                <input type="date" name="dob" id="dob" required>
-            </div>
+                <div class="flex-col mb">
+                    <label for="txtName">Name:</label>
+                    <input type="text" name="name" id="txtName" required>
+                </div>
 
-            <!-- Short Description Field -->
-            <div class="flex-col mb">
-                <label for="description">Short Description:</label>
-                <textarea name="description" id="description" rows="4"
-                    placeholder="Tell us a bit about yourself..."></textarea>
-            </div>
 
-            <div class="flex-row justify-sb align-center">
-                <button type="submit">Create account</button>
-            </div>
 
-        </form>
+                <!-- Date of Birth Field -->
+                <div class="flex-col mb">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" name="dob" id="dob" required>
+                </div>
+
+                <!-- Short Description Field -->
+                <div class="flex-col mb">
+                    <label for="description">Short Description:</label>
+                    <textarea name="description" id="description" rows="4"
+                        placeholder="Tell us a bit about yourself..."></textarea>
+                </div>
+
+                <div class="flex-row justify-sb align-center">
+                    <button type="submit">Create account</button>
+                </div>
+
+            </form>
+
         </div>
 
     </div>

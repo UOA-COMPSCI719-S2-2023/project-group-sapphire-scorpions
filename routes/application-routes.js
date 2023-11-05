@@ -115,9 +115,16 @@ router.post("/sendMessage", verifyAuthenticated, async function (req, res) {
 });
 
 //Explorer route:
-router.get("/explore", verifyAuthenticated, function (req, res) {
-    res.render("explore");
+router.get("/explore", async (req, res) => {
+    try {
+        const photos = await usersDao.getAllPhotos();
+        res.render("explore", { photos: photos });
+    } catch (error) {
+        console.error("Error fetching images:", error);
+        res.status(500).send("An error occurred while trying to display the explore page.");
+    }
 });
+
 
 //Daily quiz route
 router.get("/daily-quiz", verifyAuthenticated, function (req, res) {
@@ -135,5 +142,25 @@ router.post("/removeImage", verifyAuthenticated, (req, res) => {
     // or
     // res.json({ success: false, message: "An error occurred while removing the image" });
 });
+
+router.get('/website-home', (req, res) => {
+    res.render('website-home'); // This will render the 'website-home.handlebars' template.
+});
+
+router.post('/deleteAccount', verifyAuthenticated, async (req, res) => {
+    const userId = res.locals.user.id;
+
+    try {
+        await usersDao.deleteUser(userId);
+
+        // After successfully deleting the user account, redirect to the logout route
+        console.log('Account successfully deleted. Logging out.');
+        res.redirect('/logout'); // This will clear the cookie and redirect to the home page.
+    } catch (error) {
+        console.error('Error during account deletion:', error);
+        res.status(500).send('There was an error deleting the account.');
+    }
+});
+
 
 module.exports = router;
