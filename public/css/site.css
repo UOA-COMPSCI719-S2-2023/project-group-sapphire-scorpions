@@ -541,6 +541,14 @@ button[type="submit"] {
     background-color: var(--beige-medium);
 }
 
+#water-counter, #sun-counter, #food-counter {
+  display: none;
+}
+
+#reset-button {
+    display: none;
+  }
+
 /* following for explore page  */
 
 
