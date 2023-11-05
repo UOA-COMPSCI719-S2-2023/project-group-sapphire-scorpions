@@ -66,8 +66,8 @@ router.post("/newAccount", async function (req, res) {
     const password = req.body.password;
     const confirmPassword = req.body.confirmPassword; 
     const name = req.body.name;
-    const dob = req.body.dob;  // <-- Retrieve the date of birth from the request
-    const description = req.body.description;  // <-- Retrieve the description from the request
+    const dob = req.body.dob;
+    const description = req.body.description; 
     const avatar = req.body.avatar; 
 
     // Check if passwords match
