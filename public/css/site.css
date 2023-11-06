@@ -119,15 +119,6 @@ button:hover {
 
 /* following for website home page */
 
-/* #website-home-nav{
-    width: 100vw;
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-} */
-
 .middle-home-body{
     background-color: var(--pale-yellow);
     margin: 10px 10px;
@@ -410,14 +401,6 @@ border-radius: 15px;
   }
 
   
-
-
-
-
-
-
-
-  
   /* Style the message-function container */
 .message-function {
     max-width: 800px;
@@ -514,11 +497,11 @@ button[type="submit"] {
 }
 
 .sunflower-stage-image {
-    max-width: 350px;
+    max-width: 180px;
     margin: 10px 0;
     box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.2);
     border-radius: 20%;
-    border: 2px solid black;
+    border: 2px solid var(--soft-blue);
 }
 
 .life-needs-buttons {
@@ -580,7 +563,56 @@ button[type="submit"] {
     display: none;
   }
 
-/* following for explore page  */
+
+/* following for messages  */
+
+.my-messages {
+    display: flex;
+    justify-self: center;
+    margin: 50px;
+    max-width: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    background-color: var(--beige-neutral);
+}
+
+h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.table th, .table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.table th {
+    background-color: #333;
+    color: #fff;
+}
+
+.table td {
+    background-color: #fff;
+}
+
+/* Add some spacing between table rows */
+.table tbody tr {
+    margin-bottom: 10px;
+}
+
+/* Style the "You have no messages!" paragraph */
+p {
+    font-size: 18px;
+    color: #777;
+    margin-top: 10px;
+}
 
 
 
