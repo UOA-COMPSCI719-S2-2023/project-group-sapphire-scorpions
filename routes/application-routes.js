@@ -164,5 +164,34 @@ router.post('/deleteAccount', verifyAuthenticated, async (req, res) => {
     }
 });
 
+router.post("/uploadProfilePhoto", verifyAuthenticated, uploader.single("imageProfileFile"), async (req, res) => {
+    const user = res.locals.user;
+    const fileInfo = req.file;
+
+    if (!fileInfo) {
+        return res.json({ success: false, message: "File upload failed!" });
+    }
+    // Move the file from temporary storage to a more permanent location
+    const oldFileName = fileInfo.path;
+
+    // static location since we are using middleware to serve images from public folder
+    const newFileStaticLocation = path.join('uploads', fileInfo.originalname)
+
+    // actual location we want to save the image to
+    const newFileLocation = path.join('public', newFileStaticLocation);
+
+    try {
+        fs.renameSync(oldFileName, newFileLocation);
+        usersDao.updateUserProfilePhoto(user.id,newFileStaticLocation);
+        console.log("Uploaded new Profile Pic:");
+
+        // Send a success response after the file is renamed
+        res.redirect('/home');
+    } catch (error) {
+        console.error(error);
+        return res.json({ success: false, message: "There was an error processing the uploaded photo." });
+    }
+});
+
 
 module.exports = router;

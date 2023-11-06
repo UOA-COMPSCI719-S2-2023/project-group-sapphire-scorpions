@@ -24,10 +24,16 @@
             </div>
             <div class="profile-image">
                 <img id="profile-dp"
-                    src="https://images.unsplash.com/photo-1604751344909-7dafcca7e760?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                    alt="dp" id="#profile-dp">
+                    src="{{user.profile}}" alt="dp" id="#profile-dp">
+                   <!-- src="https://images.unsplash.com/photo-1604751344909-7dafcca7e760?auto=format&fit=crop&q=80&w=3540&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" -->                   
                 <!-- Assuming a route to edit profile image -->
-                <a href="/edit-profile-image"><button>Change Picture</button></a>
+                <form id="uploadprofilepic" action="/uploadProfilePhoto" method="POST" enctype="multipart/form-data">
+                <div class="flex-col mb">
+                    <label for="inpFile">Upload new profile image here:</label>
+                    <input type="file" name="imageProfileFile" id="inpFile" accept=".png, .jpg, .jpeg, .bmp" required>
+                    <button type="submit">Change Picture</button>
+                </div>
+                </form>
             </div>
         </div>
 

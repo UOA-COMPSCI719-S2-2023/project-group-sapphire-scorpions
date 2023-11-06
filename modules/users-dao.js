@@ -12,7 +12,7 @@ async function createUser(user) {
 
     const result = await db.run(SQL`
         insert into users (username, password, name, dob, description
-            , avatar) values(${user.username}, ${user.password}, ${user.name}, ${user.dob}, ${user.description}, ${user.avatar})`);
+            , avatar, profile) values(${user.username}, ${user.password}, ${user.name}, ${user.dob}, ${user.description}, ${user.avatar}, ${user.avatar})`);
     // Get the auto-generated ID value, and assign it back to the user object.
     user.id = result.lastID;
 }
@@ -162,6 +162,20 @@ async function deleteblog(id) {
         where id = ${id}`);
 }
 
+/**
+ * Updates the given user in the database, not including auth token
+ * 
+ * @param user the user to update
+ */
+async function updateUserProfilePhoto(id,newFileStaticLocation) {
+    const db = await dbPromise;
+
+    await db.run(SQL`
+        update users
+        set profile = ${newFileStaticLocation}
+        where id = ${id}`);
+}
+
 
 // Export functions.
 module.exports = {
@@ -176,5 +190,6 @@ module.exports = {
     saveUserPhoto,
     updateUser,
     deleteUser,
-    deleteblog
+    deleteblog,
+    updateUserProfilePhoto
 };
