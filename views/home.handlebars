@@ -1,10 +1,11 @@
 <body>
+    {{!-- This is the profile page --}}
     <div class="nav">
         <div class="title">
             <h1>Garden With Me</h1>
         </div>
         <div class="right-nav">
-            <a href="/"><button>Home</button></a>
+            <a href="/website-home"><button>Home</button></a>
             <a href="/explore"><button>Explore</button></a> <!-- Navigate to the homepage -->
             <a href="/daily-quiz"><button>Daily Quiz</button></a> <!-- Navigate to the daily quiz page -->
         </div>
@@ -102,7 +103,7 @@
                     <input type="text" name="caption" id="caption">
                 </div>
 
-                <button type="submit">Upload the complete blog now with image!</button>
+                <button class="upload-button" type="submit">Upload Blog</button>
         </div>
         <div class="new-blog-posts" id="blogPostContainer">
 
@@ -146,7 +147,7 @@
                 </div>
 
                 <div class="flex-row justify-sb align-center">
-                    <button type="submit">Send!</button>
+                    <button class="upload-button" type="submit">Send!</button>
                     {{#if toastMessage}}
                     <p> {{toastMessage}}</p>
                     {{/if}}
@@ -182,7 +183,13 @@
         </div>
 
     </div>
-
+    <div>
+        <!-- A button for deleting the account -->
+        <form action="/deleteAccount" method="POST"
+            onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+            <button type="submit">Delete My Account</button>
+        </form>
+    </div>
     <div class="footer">
         <h3>About Garden With Me</h3>
         <p>Our vibrant online community brings together green thumbs from across the globe. We invite you to
@@ -195,11 +202,4 @@
             sell
             your information to any organization.</p>
     </div>
-
-    <!-- A button for deleting the account -->
-    <form action="/deleteAccount" method="POST"
-        onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
-        <button type="submit">Delete My Account</button>
-    </form>
-
 </body>
