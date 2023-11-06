@@ -13,7 +13,8 @@ create table users (
     dob date, 
     description varchar(256),
     avatar,
-    authToken varchar(128)
+    authToken varchar(128),
+    profile
 );
 
 -- creating a table for the user's photo
