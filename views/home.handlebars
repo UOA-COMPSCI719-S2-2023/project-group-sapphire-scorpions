@@ -33,7 +33,8 @@
 
         <div class="instructions">
             <div class="tamagotchi-section">
-                <h4>Instructions: You have a sunflower seed. Give water, sun, and nutrients to see your sunflower grow roots.</h4>
+                <h4>Instructions: You have a sunflower seed. Give water, sun, and nutrients to see your sunflower grow
+                    roots.</h4>
                 <div class="tamagotchi-container">
                     <div class="tamagotchi">
                         <h1>SUNFLOWER LIFECYCLE!</h1>
@@ -69,7 +70,7 @@
                     <button type="button" id="saveButton">Save blog before proceeding</button>
                     <script>
                         const saveButton = document.getElementById('saveButton');
-                        const contentTextarea = document.getElementById('blogContent');        
+                        const contentTextarea = document.getElementById('blogContent');
                         saveButton.addEventListener('click', () => {
                             const content = tinymce.get(contentTextarea.id).getContent();
                             contentTextarea.value = content; // Save content back to the textarea
@@ -79,7 +80,7 @@
                                 saveButton.textContent = "Save blog before proceeding";
                                 saveButton.style.backgroundColor = "";
                             }, 2000); // Reset after 2 seconds (adjust as needed)
-                        
+
                         });
                     </script>
                     <br>
@@ -110,9 +111,9 @@
                 <img src="{{this.photoPath}}" alt="Uploaded photo">
                 <p class="blog-content">{{{this.blogContentConst}}}</p>
                 <form id="blogremove" action="/removeImage" method="POST">
-                 <input type="hidden" id="blogId" name="blogId" value={{{this.id}}}>
-                 {{!-- above saves the caption instead of the blog content for some reason ..  --}}
-                <button class="remove-image-button">Remove</button>
+                    <input type="hidden" id="blogId" name="blogId" value={{{this.id}}}>
+                    {{!-- above saves the caption instead of the blog content for some reason .. --}}
+                    <button class="remove-image-button">Remove</button>
                 </form>
             </div>
             {{/each}}
@@ -128,12 +129,12 @@
                 </div>
 
                 <div class="flex-col mb">
-                    <label for="txtContent"></label>
-                    <textarea name="txtContent" id="txtContent"></textarea>
+                    <label for="txtContent">Message:</label> <!-- It's good practice to have a text for the label -->
+                    <textarea name="content" id="txtContent"></textarea>
                     <script>
-                        function getEditorContent() {
+                        function saveContentToTextarea() {
                             var content = tinymce.get("txtContent").getContent();
-                            alert("Text Content:\n" + content);
+                            document.getElementById('txtContent').value = content;
                         }
                     </script>
                 </div>
@@ -190,8 +191,9 @@
     </div>
 
     <!-- A button for deleting the account -->
-<form action="/deleteAccount" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
-    <button type="submit">Delete My Account</button>
-</form>
- 
+    <form action="/deleteAccount" method="POST"
+        onsubmit="return confirm('Are you sure you want to delete your account? This cannot be undone.');">
+        <button type="submit">Delete My Account</button>
+    </form>
+
 </body>
